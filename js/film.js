@@ -39,13 +39,14 @@ function initFilmPage() {
     trackList.appendChild(li);
   });
 
-  // Spotify embed — per-film album where available, artist fallback otherwise
+  // Spotify embed — only show if a specific album URI exists
   const spotifyIframe = document.getElementById('fp-spotify-iframe');
-  if (spotifyIframe) {
-    const uri  = film.spotifyUri || 'artist:109FvbnDVNag1UcJDVpFlr';
-    const type = uri.startsWith('album') ? 'album' : 'artist';
-    const id   = uri.replace(/^(album|artist):/, '');
-    spotifyIframe.src = `https://open.spotify.com/embed/${type}/${id}?utm_source=generator&theme=1`;
+  const spotifyWrap   = spotifyIframe ? spotifyIframe.closest('div') : null;
+  if (spotifyIframe && film.spotifyUri && film.spotifyUri.startsWith('album:')) {
+    const id = film.spotifyUri.replace('album:', '');
+    spotifyIframe.src = `https://open.spotify.com/embed/album/${id}?utm_source=generator&theme=1`;
+  } else if (spotifyWrap) {
+    spotifyWrap.style.display = 'none';
   }
 
   // Trailer button
