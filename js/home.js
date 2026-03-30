@@ -59,8 +59,12 @@ function initPage() {
   initLenis();
   initCards();
   buildTicker();
-  // Always start on slide 0 (Brian Tyler)
+  // Always start on slide 0 (Brian Tyler).
+  // The 1.5s cooldown blocks watchTickerCenter from immediately snapping
+  // to whatever film happens to be at centre — the 80px guard is gone
+  // so auto-detection works correctly after the cooldown expires.
   selectSlide(0);
+  lastManualSelectTime = Date.now();
   buildFilmsList();
   buildTvList();
   buildVideosGrid();

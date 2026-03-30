@@ -17,6 +17,11 @@ window.onSpotifyIframeApiReady = function(IFrameAPI) {
     height: '380',
   }, function(controller) {
     spotifyController = controller;
+    // Restore the last-selected album into the Spotify embed
+    try {
+      const saved = JSON.parse(localStorage.getItem('bt-album') || 'null');
+      if (saved && saved.uri) spotifyController.loadUri('spotify:' + saved.uri);
+    } catch(e) {}
   });
 };
 
@@ -147,11 +152,13 @@ function initMiniDisc() {
     }
   }
 
-  // Load an album URI into the player
+  // Load an album URI into the player and persist the selection
   loadAlbum = function(uri, title) {
     if (spotifyController) {
       try { spotifyController.loadUri('spotify:' + uri); } catch(e) {}
     }
+    // Persist so the same album is ready on any page the user navigates to
+    try { localStorage.setItem('bt-album', JSON.stringify({ uri, title })); } catch(e) {}
     const displayText = document.getElementById('md-display-text');
     if (displayText) {
       displayText.textContent = title.toUpperCase() + ' \u25c6 BRIAN TYLER \u25c6\u00a0\u00a0';
@@ -272,6 +279,24 @@ function initLPBrowser() {
     });
     grid.appendChild(record);
   });
+
+  // Restore previously-selected album (display text, idx, LP selection marker)
+  try {
+    const saved = JSON.parse(localStorage.getItem('bt-album') || 'null');
+    if (saved && saved.uri) {
+      const idx = albums.findIndex(a => a.spotifyUri === saved.uri);
+      if (idx >= 0) {
+        currentAlbumIdx = idx;
+        const displayText = document.getElementById('md-display-text');
+        if (displayText) {
+          displayText.textContent = saved.title.toUpperCase() + ' \u25c6 BRIAN TYLER \u25c6\u00a0\u00a0';
+        }
+        document.querySelectorAll('.lp-record').forEach((r, i) => {
+          r.classList.toggle('playing', i === idx);
+        });
+      }
+    }
+  } catch(e) {}
 
   // Wire open / close
   openLPBrowser = function() {

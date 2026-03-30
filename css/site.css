@@ -1410,9 +1410,9 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   position: absolute;
   width: 140px; height: 50px;
   left: 50%;
-  /* clear above the highest fanned disc (center disc top = ~-56px from area top;
-     label height 50px + 14px gap = top at -120px) */
-  top: -120px;
+  /* center fan disc top edge = -56px from disc-area top;
+     label bottom must clear that → label bottom at -100px → top at -155px (55px gap) */
+  top: -155px;
   transform: translateX(-50%);
   opacity: 0;
   transition: opacity 0.25s 0.18s;
