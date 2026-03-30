@@ -79,6 +79,7 @@ function initPage() {
   initNavLinks();
   initCta();
   initContactOrb();
+  initCardCursor();
 }
 
 // ─── LENIS SMOOTH SCROLL ───
@@ -206,9 +207,15 @@ function selectSlide(idx) {
     item.classList.toggle('active', parseInt(item.dataset.idx) === idx);
   });
 
-  // Show "Explore the Score" badge on cards only when a film is active
+  // Show film-slide state: enables custom cursor + hides Brian Tyler video
   const wrap = document.getElementById('cards-wrap');
   if (wrap) wrap.classList.toggle('is-film-slide', idx > 0);
+
+  // Hide the custom cursor when returning to the intro (Brian Tyler) slide
+  if (idx === 0) {
+    const cc = document.getElementById('cards-cursor');
+    if (cc) cc.style.display = 'none';
+  }
 
   updateCta(idx);
 }
@@ -255,21 +262,14 @@ const MANUAL_COOLDOWN_MS = 1500; // ignore auto-select for 1.5s after a manual c
 
 function watchTickerCenter() {
   const overflow = document.querySelector('.ticker-overflow');
-  // -1 = not yet baselined; we baseline on the first frame AFTER cooldown
-  // instead of hardcoding 0, so we never trigger on whatever happens to be
-  // at center when the cooldown first expires (was causing Mario Bros jump).
-  let lastCenteredIdx = -1;
-  let baselined = false;
+  // Track the closest item from the PREVIOUS frame — always updated, even
+  // during cooldown. This means when the cooldown expires, we already know
+  // what was at center just before, so we only fire when something genuinely
+  // NEW arrives (prevents the Mario Bros jump on page load/return visit).
+  let prevClosestIdx = -1;
 
   function tick() {
     const inCooldown = Date.now() - lastManualSelectTime < MANUAL_COOLDOWN_MS;
-
-    if (inCooldown) {
-      // While in cooldown, reset baseline flag so we re-measure on exit
-      baselined = false;
-      requestAnimationFrame(tick);
-      return;
-    }
 
     const overflowRect = overflow.getBoundingClientRect();
     const centerX = overflowRect.left + overflowRect.width / 2;
@@ -289,16 +289,16 @@ function watchTickerCenter() {
 
     if (closest) {
       const idx = parseInt(closest.dataset.idx);
-      if (!baselined) {
-        // First frame after cooldown — silently record what's at center.
-        // Do NOT fire selectSlide; this prevents the Mario Bros jump on load.
-        lastCenteredIdx = idx;
-        baselined = true;
-      } else if (idx !== lastCenteredIdx) {
-        // A genuinely new item arrived at center — auto-advance the slide.
-        lastCenteredIdx = idx;
+
+      // Fire only when:
+      //  1. Not inside manual-click cooldown
+      //  2. The item at center changed since last frame  (genuine arrival)
+      //  3. The new item is different from what's already shown
+      if (!inCooldown && idx !== prevClosestIdx && idx !== currentSlideIdx) {
         selectSlide(idx);
       }
+
+      prevClosestIdx = idx; // always keep in sync, cooldown or not
     }
 
     requestAnimationFrame(tick);
@@ -535,6 +535,30 @@ function initPressSection() {
       })
       .catch(() => {}); // curated cards already showing — silent failure is fine
   }, 500);
+}
+
+// ─── CARD CURSOR ("Explore the Score" follows mouse over hero cards) ───
+function initCardCursor() {
+  const cursor = document.getElementById('cards-cursor');
+  if (!cursor) return;
+
+  const cards = ['hc1', 'hc2', 'hc3'].map(id => document.getElementById(id)).filter(Boolean);
+
+  function moveCursor(e) {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      if (currentSlideIdx === 0) return; // only on film slides
+      cursor.style.display = 'flex';
+    });
+    card.addEventListener('mouseleave', () => {
+      cursor.style.display = 'none';
+    });
+    card.addEventListener('mousemove', moveCursor);
+  });
 }
 
 // ─── CONTACT ORB (cursor follower inside contact section) ───
