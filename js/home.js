@@ -2,6 +2,7 @@
 let lenisInstance    = null;
 let lenisGeneration  = 0;
 let currentSlideIdx  = 0;
+let tickerGeneration = 0;
 
 // ─── GSAP SETUP ───
 gsap.registerPlugin(ScrollTrigger);
@@ -101,7 +102,12 @@ function initNavLinks() {
   document.querySelectorAll('.hdr-nav a').forEach(a => {
     a.addEventListener('click', e => {
       const url = new URL(a.href, window.location.href);
-      if (url.pathname === window.location.pathname && url.hash) {
+      // Compare base URLs without hash — avoids GitHub Pages path mismatch
+      // where 'index.html' in href resolves to '/brian-tyler/index.html'
+      // but window.location.pathname is '/brian-tyler/'. Strip hash from both.
+      const baseHref = url.href.split('#')[0];
+      const baseCurrent = window.location.href.split('#')[0];
+      if (baseHref === baseCurrent && url.hash) {
         e.preventDefault();
         lenisInstance && lenisInstance.scrollTo(url.hash);
       }
@@ -262,6 +268,9 @@ const MANUAL_COOLDOWN_MS = 1500; // ignore auto-select for 1.5s after a manual c
 
 function watchTickerCenter() {
   const overflow = document.querySelector('.ticker-overflow');
+  // Capture this loop's generation token. If tickerGeneration is bumped
+  // (by bfcache reinit or another buildTicker call) this loop self-terminates.
+  const gen = ++tickerGeneration;
   // Track the closest item from the PREVIOUS frame — always updated, even
   // during cooldown. This means when the cooldown expires, we already know
   // what was at center just before, so we only fire when something genuinely
@@ -269,6 +278,7 @@ function watchTickerCenter() {
   let prevClosestIdx = -1;
 
   function tick() {
+    if (tickerGeneration !== gen) return; // zombie loop from old session — die silently
     const inCooldown = Date.now() - lastManualSelectTime < MANUAL_COOLDOWN_MS;
 
     const overflowRect = overflow.getBoundingClientRect();
@@ -310,6 +320,7 @@ function watchTickerCenter() {
 // ─── FILMS LIST ───
 function buildFilmsList() {
   const list = document.getElementById('films-list');
+  list.innerHTML = ''; // clear before populating — prevents doubles on reinit
   FILMS.forEach((film, i) => {
     const li = document.createElement('li');
     li.className = 'film-row reveal';
@@ -338,6 +349,7 @@ function buildFilmsList() {
 function buildTvList() {
   const list = document.getElementById('tv-list');
   if (!list) return;
+  list.innerHTML = ''; // clear before populating — prevents doubles on reinit
   TV_SHOWS.forEach((show, i) => {
     const li = document.createElement('li');
     li.className = 'film-row reveal';
@@ -365,6 +377,7 @@ function buildTvList() {
 // ─── VIDEOS GRID ───
 function buildVideosGrid() {
   const grid = document.getElementById('videos-grid');
+  grid.innerHTML = ''; // clear before populating — prevents doubles on reinit
   VIDEOS.forEach(v => {
     const tile = document.createElement('div');
     tile.className = 'video-tile';
@@ -594,24 +607,34 @@ function initReveal() {
 }
 
 // ─── BFCACHE HANDLER ───
-// Browsers freeze pages in the back/forward cache (bfcache) when you navigate
-// away. On restore, scripts don't re-run — initPage() never fires, stale GSAP
-// state keeps sections invisible, and currentSlideIdx is wrong. The pageshow
-// event with persisted=true detects this and fully re-initialises the page.
+// Browsers freeze pages in the back/forward cache (bfcache) when navigating
+// away. On restore (back button / clicking "← Home"), scripts don't re-run —
+// but the DOM is fully intact with all event listeners still attached.
+// We must NOT call initPage() here (that would double all dynamic content and
+// all event listeners). Instead we do a targeted minimal reinit:
+//   1. Restart Lenis (its RAF loop was killed by the freeze)
+//   2. Refresh ScrollTrigger (stale instances keep .reveal sections invisible)
+//   3. Bump tickerGeneration to kill any zombie watchTickerCenter loop, then
+//      start a fresh one, reset to slide 0 with cooldown
+//   4. Restart clock interval (_clockIntervalId dedup is handled in shared.js)
 window.addEventListener('pageshow', function(e) {
   if (!e.persisted) return; // normal page load — already handled by runLoader
 
-  // Tear down stale Lenis + ScrollTrigger before rebuilding
-  if (typeof lenisInstance !== 'undefined' && lenisInstance) {
-    lenisInstance.destroy();
-    lenisInstance = null;
-  }
-  ScrollTrigger.getAll().forEach(t => t.kill());
+  // 1. Restart Lenis smooth-scroll RAF
+  initLenis();
 
-  // Reset all module-level slide/ticker state
-  currentSlideIdx     = 0;
+  // 2. Refresh ScrollTrigger — kill stale instances, recreate for all .reveal els
+  initReveal();
+
+  // 3. Reset ticker to Brian Tyler slide 0 and start a fresh center-watch loop.
+  //    tickerGeneration bump happens inside watchTickerCenter() so any previous
+  //    frozen loop self-terminates on its next RAF tick.
+  currentSlideIdx      = 0;
   lastManualSelectTime = 0;
+  selectSlide(0);
+  lastManualSelectTime = Date.now(); // brief cooldown so auto-select doesn't immediately jump
+  watchTickerCenter();
 
-  // Full re-init — identical to what happens on a normal return visit
-  initPage();
+  // 4. Restart clock interval
+  initClock();
 });
