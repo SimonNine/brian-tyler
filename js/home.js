@@ -394,10 +394,10 @@ function initCta() {
 }
 
 function updateCta(idx) {
-  const btn  = document.getElementById('hero-cta-btn');
+  const btn = document.getElementById('hero-cta-btn');
+  if (!btn) return; // null check FIRST — was crashing before this was moved up
   const icon = btn.querySelector('.hero-cta-icon');
   const text = btn.querySelector('.hero-cta-text');
-  if (!btn) return;
 
   // Re-trigger entry animation
   btn.classList.remove('animating');
@@ -578,6 +578,11 @@ function initContactOrb() {
 
 // ─── REVEAL ON SCROLL ───
 function initReveal() {
+  // Kill any stale ScrollTrigger instances before creating new ones.
+  // On bfcache restore the old instances still exist but are no longer
+  // connected to Lenis, causing sections to stay invisible forever.
+  ScrollTrigger.getAll().forEach(t => t.kill());
+
   gsap.utils.toArray('.reveal').forEach(el => {
     ScrollTrigger.create({
       trigger: el,
@@ -587,3 +592,26 @@ function initReveal() {
     });
   });
 }
+
+// ─── BFCACHE HANDLER ───
+// Browsers freeze pages in the back/forward cache (bfcache) when you navigate
+// away. On restore, scripts don't re-run — initPage() never fires, stale GSAP
+// state keeps sections invisible, and currentSlideIdx is wrong. The pageshow
+// event with persisted=true detects this and fully re-initialises the page.
+window.addEventListener('pageshow', function(e) {
+  if (!e.persisted) return; // normal page load — already handled by runLoader
+
+  // Tear down stale Lenis + ScrollTrigger before rebuilding
+  if (typeof lenisInstance !== 'undefined' && lenisInstance) {
+    lenisInstance.destroy();
+    lenisInstance = null;
+  }
+  ScrollTrigger.getAll().forEach(t => t.kill());
+
+  // Reset all module-level slide/ticker state
+  currentSlideIdx     = 0;
+  lastManualSelectTime = 0;
+
+  // Full re-init — identical to what happens on a normal return visit
+  initPage();
+});

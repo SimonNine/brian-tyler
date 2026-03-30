@@ -29,10 +29,26 @@ window.onSpotifyIframeApiReady = function(IFrameAPI) {
   });
 };
 
-// ─── CLOCK (IP geolocation → visitor's local time) ───
+// ─── CLOCK (visitor's local time, browser-native fallback + cached city) ───
+let _clockIntervalId = null; // module-level so reinit can clear the old interval
+
 function initClock() {
-  let clockTz   = 'America/Los_Angeles';
-  let clockCity = 'LOS ANGELES';
+  // 1. Use the browser's own Intl API for timezone — always correct, no network needed.
+  //    This means the TIME is always accurate even if the city name fetch fails.
+  const browserTz = (function() {
+    try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; }
+    catch(e) { return 'UTC'; }
+  })();
+
+  // Derive a readable city from the IANA timezone path as an immediate fallback:
+  // 'Europe/London' → 'LONDON', 'America/Los_Angeles' → 'LOS ANGELES'
+  const cityFromTz = browserTz.split('/').pop().replace(/_/g, ' ').toUpperCase();
+
+  let clockTz   = browserTz;
+  let clockCity = cityFromTz;
+
+  // Clear any previous interval (handles bfcache re-init without duplicate ticks)
+  if (_clockIntervalId) { clearInterval(_clockIntervalId); _clockIntervalId = null; }
 
   function updateDisplay() {
     const now  = new Date();
@@ -42,19 +58,32 @@ function initClock() {
     if (el) el.textContent = `${str} / ${clockCity}`;
   }
 
+  updateDisplay();
+  _clockIntervalId = setInterval(updateDisplay, 1000);
+
+  // 2. Try localStorage cache for city name (avoids hammering the API on every load).
+  try {
+    const cached = JSON.parse(localStorage.getItem('bt-geo') || 'null');
+    if (cached && cached.tz && cached.city) {
+      clockTz   = cached.tz;
+      clockCity = cached.city;
+      updateDisplay();
+      return; // have a cached answer — skip the network fetch
+    }
+  } catch(e) {}
+
+  // 3. Fetch exact city from ipapi.co — if successful, cache it.
   fetch('https://ipapi.co/json/')
     .then(r => r.json())
     .then(data => {
-      if (data.timezone) {
+      if (data && data.timezone) {
         clockTz   = data.timezone;
-        clockCity = (data.city || data.region || 'LOCAL').toUpperCase().replace(/,.*/, '');
+        clockCity = (data.city || data.region || cityFromTz).toUpperCase().replace(/,.*/, '').replace(/_/g, ' ');
+        try { localStorage.setItem('bt-geo', JSON.stringify({ tz: clockTz, city: clockCity })); } catch(e) {}
+        updateDisplay();
       }
-      updateDisplay();
     })
-    .catch(() => updateDisplay());
-
-  updateDisplay();
-  setInterval(updateDisplay, 1000);
+    .catch(() => {}); // browser-native timezone is already showing — silent failure is fine
 }
 
 // ─── LIGHT / DARK MODE ───
