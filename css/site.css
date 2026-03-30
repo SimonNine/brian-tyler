@@ -329,6 +329,29 @@ body.film-page {
   pointer-events: none; border: none;
 }
 
+/* ─── HERO TITLE (x-ray blend over cards) ─── */
+#hero-title {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 15;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+#hero-title-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 13vw, 13rem);
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  line-height: 0.88;
+  text-align: center;
+  display: block;
+  user-select: none;
+  will-change: opacity;
+}
+
 /* ─── HERO CTA ─── */
 .hero-cta {
   position: relative; z-index: 10;

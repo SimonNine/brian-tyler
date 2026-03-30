@@ -154,6 +154,22 @@ function initCards() {
   });
 }
 
+// ─── HERO TITLE UPDATE ───
+function updateHeroTitle(idx) {
+  const el = document.getElementById('hero-title-text');
+  if (!el) return;
+  const newHtml = idx === 0
+    ? 'BRIAN<br>TYLER'
+    : FILMS[idx - 1].displayTitle.replace(/\s+/, '<br>');
+  gsap.to(el, {
+    opacity: 0, duration: 0.15,
+    onComplete: () => {
+      el.innerHTML = newHtml;
+      gsap.to(el, { opacity: 1, duration: 0.3 });
+    }
+  });
+}
+
 // ─── SELECT SLIDE (ticker / prev-next changes the hero cards) ───
 function selectSlide(idx) {
   if (idx < 0)             idx = FILMS.length;
@@ -161,6 +177,7 @@ function selectSlide(idx) {
   currentSlideIdx = idx;
 
   const slide = idx === 0 ? INTRO_SLIDE : FILMS[idx - 1];
+  updateHeroTitle(idx);
 
   ['hc1-img', 'hc2-img', 'hc3-img'].forEach((id, i) => {
     const el = document.getElementById(id);
