@@ -295,7 +295,9 @@ function buildFilmsList() {
     li.innerHTML = `
       <span class="film-num">${String(i + 1).padStart(2, '0')}</span>
       <div class="film-info">
-        <span class="film-name">${film.title}</span><span class="type-pill type-pill-film">Film</span>
+        <div class="film-title-row">
+          <span class="film-name">${film.title}</span><span class="type-pill type-pill-film">Film</span>
+        </div>
         ${accoladesHtml}
       </div>
       <span class="film-year">${film.year}</span>
@@ -321,7 +323,9 @@ function buildTvList() {
     li.innerHTML = `
       <span class="film-num">${String(i + 1).padStart(2, '0')}</span>
       <div class="film-info">
-        <span class="film-name">${show.title}</span><span class="type-pill type-pill-tv">TV</span>
+        <div class="film-title-row">
+          <span class="film-name">${show.title}</span><span class="type-pill type-pill-tv">TV</span>
+        </div>
         ${accoladesHtml}
       </div>
       <span class="film-year">${show.year}</span>

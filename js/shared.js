@@ -3,6 +3,8 @@ let spotifyController = null;
 let openLPBrowser  = () => {};
 let closeLPBrowser = () => {};
 let loadAlbum      = () => {};
+let albumList      = [];
+let currentAlbumIdx = -1;
 
 // ─── SPOTIFY IFRAME API ───
 // Must be defined before the async Spotify script fires
@@ -204,13 +206,23 @@ function initMiniDisc() {
     setOpen(!isOpen);
   });
 
+  // Prev/next cycle through the curated album crate
   document.getElementById('md-prev-btn').addEventListener('click', e => {
     e.stopPropagation();
-    if (spotifyController) { try { spotifyController.previousTrack(); } catch(e) {} }
+    if (!albumList.length) return;
+    currentAlbumIdx = (currentAlbumIdx <= 0 ? albumList.length : currentAlbumIdx) - 1;
+    const a = albumList[currentAlbumIdx];
+    loadAlbum(a.spotifyUri, a.title);
+    // Mark active in LP browser if open
+    document.querySelectorAll('.lp-record').forEach((r, i) => r.classList.toggle('playing', i === currentAlbumIdx));
   });
   document.getElementById('md-next-btn').addEventListener('click', e => {
     e.stopPropagation();
-    if (spotifyController) { try { spotifyController.nextTrack(); } catch(e) {} }
+    if (!albumList.length) return;
+    currentAlbumIdx = (currentAlbumIdx + 1) % albumList.length;
+    const a = albumList[currentAlbumIdx];
+    loadAlbum(a.spotifyUri, a.title);
+    document.querySelectorAll('.lp-record').forEach((r, i) => r.classList.toggle('playing', i === currentAlbumIdx));
   });
 }
 
@@ -226,10 +238,11 @@ function initLPBrowser() {
   if (typeof FILMS    !== 'undefined') FILMS.forEach(f => { if (f.spotifyUri && f.spotifyUri.startsWith('album:')) albums.push(f); });
   if (typeof TV_SHOWS !== 'undefined') TV_SHOWS.forEach(s => { if (s.spotifyUri && s.spotifyUri.startsWith('album:')) albums.push(s); });
 
-  let activeRecord = null;
+  // Expose album list globally for prev/next cycling
+  albumList = albums;
 
   // Build LP records
-  albums.forEach(entry => {
+  albums.forEach((entry, idx) => {
     const record = document.createElement('div');
     record.className = 'lp-record';
     const imgUrl = entry.cards && entry.cards[0] ? entry.cards[0].img : '';
@@ -243,9 +256,9 @@ function initLPBrowser() {
       <div class="lp-record-year">${entry.year}</div>
     `;
     record.addEventListener('click', () => {
-      if (activeRecord) activeRecord.classList.remove('playing');
+      document.querySelectorAll('.lp-record').forEach(r => r.classList.remove('playing'));
       record.classList.add('playing');
-      activeRecord = record;
+      currentAlbumIdx = idx;
       loadAlbum(entry.spotifyUri, entry.title);
       closeLPBrowser();
     });
