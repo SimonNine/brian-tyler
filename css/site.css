@@ -424,7 +424,7 @@ body.film-page {
 .ticker-row {
   position: relative;
   display: flex; align-items: center;
-  height: 50px; overflow: hidden;
+  height: 64px; overflow: hidden;
 }
 .ticker-prev, .ticker-next {
   flex-shrink: 0;
@@ -442,7 +442,7 @@ body.film-page {
 .ticker-inner {
   display: flex; align-items: center;
   white-space: nowrap;
-  animation: ticker-scroll 75s linear infinite;
+  animation: ticker-scroll 38s linear infinite;
   will-change: transform;
 }
 .ticker-overflow:hover .ticker-inner { animation-play-state: paused; }
@@ -452,18 +452,18 @@ body.film-page {
 }
 .ticker-item {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.575rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--fg-muted);
   cursor: pointer;
-  padding: 0 20px;
-  transition: color 0.25s, letter-spacing 0.25s;
+  padding: 0 24px;
+  transition: color 0.3s, letter-spacing 0.3s, font-weight 0.3s;
   flex-shrink: 0;
 }
 .ticker-item:hover { color: var(--fg); }
-.ticker-item.active { color: var(--fg); letter-spacing: 0.26em; }
+.ticker-item.active { color: var(--fg); letter-spacing: 0.26em; font-weight: 800; }
 .ticker-div {
   color: var(--fg-faint);
   font-size: 0.5rem;

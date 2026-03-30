@@ -217,11 +217,68 @@ function buildTicker() {
   inner.innerHTML = html;
 
   inner.querySelectorAll('.ticker-item').forEach(el => {
-    el.addEventListener('click', () => selectSlide(parseInt(el.dataset.idx)));
+    el.addEventListener('click', () => {
+      lastManualSelectTime = Date.now();
+      selectSlide(parseInt(el.dataset.idx));
+    });
   });
 
-  document.getElementById('ticker-prev').addEventListener('click', () => selectSlide(currentSlideIdx - 1));
-  document.getElementById('ticker-next').addEventListener('click', () => selectSlide(currentSlideIdx + 1));
+  document.getElementById('ticker-prev').addEventListener('click', () => {
+    lastManualSelectTime = Date.now();
+    selectSlide(currentSlideIdx - 1);
+  });
+  document.getElementById('ticker-next').addEventListener('click', () => {
+    lastManualSelectTime = Date.now();
+    selectSlide(currentSlideIdx + 1);
+  });
+
+  watchTickerCenter();
+}
+
+// ─── CENTER DETECTION — auto-select whichever ticker item is closest to the overflow centre ───
+let lastManualSelectTime = 0;
+const MANUAL_COOLDOWN_MS = 1500; // ignore auto-select for 1.5s after a manual click
+
+function watchTickerCenter() {
+  const overflow = document.querySelector('.ticker-overflow');
+  let lastCenteredIdx = -1;
+
+  function tick() {
+    // Don't override a recent manual selection
+    if (Date.now() - lastManualSelectTime < MANUAL_COOLDOWN_MS) {
+      requestAnimationFrame(tick);
+      return;
+    }
+
+    const overflowRect = overflow.getBoundingClientRect();
+    const centerX = overflowRect.left + overflowRect.width / 2;
+
+    let closest = null;
+    let closestDist = Infinity;
+
+    overflow.querySelectorAll('.ticker-item').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const elCenterX = rect.left + rect.width / 2;
+      const dist = Math.abs(elCenterX - centerX);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closest = el;
+      }
+    });
+
+    if (closest) {
+      const idx = parseInt(closest.dataset.idx);
+      // Only trigger if a new item has come to centre (within 80px tolerance)
+      if (idx !== lastCenteredIdx && closestDist < 80) {
+        lastCenteredIdx = idx;
+        selectSlide(idx);
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  requestAnimationFrame(tick);
 }
 
 // ─── FILMS LIST ───
