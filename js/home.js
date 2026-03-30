@@ -59,10 +59,14 @@ function initPage() {
   initLenis();
   initCards();
   buildTicker();
+  // Always start on slide 0 (Brian Tyler) — suppress auto-center override on load
+  selectSlide(0);
+  lastManualSelectTime = Date.now();
   buildFilmsList();
   buildTvList();
   buildVideosGrid();
   initReveal();
+  initPressSection();
   initClock();
   initModeButtons();
   initFullscreen();
@@ -399,6 +403,91 @@ function updateCta(idx) {
       btn.appendChild(arrow);
     }
   }
+}
+
+// ─── PRESS / NEWS SECTION ───
+function initPressSection() {
+  const grid    = document.getElementById('press-grid');
+  const loading = document.getElementById('press-loading');
+  if (!grid) return;
+
+  // RSS2JSON proxy → Google News search for Brian Tyler composer
+  const query   = encodeURIComponent('Brian Tyler film composer score');
+  const rssUrl  = encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=en-US&gl=US&ceid=US:en`);
+  const apiUrl  = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}&count=20`;
+
+  // Keywords that suggest the article is actually about the composer (not other Brian Tylers)
+  const RELEVANT = ['composer', 'score', 'soundtrack', 'music', 'film', 'marvel', 'netflix', 'yellowstone',
+                    'avengers', 'iron man', 'thor', 'fast & furious', 'fast furious', 'crazy rich',
+                    'theme', 'orchestral', 'recording', 'abbey road', 'capitol'];
+
+  function isRelevant(item) {
+    const text = (item.title + ' ' + (item.description || '')).toLowerCase();
+    return RELEVANT.some(kw => text.includes(kw));
+  }
+
+  function formatDate(dateStr) {
+    try {
+      return new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    } catch (e) { return ''; }
+  }
+
+  function stripHtml(str) {
+    return str ? str.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').trim() : '';
+  }
+
+  function renderCards(items) {
+    if (loading) loading.remove();
+    if (!items.length) {
+      grid.innerHTML = '<p class="press-empty">No recent press found.</p>';
+      return;
+    }
+    items.forEach((item, i) => {
+      const card = document.createElement('a');
+      card.className   = 'press-card reveal';
+      card.href        = item.link;
+      card.target      = '_blank';
+      card.rel         = 'noopener noreferrer';
+      const src   = item.source ? item.source.name || stripHtml(item.source) : extractSource(item.link);
+      const date  = formatDate(item.pubDate);
+      const blurb = stripHtml(item.description || '').substring(0, 120);
+      card.innerHTML = `
+        <div class="press-card-meta">
+          <span class="press-source">${src}</span>
+          <span class="press-date">${date}</span>
+        </div>
+        <h3 class="press-title">${item.title}</h3>
+        ${blurb ? `<p class="press-blurb">${blurb}…</p>` : ''}
+        <span class="press-read-more">Read more ↗</span>
+      `;
+      grid.appendChild(card);
+    });
+    // Refresh ScrollTrigger reveal for newly added cards
+    gsap.utils.toArray('#press .reveal').forEach(el => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 88%',
+        once: true,
+        onEnter: () => el.classList.add('in-view')
+      });
+    });
+  }
+
+  function extractSource(url) {
+    try { return new URL(url).hostname.replace(/^www\./, ''); } catch (e) { return ''; }
+  }
+
+  fetch(apiUrl)
+    .then(r => r.json())
+    .then(data => {
+      if (!data.items || !data.items.length) throw new Error('No items');
+      const relevant = data.items.filter(isRelevant).slice(0, 6);
+      renderCards(relevant.length ? relevant : data.items.slice(0, 6));
+    })
+    .catch(() => {
+      if (loading) loading.remove();
+      grid.innerHTML = '<p class="press-empty">Press unavailable — check back soon.</p>';
+    });
 }
 
 // ─── REVEAL ON SCROLL ───

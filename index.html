@@ -48,6 +48,7 @@
       <a href="index.html#work">Work</a>
       <a href="index.html#videos">Music</a>
       <a href="index.html#bio">About</a>
+      <a href="index.html#press">Press</a>
       <a href="index.html#contact">Contact</a>
     </nav>
     <div class="hdr-divider"></div>
@@ -114,7 +115,7 @@
 <section id="work">
   <div class="container">
     <span class="section-eyebrow reveal">Selected Scores</span>
-    <h2 class="section-title reveal">THE WORK</h2>
+    <h2 class="section-title reveal">FILM</h2>
     <ul class="films-list" id="films-list"></ul>
   </div>
 </section>
@@ -221,6 +222,21 @@
   </div>
 </section>
 
+<!-- ─── PRESS ─── -->
+<section id="press">
+  <div class="container">
+    <span class="section-eyebrow reveal">In the News</span>
+    <h2 class="section-title reveal">PRESS</h2>
+    <div class="press-grid" id="press-grid">
+      <div class="press-loading" id="press-loading">
+        <span class="press-loading-dot"></span>
+        <span class="press-loading-dot"></span>
+        <span class="press-loading-dot"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── CONTACT ─── -->
 <section id="contact">
   <div class="container">
@@ -257,7 +273,16 @@
   <div class="md-player" id="md-player">
     <div class="md-handle" id="md-handle" title="Minimise player"></div>
     <div class="md-top-row">
-      <div class="md-disc-area">
+      <div class="md-disc-area" id="md-disc-area">
+        <div class="md-fan-disc md-fan-left"></div>
+        <div class="md-fan-disc md-fan-center"></div>
+        <div class="md-fan-disc md-fan-right"></div>
+        <svg class="md-fan-label" viewBox="0 0 130 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><path id="fan-arc" d="M 5,45 Q 65,2 125,45"/></defs>
+          <text fill="#c9a84c" font-family="Barlow Condensed,sans-serif" font-size="9.5" font-weight="700" letter-spacing="1.5">
+            <textPath href="#fan-arc" startOffset="50%" text-anchor="middle">SELECT A RECORD</textPath>
+          </text>
+        </svg>
         <div class="md-disc" id="md-disc">
           <div class="md-disc-inner"></div>
         </div>
@@ -302,9 +327,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="js/data.js?v=4"></script>
-<script src="js/shared.js?v=4"></script>
-<script src="js/home.js?v=4"></script>
+<script src="js/data.js?v=5"></script>
+<script src="js/shared.js?v=5"></script>
+<script src="js/home.js?v=5"></script>
 
 </body>
 </html>

@@ -167,6 +167,14 @@ function initMiniDisc() {
     openLPBrowser();
   });
 
+  // Fan disc clicks also open LP browser
+  document.querySelectorAll('.md-fan-disc').forEach(fd => {
+    fd.addEventListener('click', e => {
+      e.stopPropagation();
+      openLPBrowser();
+    });
+  });
+
   // Drag handle — click to minimize
   if (handle) {
     handle.addEventListener('click', e => {
