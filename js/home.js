@@ -67,6 +67,7 @@ function initPage() {
   initModeButtons();
   initFullscreen();
   initMiniDisc();
+  initLPBrowser();
   initLightbox();
   initNavLinks();
   initCta();

@@ -1,6 +1,8 @@
 // ─── SHARED STATE ───
-// spotifyController is set by the Spotify iframe API callback below
 let spotifyController = null;
+let openLPBrowser  = () => {};
+let closeLPBrowser = () => {};
+let loadAlbum      = () => {};
 
 // ─── SPOTIFY IFRAME API ───
 // Must be defined before the async Spotify script fires
@@ -143,6 +145,26 @@ function initMiniDisc() {
     }
   }
 
+  // Load an album URI into the player
+  loadAlbum = function(uri, title) {
+    if (spotifyController) {
+      try { spotifyController.loadUri('spotify:' + uri); } catch(e) {}
+    }
+    const displayText = document.getElementById('md-display-text');
+    if (displayText) {
+      displayText.textContent = title.toUpperCase() + ' \u25c6 BRIAN TYLER \u25c6\u00a0\u00a0';
+    }
+    if (isMinimized) setMinimized(false);
+    if (!isOpen) setOpen(true);
+    setPlaying(true);
+  };
+
+  // Disc click → open LP browser
+  disc.addEventListener('click', e => {
+    e.stopPropagation();
+    openLPBrowser();
+  });
+
   // Drag handle — click to minimize
   if (handle) {
     handle.addEventListener('click', e => {
@@ -174,9 +196,10 @@ function initMiniDisc() {
     setOpen(false);
   });
 
-  // Click player body to toggle panel (skip handle clicks)
+  // Click player body to toggle panel (skip handle + disc area)
   player.addEventListener('click', e => {
-    if (e.target.closest('.md-btn') || e.target.closest('a') || e.target.closest('.md-handle')) return;
+    if (e.target.closest('.md-btn') || e.target.closest('a') ||
+        e.target.closest('.md-handle') || e.target.closest('.md-disc-area')) return;
     if (isMinimized) { setMinimized(false); return; }
     setOpen(!isOpen);
   });
@@ -188,5 +211,65 @@ function initMiniDisc() {
   document.getElementById('md-next-btn').addEventListener('click', e => {
     e.stopPropagation();
     if (spotifyController) { try { spotifyController.nextTrack(); } catch(e) {} }
+  });
+}
+
+// ─── LP BROWSER ───
+function initLPBrowser() {
+  const browser  = document.getElementById('lp-browser');
+  const grid     = document.getElementById('lp-grid');
+  const closeBtn = document.getElementById('lp-close-btn');
+  if (!browser || !grid) return;
+
+  // Gather entries with album URIs
+  const albums = [];
+  if (typeof FILMS    !== 'undefined') FILMS.forEach(f => { if (f.spotifyUri && f.spotifyUri.startsWith('album:')) albums.push(f); });
+  if (typeof TV_SHOWS !== 'undefined') TV_SHOWS.forEach(s => { if (s.spotifyUri && s.spotifyUri.startsWith('album:')) albums.push(s); });
+
+  let activeRecord = null;
+
+  // Build LP records
+  albums.forEach(entry => {
+    const record = document.createElement('div');
+    record.className = 'lp-record';
+    const imgUrl = entry.cards && entry.cards[0] ? entry.cards[0].img : '';
+    record.innerHTML = `
+      <div class="lp-vinyl">
+        <div class="lp-label" style="background-image:url('${imgUrl}')">
+          <div class="lp-label-hole"></div>
+        </div>
+      </div>
+      <div class="lp-record-title">${entry.title}</div>
+      <div class="lp-record-year">${entry.year}</div>
+    `;
+    record.addEventListener('click', () => {
+      if (activeRecord) activeRecord.classList.remove('playing');
+      record.classList.add('playing');
+      activeRecord = record;
+      loadAlbum(entry.spotifyUri, entry.title);
+      closeLPBrowser();
+    });
+    grid.appendChild(record);
+  });
+
+  // Wire open / close
+  openLPBrowser = function() {
+    browser.classList.add('open');
+    browser.removeAttribute('aria-hidden');
+    if (typeof lenisInstance !== 'undefined' && lenisInstance) lenisInstance.stop();
+  };
+
+  closeLPBrowser = function() {
+    browser.classList.remove('open');
+    browser.setAttribute('aria-hidden', 'true');
+    if (typeof lenisInstance !== 'undefined' && lenisInstance) lenisInstance.start();
+  };
+
+  if (closeBtn) closeBtn.addEventListener('click', closeLPBrowser);
+
+  browser.addEventListener('click', e => { if (e.target === browser) closeLPBrowser(); });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && browser.classList.contains('open')) closeLPBrowser();
   });
 }

@@ -110,6 +110,15 @@
   <iframe id="lightbox-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 
+<!-- ─── LP BROWSER ─── -->
+<div id="lp-browser" aria-hidden="true">
+  <button class="lp-close-btn" id="lp-close-btn" title="Close">×</button>
+  <p class="lp-eyebrow">Crate Dig</p>
+  <h2 class="lp-heading">SELECT A SCORE</h2>
+  <div class="lp-grid" id="lp-grid"></div>
+  <p class="lp-hint">Click a record to load it into the player</p>
+</div>
+
 <!-- ─── MINIDISC ─── -->
 <button class="md-restore-tab" id="md-restore-tab" title="Show player"></button>
 <div id="minidisc">
@@ -163,9 +172,9 @@
 <!-- ─── SCRIPTS ─── -->
 <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="js/data.js?v=2"></script>
-<script src="js/shared.js?v=2"></script>
-<script src="js/film.js?v=2"></script>
+<script src="js/data.js?v=3"></script>
+<script src="js/shared.js?v=3"></script>
+<script src="js/film.js?v=3"></script>
 <script>
 // Film page loader — CSS transition, no GSAP dependency
 (function() {
@@ -188,6 +197,7 @@
       initModeButtons();
       initFullscreen();
       initMiniDisc();
+      initLPBrowser();
       initLightbox();
     }, { once: true });
   }, { once: true });
