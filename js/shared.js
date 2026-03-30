@@ -80,7 +80,7 @@ function initFullscreen() {
 // ─── LIGHTBOX ───
 function openLightbox(videoId) {
   document.getElementById('lightbox-iframe').src =
-    `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+    `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&loop=1&playlist=${videoId}&rel=0&modestbranding=1`;
   document.getElementById('lightbox').classList.add('open');
   // Pause Lenis smooth scroll if on the home page
   if (typeof lenisInstance !== 'undefined' && lenisInstance) {
