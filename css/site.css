@@ -895,6 +895,25 @@ body.film-page {
   color: rgba(0,0,0,0.7);
   margin-bottom: 40px;
 }
+/* ─── TYPE PILL ─── */
+.type-pill {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.48rem; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 2px;
+  display: inline-block; vertical-align: middle;
+  margin-bottom: 18px;
+}
+.type-pill-film { background: #c9a84c; color: #000; }
+.type-pill-tv   { background: #4a6fa5; color: #fff; }
+/* Pill on list rows */
+.film-info .type-pill {
+  margin-bottom: 0; margin-left: 10px;
+  vertical-align: middle; font-size: 0.44rem;
+}
+html.dark .type-pill-film { background: #c9a84c; color: #000; }
+html.dark .type-pill-tv   { background: #4a6fa5; color: #fff; }
+
 .fo-tracks-title {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 0.62rem; font-weight: 700;
@@ -985,7 +1004,38 @@ body.film-page {
   position: fixed; bottom: 44px; right: 20px;
   z-index: 490; width: 320px;
   display: flex; flex-direction: column; align-items: flex-end;
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
 }
+#minidisc.minimized {
+  transform: translateY(calc(100% + 44px));
+}
+.md-restore-tab {
+  position: fixed; bottom: 0; right: 50px;
+  width: 64px; height: 8px;
+  background: linear-gradient(90deg, #c9a84c, #e0be6a);
+  border: none; border-radius: 4px 4px 0 0;
+  cursor: pointer; z-index: 491;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s 0.2s, height 0.15s;
+  padding: 0;
+}
+.md-restore-tab.visible { opacity: 1; pointer-events: auto; }
+.md-restore-tab:hover { height: 14px; }
+.md-handle {
+  width: 100%; height: 12px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: n-resize; margin-bottom: 4px;
+  border-radius: 8px 8px 0 0;
+}
+.md-handle::before {
+  content: '';
+  width: 32px; height: 3px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 2px;
+  transition: background 0.2s, width 0.2s;
+}
+.md-handle:hover::before { background: rgba(201,168,76,0.5); width: 44px; }
+
 .md-player {
   background: linear-gradient(160deg, #2e2e2e 0%, #1c1c1c 40%, #242424 100%);
   border-radius: 8px 8px 4px 4px;

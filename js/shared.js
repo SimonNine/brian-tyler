@@ -110,18 +110,28 @@ function initLightbox() {
 
 // ─── MINIDISC PLAYER ───
 function initMiniDisc() {
-  const player  = document.getElementById('md-player');
-  const panel   = document.getElementById('md-panel');
-  const disc    = document.getElementById('md-disc');
-  const playBtn = document.getElementById('md-play-btn');
+  const player     = document.getElementById('md-player');
+  const panel      = document.getElementById('md-panel');
+  const disc       = document.getElementById('md-disc');
+  const playBtn    = document.getElementById('md-play-btn');
+  const minidisc   = document.getElementById('minidisc');
+  const handle     = document.getElementById('md-handle');
+  const restoreTab = document.getElementById('md-restore-tab');
   if (!player) return;
 
-  let isOpen    = false;
-  let isPlaying = false;
+  let isOpen      = false;
+  let isPlaying   = false;
+  let isMinimized = false;
 
   function setOpen(open) {
     isOpen = open;
     panel.classList.toggle('open', open);
+  }
+
+  function setMinimized(min) {
+    isMinimized = min;
+    minidisc.classList.toggle('minimized', min);
+    if (restoreTab) restoreTab.classList.toggle('visible', min);
   }
 
   function setPlaying(playing) {
@@ -133,9 +143,23 @@ function initMiniDisc() {
     }
   }
 
-  // Play/pause — opens panel on first play
+  // Drag handle — click to minimize
+  if (handle) {
+    handle.addEventListener('click', e => {
+      e.stopPropagation();
+      setMinimized(true);
+    });
+  }
+
+  // Restore tab — click to bring back
+  if (restoreTab) {
+    restoreTab.addEventListener('click', () => setMinimized(false));
+  }
+
+  // Play/pause — opens panel on first play, restores if minimized
   playBtn.addEventListener('click', e => {
     e.stopPropagation();
+    if (isMinimized) setMinimized(false);
     if (!isPlaying) {
       if (!isOpen) setOpen(true);
       setPlaying(true);
@@ -150,9 +174,10 @@ function initMiniDisc() {
     setOpen(false);
   });
 
-  // Click player body to toggle panel
+  // Click player body to toggle panel (skip handle clicks)
   player.addEventListener('click', e => {
-    if (e.target.closest('.md-btn') || e.target.closest('a')) return;
+    if (e.target.closest('.md-btn') || e.target.closest('a') || e.target.closest('.md-handle')) return;
+    if (isMinimized) { setMinimized(false); return; }
     setOpen(!isOpen);
   });
 

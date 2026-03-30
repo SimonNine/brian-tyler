@@ -14,6 +14,7 @@ function initFilmPage() {
   }
 
   const film = filmIdx !== -1 ? FILMS[filmIdx] : TV_SHOWS[tvIdx];
+  const mediaType = filmIdx !== -1 ? 'film' : 'tv';
 
   // Page title
   document.title = `${film.title} — Brian Tyler`;
@@ -23,6 +24,13 @@ function initFilmPage() {
   img.src = film.overlayImg;
   img.style.objectPosition = film.cards[0].pos;
 
+  // Media type badge
+  const typePill = document.getElementById('fp-type-pill');
+  if (typePill) {
+    typePill.textContent  = mediaType === 'tv' ? 'TV' : 'Film';
+    typePill.className    = `type-pill type-pill-${mediaType}`;
+  }
+
   // Right panel — text content
   document.getElementById('fp-title').textContent       = film.displayTitle;
   document.getElementById('fp-meta-film').textContent   = film.title;
@@ -31,14 +39,20 @@ function initFilmPage() {
   document.getElementById('fp-meta-studio').textContent = film.studio;
   document.getElementById('fp-desc').textContent        = film.description;
 
-  // Track list
-  const trackList = document.getElementById('fp-tracks');
-  film.tracks.forEach((track, i) => {
-    const li = document.createElement('li');
-    li.className = 'fo-track-item';
-    li.innerHTML = `<span class="fo-track-num">${String(i + 1).padStart(2, '0')}</span>${track}`;
-    trackList.appendChild(li);
-  });
+  // Track list — only show section if tracks exist
+  const tracksTitle = document.querySelector('.fo-tracks-title');
+  const trackList   = document.getElementById('fp-tracks');
+  if (film.tracks && film.tracks.length > 0) {
+    film.tracks.forEach((track, i) => {
+      const li = document.createElement('li');
+      li.className = 'fo-track-item';
+      li.innerHTML = `<span class="fo-track-num">${String(i + 1).padStart(2, '0')}</span>${track}`;
+      trackList.appendChild(li);
+    });
+  } else {
+    if (tracksTitle) tracksTitle.style.display = 'none';
+    if (trackList)   trackList.style.display   = 'none';
+  }
 
   // Spotify embed — only show if a specific album URI exists
   const spotifyIframe = document.getElementById('fp-spotify-iframe');
