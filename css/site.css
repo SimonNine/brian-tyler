@@ -12,7 +12,7 @@ html.light {
   --gold: #8B6914;
   --border: rgba(0,0,0,0.1);
   --card-shadow: 0 24px 64px rgba(0,0,0,0.18);
-  --bio-overlay: rgba(245,240,228,0.82);
+  --bio-overlay: rgba(5,5,5,0.78);
 }
 html.dark {
   --bg: #0a0a0a;
@@ -23,7 +23,7 @@ html.dark {
   --gold: #C8A96E;
   --border: rgba(252,250,245,0.1);
   --card-shadow: 0 24px 64px rgba(0,0,0,0.6);
-  --bio-overlay: rgba(10,10,10,0.82);
+  --bio-overlay: rgba(5,5,5,0.78);
 }
 
 /* ─── GRAIN ─── */
@@ -675,6 +675,7 @@ body.film-page {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(3.5rem, 7vw, 6rem);
   letter-spacing: 0.05em;
+  color: #FCFAF5 !important;
   color: var(--fg); line-height: 1;
   margin-bottom: 32px;
   transition: color 0.35s;
@@ -683,7 +684,7 @@ body.film-page {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.15rem;
   line-height: 1.85;
-  color: var(--fg-muted);
+  color: rgba(252,250,245,0.72);
   max-width: 480px;
 }
 .bio-stats {
@@ -703,6 +704,7 @@ body.film-page {
   font-family: 'Barlow', sans-serif;
   font-size: 0.62rem;
   letter-spacing: 0.15em;
+  color: rgba(252,250,245,0.45);
   text-transform: uppercase;
   color: var(--fg-muted);
   margin-top: 4px;
@@ -727,6 +729,7 @@ body.film-page {
   font-family: 'Barlow', sans-serif;
   font-size: 0.8rem;
   line-height: 1.5;
+  color: rgba(252,250,245,0.65);
   color: var(--fg-muted);
 }
 
