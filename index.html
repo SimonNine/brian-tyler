@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brian Tyler — Film Composer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@300;400;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<script src="js/auth.js"></script>
+
+<!-- ─── SPLASH / LOADER ─── -->
+<div id="loader">
+  <div class="loader-video-bg">
+    <iframe src="https://www.youtube-nocookie.com/embed/dogHOIdjefc?autoplay=1&mute=1&loop=1&playlist=dogHOIdjefc&controls=0&showinfo=0&rel=0&modestbranding=1&start=10"
+      allow="autoplay; encrypted-media" frameborder="0"></iframe>
+  </div>
+  <div class="loader-overlay"></div>
+  <div class="loader-inner">
+    <div class="loader-name">
+      <div class="loader-clip"><span class="loader-word w1" id="ll1">BRIAN</span></div>
+      <div class="loader-clip"><span class="loader-word w2" id="ll2">TYLER</span></div>
+    </div>
+    <div class="loader-rule" id="loader-rule"></div>
+    <div class="loader-role" id="loader-role">Film Composer &middot; Conductor &middot; Producer</div>
+    <button class="loader-enter-btn" id="loader-enter-btn">
+      <span class="loader-enter-text">Enter Site</span>
+      <span class="loader-enter-ring"></span>
+    </button>
+  </div>
+  <div id="loader-bar-wrap"><div id="loader-bar"></div></div>
+</div>
+
+<!-- ─── HEADER ─── -->
+<header id="header">
+  <div class="hdr-left" id="hdr-clock">03:47 PM / LOS ANGELES</div>
+
+  <a href="index.html" class="hdr-logo">
+    <span class="logo-line">BRIAN</span>
+    <span class="logo-line large">TYLER<sup>®</sup></span>
+  </a>
+
+  <div class="hdr-right">
+    <nav class="hdr-nav">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#videos">Music</a>
+      <a href="index.html#bio">About</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="hdr-divider"></div>
+    <div class="hdr-controls">
+      <button class="mode-btn active" id="btn-light" title="Light mode">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="mode-btn" id="btn-dark" title="Dark mode">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="btn-fullscreen" id="btn-fullscreen" title="Fullscreen">⊞</button>
+    </div>
+  </div>
+</header>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+
+  <!-- Fan Cards -->
+  <div id="cards-wrap">
+    <div class="h-card" id="hc1">
+      <img id="hc1-img" src="" alt="Film still" style="object-position: 20% center;">
+    </div>
+    <div class="h-card" id="hc2">
+      <img id="hc2-img" src="" alt="Film still" style="object-position: center 25%;">
+      <div class="h-card-video active" id="hc2-video">
+        <iframe src="https://www.youtube-nocookie.com/embed/dogHOIdjefc?autoplay=1&mute=1&loop=1&playlist=dogHOIdjefc&controls=0&showinfo=0&rel=0&modestbranding=1&start=10" allow="autoplay; encrypted-media" frameborder="0"></iframe>
+      </div>
+    </div>
+    <div class="h-card" id="hc3">
+      <img id="hc3-img" src="" alt="Film still" style="object-position: 78% center;">
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="hero-cta" id="hero-cta">
+    <button class="hero-cta-btn cta-discover animating" id="hero-cta-btn">
+      <span class="hero-cta-icon">↓</span>
+      <span class="hero-cta-text">Behind the Man</span>
+    </button>
+  </div>
+
+  <!-- Ticker -->
+  <div class="hero-ticker-section">
+    <div class="ticker-dot-line"></div>
+    <div class="ticker-row">
+      <button class="ticker-prev" id="ticker-prev">&#8592;</button>
+      <div class="ticker-overflow" id="ticker-overflow">
+        <div class="ticker-inner" id="ticker-inner"></div>
+      </div>
+      <button class="ticker-next" id="ticker-next">&#8594;</button>
+    </div>
+    <div class="ticker-dot-line"></div>
+  </div>
+
+</section>
+
+<!-- ─── WORK / FILMS ─── -->
+<section id="work">
+  <div class="container">
+    <span class="section-eyebrow reveal">Selected Scores</span>
+    <h2 class="section-title reveal">THE WORK</h2>
+    <ul class="films-list" id="films-list"></ul>
+  </div>
+</section>
+
+<!-- ─── VIDEOS ─── -->
+<section id="videos">
+  <div class="container">
+    <span class="section-eyebrow reveal">Film Trailers &amp; Studio Sessions</span>
+    <h2 class="section-title reveal">WATCH</h2>
+    <div class="videos-grid" id="videos-grid"></div>
+  </div>
+</section>
+
+<!-- ─── SPOTIFY ─── -->
+<section id="spotify">
+  <div class="container">
+    <div class="spotify-inner">
+      <div class="spotify-text reveal">
+        <span class="section-eyebrow">Stream the Scores</span>
+        <h2 class="section-title">LISTEN</h2>
+        <p class="spotify-desc">From thunderous Marvel battle cues to intimate Yellowstone character themes — Brian Tyler's complete catalogue is available now on Spotify. Over 200 albums spanning three decades of cinematic work.</p>
+      </div>
+      <div class="spotify-embed-wrap reveal">
+        <iframe src="https://open.spotify.com/embed/artist/109FvbnDVNag1UcJDVpFlr?utm_source=generator&theme=0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy" title="Brian Tyler on Spotify"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BIO ─── -->
+<section id="bio">
+  <div class="bio-video-wrap">
+    <iframe src="https://www.youtube-nocookie.com/embed/dogHOIdjefc?autoplay=1&mute=1&loop=1&playlist=dogHOIdjefc&controls=0&showinfo=0&rel=0&modestbranding=1"
+      allow="autoplay; encrypted-media" frameborder="0"></iframe>
+  </div>
+  <div class="bio-overlay"></div>
+  <div class="bio-content">
+    <div class="container">
+      <div class="bio-grid">
+        <div class="bio-left">
+          <span class="bio-label reveal">The Composer</span>
+          <h2 class="bio-heading reveal">BRIAN<br>TYLER</h2>
+          <p class="bio-text reveal">Brian Tyler is one of the world's most prolific and successful composers for film, television, and video games. With a filmography spanning blockbusters, intimate dramas, and landmark television, his music has generated over $14 billion at the global box office.</p>
+          <p class="bio-text reveal" style="margin-top:20px;">His distinctive orchestral voice — combining the power of a 100-piece orchestra with intimate chamber textures — has become synonymous with some of Hollywood's most beloved franchises.</p>
+        </div>
+        <div class="bio-right">
+          <div class="bio-stats">
+            <div class="bio-stat reveal">
+              <span class="stat-num">200+</span>
+              <span class="stat-label">Film &amp; TV Credits</span>
+            </div>
+            <div class="bio-stat reveal">
+              <span class="stat-num">$14B</span>
+              <span class="stat-label">Global Box Office</span>
+            </div>
+            <div class="bio-stat reveal">
+              <span class="stat-num">30+</span>
+              <span class="stat-label">Years of Scores</span>
+            </div>
+            <div class="bio-stat reveal">
+              <span class="stat-num">4</span>
+              <span class="stat-label">Award Nominations</span>
+            </div>
+          </div>
+          <div class="bio-awards reveal">
+            <div class="bio-award-item">
+              <span class="award-bullet">◆</span>
+              <span class="award-text">Emmy Award Winner — Outstanding Main Title Theme Music (Yellowstone)</span>
+            </div>
+            <div class="bio-award-item">
+              <span class="award-bullet">◆</span>
+              <span class="award-text">Golden Globe Nomination — Crazy Rich Asians Original Score</span>
+            </div>
+            <div class="bio-award-item">
+              <span class="award-bullet">◆</span>
+              <span class="award-text">ASCAP Film &amp; TV Award — Multiple years for Top Box Office Film</span>
+            </div>
+            <div class="bio-award-item">
+              <span class="award-bullet">◆</span>
+              <span class="award-text">Recorded at Abbey Road Studios, Capitol Studios &amp; Synchron Stage Vienna</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="container">
+    <span class="contact-heading reveal">GET IN TOUCH</span>
+    <span class="contact-sub reveal">Scoring inquiries, sync licensing &amp; press</span>
+    <a class="contact-email reveal" href="mailto:info@briantyler.com">info@briantyler.com</a>
+  </div>
+</section>
+
+<!-- ─── LIGHTBOX ─── -->
+<div id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">&times;</button>
+  <iframe id="lightbox-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+<!-- ─── MINIDISC ─── -->
+<div id="minidisc">
+  <div class="md-panel" id="md-panel">
+    <button class="md-panel-close" id="md-panel-close" title="Minimise">↓</button>
+    <div id="md-spotify-embed" style="width:100%;height:380px;"></div>
+  </div>
+  <div class="md-player" id="md-player">
+    <div class="md-top-row">
+      <div class="md-disc-area">
+        <div class="md-disc" id="md-disc">
+          <div class="md-disc-inner"></div>
+        </div>
+      </div>
+      <div class="md-right">
+        <div class="md-brand-label">MD &middot; SONIC</div>
+        <div class="md-display-wrap">
+          <div class="md-display">
+            <span class="md-display-text" id="md-display-text">BRIAN TYLER ◆ STREAM THE SCORE ◆&nbsp;&nbsp;</span>
+          </div>
+        </div>
+        <div class="md-controls">
+          <button class="md-btn" id="md-prev-btn" title="Previous">&#9198;</button>
+          <button class="md-btn md-btn-play" id="md-play-btn" title="Open Spotify">&#9654;</button>
+          <button class="md-btn" id="md-next-btn" title="Next">&#9197;</button>
+        </div>
+      </div>
+    </div>
+    <div class="md-bottom-row">
+      <span class="md-artist">BRIAN TYLER</span>
+      <a class="md-spotify-link" href="https://open.spotify.com/artist/109FvbnDVNag1UcJDVpFlr" target="_blank">SPOTIFY &#8599;</a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER BAR ─── -->
+<div id="footer-bar">
+  <span>&copy; 2025 Brian Tyler. All rights reserved.</span>
+  <div class="footer-social">
+    <a href="https://instagram.com/briantylermusic" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://x.com/briantyler" target="_blank" rel="noopener">X</a>
+    <a href="https://www.youtube.com/@BrianTylerOfficial" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://facebook.com/briantylermusic" target="_blank" rel="noopener">Facebook</a>
+  </div>
+  <div class="footer-credit">
+    <a href="https://studionine.agency" target="_blank" rel="noopener">Design by Studio Nine &#8599;</a>
+  </div>
+</div>
+
+<!-- ─── SCRIPTS ─── -->
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/home.js"></script>
+
+</body>
+</html>
