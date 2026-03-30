@@ -1,8 +1,10 @@
 // ─── HOME STATE ───
-let lenisInstance    = null;
-let lenisGeneration  = 0;
-let currentSlideIdx  = 0;
-let tickerGeneration = 0;
+let lenisInstance        = null;
+let lenisGeneration      = 0;
+let currentSlideIdx      = 0;
+let tickerGeneration     = 0;
+let lastManualSelectTime = 0;
+const MANUAL_COOLDOWN_MS = 1500;
 
 // ─── GSAP SETUP ───
 gsap.registerPlugin(ScrollTrigger);
@@ -263,9 +265,6 @@ function buildTicker() {
 }
 
 // ─── CENTER DETECTION — auto-select whichever ticker item is closest to the overflow centre ───
-let lastManualSelectTime = 0;
-const MANUAL_COOLDOWN_MS = 1500; // ignore auto-select for 1.5s after a manual click
-
 function watchTickerCenter() {
   const overflow = document.querySelector('.ticker-overflow');
   // Capture this loop's generation token. If tickerGeneration is bumped
