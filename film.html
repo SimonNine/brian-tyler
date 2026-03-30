@@ -108,7 +108,16 @@
 <!-- ─── LIGHTBOX ─── -->
 <div id="lightbox">
   <button class="lightbox-close" id="lightbox-close">&times;</button>
-  <iframe id="lightbox-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  <div id="lightbox-thumb-wrap">
+    <img id="lightbox-thumb" src="" alt="">
+    <button id="lightbox-play-btn" aria-label="Play video">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="40" cy="40" r="38" fill="rgba(0,0,0,0.55)" stroke="rgba(255,255,255,0.85)" stroke-width="2"/>
+        <polygon points="32,24 60,40 32,56" fill="white"/>
+      </svg>
+    </button>
+  </div>
+  <iframe id="lightbox-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display:none;"></iframe>
 </div>
 
 <!-- ─── LP BROWSER ─── -->
@@ -184,9 +193,9 @@
 <!-- ─── SCRIPTS ─── -->
 <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="js/data.js?v=11"></script>
-<script src="js/shared.js?v=11"></script>
-<script src="js/film.js?v=11"></script>
+<script src="js/data.js?v=12"></script>
+<script src="js/shared.js?v=12"></script>
+<script src="js/film.js?v=12"></script>
 <script>
 // Film page loader — CSS transition, no GSAP dependency
 (function() {

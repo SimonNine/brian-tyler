@@ -17,11 +17,15 @@ window.onSpotifyIframeApiReady = function(IFrameAPI) {
     height: '380',
   }, function(controller) {
     spotifyController = controller;
-    // Restore the last-selected album into the Spotify embed
-    try {
-      const saved = JSON.parse(localStorage.getItem('bt-album') || 'null');
-      if (saved && saved.uri) spotifyController.loadUri('spotify:' + saved.uri);
-    } catch(e) {}
+    // Restore the last-selected album into the Spotify embed.
+    // Small delay lets the controller finish its own init before we call loadUri —
+    // without it the call can silently fail on first page load.
+    setTimeout(function() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('bt-album') || 'null');
+        if (saved && saved.uri) spotifyController.loadUri('spotify:' + saved.uri);
+      } catch(e) {}
+    }, 800);
   });
 };
 
@@ -87,19 +91,49 @@ function initFullscreen() {
 }
 
 // ─── LIGHTBOX ───
+// Thumbnail-first approach: shows YouTube thumbnail immediately, only injects
+// the iframe src when the user explicitly clicks Play. This sidesteps YouTube's
+// bot detection, which triggers when iframes auto-load without direct user input.
+
 function openLightbox(videoId) {
-  document.getElementById('lightbox-iframe').src =
-    `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`;
-  document.getElementById('lightbox').classList.add('open');
-  // Pause Lenis smooth scroll if on the home page
+  const lb        = document.getElementById('lightbox');
+  const thumbWrap = document.getElementById('lightbox-thumb-wrap');
+  const thumb     = document.getElementById('lightbox-thumb');
+  const iframe    = document.getElementById('lightbox-iframe');
+
+  // Reset to thumbnail state (in case previously played)
+  iframe.src = '';
+  iframe.style.display = 'none';
+  if (thumbWrap) thumbWrap.style.display = '';
+
+  // Set high-quality YouTube thumbnail (maxresdefault → fallback hqdefault)
+  if (thumb) {
+    thumb.src = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+    thumb.onerror = function() { this.src = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`; };
+  }
+
+  // Store videoId for the play button handler
+  lb.dataset.videoId = videoId;
+  lb.classList.add('open');
+
   if (typeof lenisInstance !== 'undefined' && lenisInstance) {
     lenisInstance.stop();
     document.body.style.overflow = 'hidden';
   }
 }
 
+function _launchIframe(videoId) {
+  const thumbWrap = document.getElementById('lightbox-thumb-wrap');
+  const iframe    = document.getElementById('lightbox-iframe');
+  if (thumbWrap) thumbWrap.style.display = 'none';
+  iframe.style.display = '';
+  // autoplay=1 is safe here — this is a true user-initiated click
+  iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`;
+}
+
 function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('open');
+  const lb = document.getElementById('lightbox');
+  lb.classList.remove('open');
   document.getElementById('lightbox-iframe').src = '';
   if (typeof lenisInstance !== 'undefined' && lenisInstance) {
     lenisInstance.start();
@@ -108,8 +142,27 @@ function closeLightbox() {
 }
 
 function initLightbox() {
-  const lb = document.getElementById('lightbox');
+  const lb     = document.getElementById('lightbox');
+  const playBtn = document.getElementById('lightbox-play-btn');
   if (!lb) return;
+
+  // Play button — true user gesture → safe to load iframe with autoplay
+  if (playBtn) {
+    playBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      _launchIframe(lb.dataset.videoId);
+    });
+  }
+
+  // Click thumbnail itself also launches iframe
+  const thumb = document.getElementById('lightbox-thumb');
+  if (thumb) {
+    thumb.addEventListener('click', e => {
+      e.stopPropagation();
+      _launchIframe(lb.dataset.videoId);
+    });
+  }
+
   lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
   document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
   document.addEventListener('keydown', e => {

@@ -78,6 +78,7 @@ function initPage() {
   initLightbox();
   initNavLinks();
   initCta();
+  initContactOrb();
 }
 
 // ─── LENIS SMOOTH SCROLL ───
@@ -254,12 +255,18 @@ const MANUAL_COOLDOWN_MS = 1500; // ignore auto-select for 1.5s after a manual c
 
 function watchTickerCenter() {
   const overflow = document.querySelector('.ticker-overflow');
-  // Start at 0 so the initial Brian Tyler state never re-triggers immediately
-  let lastCenteredIdx = 0;
+  // -1 = not yet baselined; we baseline on the first frame AFTER cooldown
+  // instead of hardcoding 0, so we never trigger on whatever happens to be
+  // at center when the cooldown first expires (was causing Mario Bros jump).
+  let lastCenteredIdx = -1;
+  let baselined = false;
 
   function tick() {
-    // Don't override a recent manual click/prev/next selection
-    if (Date.now() - lastManualSelectTime < MANUAL_COOLDOWN_MS) {
+    const inCooldown = Date.now() - lastManualSelectTime < MANUAL_COOLDOWN_MS;
+
+    if (inCooldown) {
+      // While in cooldown, reset baseline flag so we re-measure on exit
+      baselined = false;
       requestAnimationFrame(tick);
       return;
     }
@@ -282,9 +289,13 @@ function watchTickerCenter() {
 
     if (closest) {
       const idx = parseInt(closest.dataset.idx);
-      // Fire whenever a different item becomes the closest — no fixed px tolerance
-      // needed since idx !== lastCenteredIdx already prevents per-frame spam
-      if (idx !== lastCenteredIdx) {
+      if (!baselined) {
+        // First frame after cooldown — silently record what's at center.
+        // Do NOT fire selectSlide; this prevents the Mario Bros jump on load.
+        lastCenteredIdx = idx;
+        baselined = true;
+      } else if (idx !== lastCenteredIdx) {
+        // A genuinely new item arrived at center — auto-advance the slide.
         lastCenteredIdx = idx;
         selectSlide(idx);
       }
@@ -524,6 +535,21 @@ function initPressSection() {
       })
       .catch(() => {}); // curated cards already showing — silent failure is fine
   }, 500);
+}
+
+// ─── CONTACT ORB (cursor follower inside contact section) ───
+function initContactOrb() {
+  const section = document.getElementById('contact');
+  const orb     = document.getElementById('contact-orb');
+  if (!section || !orb) return;
+
+  section.addEventListener('mousemove', e => {
+    const rect = section.getBoundingClientRect();
+    const x    = e.clientX - rect.left;
+    const y    = e.clientY - rect.top;
+    orb.style.left = x + 'px';
+    orb.style.top  = y + 'px';
+  });
 }
 
 // ─── REVEAL ON SCROLL ───
