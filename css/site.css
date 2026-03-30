@@ -338,11 +338,11 @@ body.film-page {
   justify-content: center;
   z-index: 15;
   pointer-events: none;
-  mix-blend-mode: difference;
+  isolation: isolate;
 }
 #hero-title-text {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(5rem, 13vw, 13rem);
+  font-size: clamp(6rem, 16vw, 16rem);
   color: #ffffff;
   letter-spacing: 0.05em;
   line-height: 0.88;
@@ -350,6 +350,7 @@ body.film-page {
   display: block;
   user-select: none;
   will-change: opacity;
+  mix-blend-mode: difference;
 }
 
 /* ─── HERO CTA ─── */
