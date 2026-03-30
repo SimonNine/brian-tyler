@@ -73,7 +73,7 @@ const FILMS = [
       'Final Battle', "Let's Go!", 'Together (End Credits)'
     ],
     description: "98% original orchestral music woven with Koji Kondo's legendary game themes as Easter eggs throughout.",
-    accolades: ['Annie Award Nom. — Music in Animation', '$1.36B Global Box Office']
+    accolades: ['$1.36B Global Box Office']
   },
   {
     id: 'fastx',
@@ -96,8 +96,8 @@ const FILMS = [
       'Streets of Rome', 'The Chase', 'Full Throttle',
       'Into the Night', 'No Way Back', "Dom's Theme", 'Always Remember'
     ],
-    description: "Propulsive score introducing Dante's menacing theme — his fifth Fast & Furious instalment pushing the franchise's sonic identity to new extremes.",
-    accolades: ['5th Fast & Furious Score']
+    description: "Propulsive score introducing Dante's menacing theme — his seventh Fast & Furious instalment pushing the franchise's sonic identity to new extremes.",
+    accolades: ['7th Fast & Furious Score']
   },
   {
     id: 'crazrich',
@@ -121,7 +121,7 @@ const FILMS = [
       'Singapore Rain', 'Love Theme', 'Chess', 'The Wedding', 'Goodbye Singapore'
     ],
     description: "Lush orchestral romance infused with jazz big band — 2019 Oscar shortlisted for Best Original Score.",
-    accolades: ['Golden Globe Nom. — Best Original Score', 'Oscar Shortlisted — Best Original Score']
+    accolades: ['Oscar Shortlisted — Best Original Score']
   },
   {
     id: 'yellowstone',
@@ -145,7 +145,7 @@ const FILMS = [
       'Tate', 'Wild Horses', 'Montana Sky', "Season's End", 'Legacy'
     ],
     description: "Intimate orchestral Americana — cello, fiddle, charango — scored with the sweep of an epic and the intimacy of a character study.",
-    accolades: ['Emmy Winner — Outstanding Main Title Theme', 'Most Watched Cable Series']
+    accolades: ['Emmy Nom. — Outstanding Main Title Theme', 'Most Watched Cable Series']
   },
   {
     id: 'furious7',
@@ -535,7 +535,7 @@ const FILMS = [
     spotifyUri: '',
     tracks: [],
     description: "Tyler's second MCU score — and the film for which he composed the Marvel Studios fanfare used in all MCU films from 2013 to 2016.",
-    accolades: ['BAFTA Award Nom. — Best Original Score 2014', 'Marvel Studios Fanfare Composer']
+    accolades: ['Marvel Studios Fanfare Composer']
   },
   {
     id: 'tmnt2014',
