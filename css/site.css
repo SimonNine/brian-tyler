@@ -952,6 +952,7 @@ body.film-page {
   padding: 2px 7px; border-radius: 2px;
   display: inline-block; vertical-align: middle;
   border: 1px solid currentColor; flex-shrink: 0;
+  align-self: flex-start; /* prevents stretch in flex-column parents */
   /* sub-page margin */
   margin-bottom: 14px;
 }

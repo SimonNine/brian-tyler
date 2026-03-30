@@ -349,7 +349,7 @@ function buildVideosGrid() {
     const tile = document.createElement('div');
     tile.className = 'video-tile';
     tile.innerHTML = `
-      <img src="https://img.youtube.com/vi/${v.id}/maxresdefault.jpg" alt="${v.title}" loading="lazy">
+      <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${v.title}" loading="lazy">
       <div class="video-tile-overlay">
         <div class="play-circle"></div>
         <span class="video-tile-title">${v.title}</span>
