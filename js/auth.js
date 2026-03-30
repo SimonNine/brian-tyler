@@ -1,7 +1,7 @@
 // ─── PASSWORD GATE ───
 // Simple client-side password protection for preview sharing
 (function() {
-  const PASS_HASH = 'c9fa9d06'; // lightweight hash of the password
+  const PASS_HASH = '95fc23fa'; // lightweight hash of the password
   const STORAGE_KEY = 'bt-auth';
 
   function simpleHash(str) {
