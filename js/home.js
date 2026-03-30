@@ -59,9 +59,8 @@ function initPage() {
   initLenis();
   initCards();
   buildTicker();
-  // Always start on slide 0 (Brian Tyler) — suppress auto-center override on load
+  // Always start on slide 0 (Brian Tyler)
   selectSlide(0);
-  lastManualSelectTime = Date.now();
   buildFilmsList();
   buildTvList();
   buildVideosGrid();
@@ -247,10 +246,11 @@ const MANUAL_COOLDOWN_MS = 1500; // ignore auto-select for 1.5s after a manual c
 
 function watchTickerCenter() {
   const overflow = document.querySelector('.ticker-overflow');
-  let lastCenteredIdx = -1;
+  // Start at 0 so the initial Brian Tyler state never re-triggers immediately
+  let lastCenteredIdx = 0;
 
   function tick() {
-    // Don't override a recent manual selection
+    // Don't override a recent manual click/prev/next selection
     if (Date.now() - lastManualSelectTime < MANUAL_COOLDOWN_MS) {
       requestAnimationFrame(tick);
       return;
@@ -274,8 +274,9 @@ function watchTickerCenter() {
 
     if (closest) {
       const idx = parseInt(closest.dataset.idx);
-      // Only trigger if a new item has come to centre (within 80px tolerance)
-      if (idx !== lastCenteredIdx && closestDist < 80) {
+      // Fire whenever a different item becomes the closest — no fixed px tolerance
+      // needed since idx !== lastCenteredIdx already prevents per-frame spam
+      if (idx !== lastCenteredIdx) {
         lastCenteredIdx = idx;
         selectSlide(idx);
       }
