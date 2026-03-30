@@ -86,18 +86,37 @@ function initScrollRouting() {
   const right = document.getElementById('fp-right');
   if (!right) return;
 
+  // Desktop: route all wheel events to the right panel
   window.addEventListener('wheel', function(e) {
-    // Don't intercept when lightbox is open
     const lb = document.getElementById('lightbox');
     if (lb && lb.classList.contains('open')) return;
 
     e.preventDefault();
 
-    // Normalise delta across modes (pixels / lines / pages)
     let delta = e.deltaY;
     if (e.deltaMode === 1) delta *= 32;
     if (e.deltaMode === 2) delta *= right.clientHeight;
 
     right.scrollTop += delta;
   }, { passive: false });
+
+  // Mobile / trackpad touch: route touch on LEFT panel to scroll right panel
+  const left = document.querySelector('.fo-left');
+  if (left) {
+    let touchStartY = 0;
+
+    left.addEventListener('touchstart', function(e) {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    left.addEventListener('touchmove', function(e) {
+      const lb = document.getElementById('lightbox');
+      if (lb && lb.classList.contains('open')) return;
+
+      const delta = touchStartY - e.touches[0].clientY;
+      touchStartY = e.touches[0].clientY;
+      right.scrollTop += delta;
+      e.preventDefault();
+    }, { passive: false });
+  }
 }

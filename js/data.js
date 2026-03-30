@@ -60,7 +60,7 @@ const FILMS = [
     studio: 'Illumination / Nintendo',
     cards: [
       { img: 'https://image.tmdb.org/t/p/w780/9n2tJBplPbgR2ca05hS5CKXwP2c.jpg', pos: '25% center' },
-      { img: 'https://image.tmdb.org/t/p/w780/A3ZbZsmsvNGdprRi2lKgGEeVLEH.jpg', pos: 'center 40%' },
+      { img: 'https://image.tmdb.org/t/p/w780/cFBreBMAuE578QOFwSGHQpnH9En.jpg', pos: 'center 40%' },
       { img: 'https://image.tmdb.org/t/p/w780/dBkvawTlvciUvW7jmNAtuvhdtdr.jpg', pos: '70% center' }
     ],
     overlayImg: 'https://image.tmdb.org/t/p/w1280/9n2tJBplPbgR2ca05hS5CKXwP2c.jpg',
