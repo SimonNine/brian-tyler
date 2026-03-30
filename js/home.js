@@ -60,6 +60,7 @@ function initPage() {
   initCards();
   buildTicker();
   buildFilmsList();
+  buildTvList();
   buildVideosGrid();
   initReveal();
   initClock();
@@ -301,6 +302,32 @@ function buildFilmsList() {
     `;
     li.addEventListener('click', () => {
       window.location.href = `film.html?id=${film.id}`;
+    });
+    list.appendChild(li);
+  });
+}
+
+// ─── TV LIST ───
+function buildTvList() {
+  const list = document.getElementById('tv-list');
+  if (!list) return;
+  TV_SHOWS.forEach((show, i) => {
+    const li = document.createElement('li');
+    li.className = 'film-row reveal';
+    const accoladesHtml = show.accolades && show.accolades.length
+      ? `<span class="film-accolades">${show.accolades.map(a => `<span class="film-accolade">◆ ${a}</span>`).join('')}</span>`
+      : '';
+    li.innerHTML = `
+      <span class="film-num">${String(i + 1).padStart(2, '0')}</span>
+      <div class="film-info">
+        <span class="film-name">${show.title}</span>
+        ${accoladesHtml}
+      </div>
+      <span class="film-year">${show.year}</span>
+      <span class="film-arrow">→</span>
+    `;
+    li.addEventListener('click', () => {
+      window.location.href = `film.html?id=${show.id}`;
     });
     list.appendChild(li);
   });

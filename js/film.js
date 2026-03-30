@@ -5,14 +5,15 @@ function initFilmPage() {
   const params  = new URLSearchParams(window.location.search);
   const filmId  = params.get('id');
   const filmIdx = FILMS.findIndex(f => f.id === filmId);
+  const tvIdx   = typeof TV_SHOWS !== 'undefined' ? TV_SHOWS.findIndex(s => s.id === filmId) : -1;
 
   // Unknown id → home
-  if (filmIdx === -1) {
+  if (filmIdx === -1 && tvIdx === -1) {
     window.location.href = 'index.html';
     return;
   }
 
-  const film = FILMS[filmIdx];
+  const film = filmIdx !== -1 ? FILMS[filmIdx] : TV_SHOWS[tvIdx];
 
   // Page title
   document.title = `${film.title} — Brian Tyler`;
