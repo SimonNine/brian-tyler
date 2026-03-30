@@ -594,38 +594,58 @@ body.film-page {
   display: block;
 }
 .video-tile:hover img { transform: scale(1.04); filter: contrast(1.06) saturate(0.95); }
+/* Subtle dark wash on hover */
 .video-tile-overlay {
   position: absolute; inset: 0;
-  background: rgba(0,0,0,0.35);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  opacity: 0; transition: opacity 0.3s;
+  background: rgba(0,0,0,0.28);
+  opacity: 0; transition: opacity 0.35s;
+  pointer-events: none;
 }
 .video-tile:hover .video-tile-overlay { opacity: 1; }
-.play-circle {
-  width: 48px; height: 48px; border-radius: 50%;
-  background: rgba(255,255,255,0.9);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 10px;
-  transform: scale(0.85);
-  transition: transform 0.25s;
+
+/* Gold circular stamp badge — appears center on hover */
+.video-tile-badge {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0) rotate(-20deg);
+  transition: transform 0.38s cubic-bezier(0.34, 1.5, 0.64, 1);
+  width: 78px; height: 78px; border-radius: 50%;
+  background: #c9a84c;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 2px;
+  pointer-events: none;
+  z-index: 2;
 }
-.video-tile:hover .play-circle { transform: scale(1); }
-.play-circle::after {
-  content: '';
-  border-style: solid;
-  border-width: 7px 0 7px 13px;
-  border-color: transparent transparent transparent #000;
-  margin-left: 3px;
+.video-tile:hover .video-tile-badge {
+  transform: translate(-50%, -50%) scale(1) rotate(0deg);
 }
+.vtb-play {
+  font-size: 1rem; color: #1a1a0e; line-height: 1;
+  margin-left: 3px; /* optical centre for play arrow */
+}
+.vtb-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.42rem; font-weight: 800;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: #1a1a0e;
+}
+
+/* Film title — bottom-left, appears on hover */
 .video-tile-title {
-  font-family: 'Barlow', sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.9);
-  text-align: center;
-  padding: 0 12px;
+  position: absolute;
+  bottom: 10px; left: 12px; right: 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+  transform: translateY(6px);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 2;
+}
+.video-tile:hover .video-tile-title {
+  opacity: 1; transform: translateY(0);
 }
 
 /* ─── SPOTIFY SECTION ─── */
