@@ -158,9 +158,7 @@ function initCards() {
 function updateHeroTitle(idx) {
   const el = document.getElementById('hero-title-text');
   if (!el) return;
-  const newHtml = idx === 0
-    ? 'BRIAN<br>TYLER'
-    : FILMS[idx - 1].displayTitle.replace(/\s+/, '<br>');
+  const newHtml = idx === 0 ? 'BRIAN TYLER' : FILMS[idx - 1].ticker;
   gsap.to(el, {
     opacity: 0, duration: 0.15,
     onComplete: () => {

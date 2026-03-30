@@ -342,12 +342,15 @@ body.film-page {
 }
 #hero-title-text {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(6rem, 16vw, 16rem);
+  font-size: clamp(5rem, 14vw, 14rem);
   color: #ffffff;
   letter-spacing: 0.05em;
-  line-height: 0.88;
+  line-height: 0.9;
   text-align: center;
   display: block;
+  max-width: calc(100vw - 80px);
+  word-break: break-word;
+  overflow-wrap: break-word;
   user-select: none;
   will-change: opacity;
   mix-blend-mode: difference;
