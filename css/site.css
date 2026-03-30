@@ -949,7 +949,34 @@ html.dark  #contact { background: #050505; }
   position: relative;
   overflow: hidden;
   transition: color 0.3s, border-color 0.3s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
-  cursor: none;
+  cursor: none; /* hidden — replaced by #contact-cursor disk below */
+}
+
+/* ─── CONTACT custom cursor (disk style, only on button hover) ─── */
+#contact-cursor {
+  position: fixed;
+  width: 96px; height: 96px;
+  border-radius: 50%;
+  background: rgba(8,8,8,0.88);
+  border: 1.5px solid #c9a84c;
+  display: none;        /* JS shows on btn mouseenter */
+  align-items: center; justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  z-index: 500;
+  transform: translate(-50%, -50%);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+#contact-cursor .cc-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c9a84c;
+  line-height: 1.6;
+  user-select: none;
 }
 .contact-magnetic-btn::before {
   content: '';
@@ -1569,9 +1596,10 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   position: absolute;
   width: 140px; height: 50px;
   left: 50%;
-  /* center fan disc top edge = -56px from disc-area top;
-     label bottom must clear that → label bottom at -100px → top at -155px (55px gap) */
-  top: -155px;
+  /* center fan disc top edge (hover) = -56px from disc-area top;
+     arc endpoints sit at y=45 of the SVG → SVG top = -56 - 5 - 45 = -106px
+     → places the arc text exactly 5px above the center disc */
+  top: -106px;
   transform: translateX(-50%);
   opacity: 0;
   transition: opacity 0.25s 0.18s;

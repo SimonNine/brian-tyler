@@ -573,19 +573,33 @@ function initCardCursor() {
   });
 }
 
-// ─── CONTACT ORB (cursor follower inside contact section) ───
+// ─── CONTACT ORB + CURSOR ───
+// Orb: large ambient glow follows mouse anywhere inside the section.
+// Cursor: small disk-style label replaces the pointer only while hovering
+//         the email button (cursor:none on button, disk shown instead).
 function initContactOrb() {
   const section = document.getElementById('contact');
   const orb     = document.getElementById('contact-orb');
+  const cursor  = document.getElementById('contact-cursor');
+  const btn     = document.getElementById('contact-magnetic-btn');
   if (!section || !orb) return;
 
+  // Ambient glow tracks mouse across the whole section
   section.addEventListener('mousemove', e => {
     const rect = section.getBoundingClientRect();
-    const x    = e.clientX - rect.left;
-    const y    = e.clientY - rect.top;
-    orb.style.left = x + 'px';
-    orb.style.top  = y + 'px';
+    orb.style.left = (e.clientX - rect.left) + 'px';
+    orb.style.top  = (e.clientY - rect.top)  + 'px';
   });
+
+  // Disk cursor: show on button enter, hide on leave, track on move
+  if (cursor && btn) {
+    btn.addEventListener('mouseenter', () => { cursor.style.display = 'flex'; });
+    btn.addEventListener('mouseleave', () => { cursor.style.display = 'none'; });
+    btn.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+  }
 }
 
 // ─── REVEAL ON SCROLL ───
