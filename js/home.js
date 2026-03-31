@@ -371,10 +371,19 @@ function watchTickerCenter() {
 // ─── FILMS LIST ───
 function buildFilmsList() {
   const list = document.getElementById('films-list');
-  list.innerHTML = ''; // clear before populating — prevents doubles on reinit
+  list.innerHTML = '';
+
+  // Remove any existing load-more button from a previous call
+  const existingBtn = list.nextElementSibling;
+  if (existingBtn && existingBtn.classList.contains('load-more-btn')) existingBtn.remove();
+
+  const initialCount = (typeof COMPOSER !== 'undefined' && COMPOSER.listInitialCount)
+    ? COMPOSER.listInitialCount
+    : FILMS.length;
+
   FILMS.forEach((film, i) => {
     const li = document.createElement('li');
-    li.className = 'film-row reveal';
+    li.className = 'film-row reveal' + (i >= initialCount ? ' film-row--hidden' : '');
     const accoladesHtml = film.accolades && film.accolades.length
       ? `<span class="film-accolades">${film.accolades.map(a => `<span class="film-accolade">◆ ${a}</span>`).join('')}</span>`
       : '';
@@ -394,13 +403,37 @@ function buildFilmsList() {
     });
     list.appendChild(li);
   });
+
+  // Load More button — only shown when there are hidden rows
+  if (FILMS.length > initialCount) {
+    const btn = document.createElement('button');
+    btn.className = 'load-more-btn';
+    btn.textContent = `Load More (${FILMS.length - initialCount} more)`;
+    btn.addEventListener('click', () => {
+      list.querySelectorAll('.film-row--hidden').forEach(el => {
+        el.classList.remove('film-row--hidden');
+      });
+      btn.remove();
+      ScrollTrigger.refresh();
+    });
+    list.after(btn);
+  }
 }
 
 // ─── TV LIST ───
 function buildTvList() {
   const list = document.getElementById('tv-list');
   if (!list) return;
-  list.innerHTML = ''; // clear before populating — prevents doubles on reinit
+  list.innerHTML = '';
+
+  // Hide the whole TV section if there are no shows
+  const tvSection = document.getElementById('television');
+  if (!TV_SHOWS || !TV_SHOWS.length) {
+    if (tvSection) tvSection.style.display = 'none';
+    return;
+  }
+  if (tvSection) tvSection.style.display = '';
+
   TV_SHOWS.forEach((show, i) => {
     const li = document.createElement('li');
     li.className = 'film-row reveal';

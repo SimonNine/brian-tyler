@@ -595,6 +595,27 @@ body.film-page {
   text-transform: uppercase;
   color: var(--gold);
 }
+.film-row--hidden { display: none; }
+.load-more-btn {
+  display: block;
+  margin: 28px auto 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.load-more-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(200,169,110,0.06);
+}
 
 /* ─── TELEVISION SECTION ─── */
 #television {
