@@ -1,3 +1,64 @@
+// ─── COMPOSER CONFIG ─────────────────────────────────────────────────────────
+// To build a new composer's site: fork the repo, replace this block and the
+// FILMS / TV_SHOWS / VIDEOS / INTRO_SLIDE arrays below. Nothing else changes.
+// ─────────────────────────────────────────────────────────────────────────────
+const COMPOSER = {
+  nameFirst:    'BRIAN',
+  nameLast:     'TYLER',
+  nameDisplay:  'Brian Tyler',
+  role:         'Film Composer \u00b7 Conductor \u00b7 Producer',
+
+  // Bio section
+  bioVideoId:   'dogHOIdjefc',
+  bioHeading:   ['BRIAN', 'TYLER'],
+  bioParas: [
+    "Brian Tyler is one of the world\u2019s most prolific and successful composers for film, television, and video games. With a filmography spanning blockbusters, intimate dramas, and landmark television, his music has generated over $14 billion at the global box office.",
+    "His distinctive orchestral voice \u2014 combining the power of a 100-piece orchestra with intimate chamber textures \u2014 has become synonymous with some of Hollywood\u2019s most beloved franchises."
+  ],
+
+  // Contact
+  email:          'info@briantyler.com',
+  contactTagline: 'Composing for film, television & the screen since 1997',
+
+  // Spotify / player
+  spotifyArtistUri: 'artist:109FvbnDVNag1UcJDVpFlr',
+  spotifyBlurb: "From thunderous Marvel battle cues to intimate Yellowstone character themes \u2014 Brian Tyler\u2019s complete catalogue is available now on Spotify. Over 200 albums spanning three decades of cinematic work.",
+  miniDiscTicker: 'BRIAN TYLER \u25c6 STREAM THE SCORE \u25c6\u00a0\u00a0',
+
+  // Press
+  pressQuery: '"Brian Tyler" composer',
+  curatedPress: [
+    { source: 'Emmy Awards',         pubDate: 'Jun 2023', link: 'https://www.emmys.com',
+      title: 'Brian Tyler Wins Emmy \u2014 Outstanding Main Title Theme Music',
+      description: "Tyler\u2019s sweeping orchestral theme for Yellowstone claimed television\u2019s highest honour for music composition." },
+    { source: 'Film Music Magazine',  pubDate: 'Mar 2023', link: 'https://www.filmmusicmag.com',
+      title: 'The Score: Brian Tyler on Crafting the Sound of the MCU',
+      description: "From Iron Man 3 to Avengers \u2014 how Tyler\u2019s thematic architecture defined a franchise generation." },
+    { source: 'Billboard',            pubDate: 'Feb 2023', link: 'https://www.billboard.com',
+      title: 'Brian Tyler on Scoring Crazy Rich Asians \u2014 \u201cI Wanted Something Timeless\u201d',
+      description: "The composer on blending Western orchestration with Southeast Asian instrumentation for the global hit." },
+    { source: 'Variety',              pubDate: 'Nov 2022', link: 'https://variety.com',
+      title: "Inside Brian Tyler\u2019s Sessions at Abbey Road and Capitol Studios",
+      description: "A rare look inside the recording process \u2014 over 100 live musicians across two iconic studios." },
+    { source: 'Hollywood Reporter',   pubDate: 'Oct 2022', link: 'https://www.hollywoodreporter.com',
+      title: 'ASCAP Honours Brian Tyler for Top Box Office Film Scores',
+      description: "Tyler received the ASCAP award for top-grossing films for the seventh time in his career." },
+    { source: 'Deadline',             pubDate: 'Sep 2022', link: 'https://deadline.com',
+      title: 'Brian Tyler Extends Yellowstone Universe \u2014 New Series Score Confirmed',
+      description: "The Emmy-winning composer will continue scoring the Yellowstone franchise expansion on Paramount+." }
+  ],
+
+  // Social links
+  social: {
+    instagram: 'https://instagram.com/briantylermusic',
+    twitter:   'https://x.com/briantyler',
+    youtube:   'https://www.youtube.com/channel/UCDYcczgXCL1pdDQAxIofCXA',
+    facebook:  'https://facebook.com/briantylermusic'
+  },
+
+  copyrightYear: '2025'
+};
+
 // ─── FILM DATA ───
 const FILMS = [
   {

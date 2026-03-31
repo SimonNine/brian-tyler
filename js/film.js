@@ -2,6 +2,8 @@
 // Runs after the loader completes (called by the loader in film.html)
 
 function initFilmPage() {
+  initComposer(); // fills logo, mini-disc, footer, socials from COMPOSER config
+
   const params  = new URLSearchParams(window.location.search);
   const filmId  = params.get('id');
   const filmIdx = FILMS.findIndex(f => f.id === filmId);
@@ -16,8 +18,9 @@ function initFilmPage() {
   const film = filmIdx !== -1 ? FILMS[filmIdx] : TV_SHOWS[tvIdx];
   const mediaType = filmIdx !== -1 ? 'film' : 'tv';
 
-  // Page title
-  document.title = `${film.title} — Brian Tyler`;
+  // Page title — uses COMPOSER config so no hardcoded name
+  const composerName = typeof COMPOSER !== 'undefined' ? COMPOSER.nameDisplay : 'Film Composer';
+  document.title = `${film.title} \u2014 ${composerName}`;
 
   // Left image
   const img = document.getElementById('fp-img');

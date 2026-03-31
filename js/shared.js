@@ -1,3 +1,52 @@
+// ─── COMPOSER DOM INJECTION (runs on every page) ───
+// Reads COMPOSER config from data.js and fills in all identity elements so
+// the HTML can stay blank and the same template serves any composer.
+function initComposer() {
+  const c = typeof COMPOSER !== 'undefined' ? COMPOSER : null;
+  if (!c) return;
+
+  const nameUpper = c.nameFirst + ' ' + c.nameLast;
+
+  // Page title
+  document.title = c.nameDisplay + ' \u2014 Film Composer';
+
+  // Logo (both pages share the same .logo-line × 2 structure)
+  const logoLines = document.querySelectorAll('.hdr-logo .logo-line');
+  if (logoLines[0]) logoLines[0].textContent = c.nameFirst;
+  if (logoLines[1]) logoLines[1].innerHTML   = c.nameLast + '<sup>\u00ae</sup>';
+
+  // Mini-disc display ticker + artist label
+  const mdDisplay = document.getElementById('md-display-text');
+  if (mdDisplay) mdDisplay.textContent = c.miniDiscTicker;
+  const mdArtist  = document.getElementById('md-artist');
+  if (mdArtist)  mdArtist.textContent  = nameUpper;
+
+  // Mini-disc Spotify artist link
+  const mdSpotifyLink = document.querySelector('.md-spotify-link');
+  if (mdSpotifyLink && c.spotifyArtistUri) {
+    const artistId = c.spotifyArtistUri.replace('artist:', '');
+    mdSpotifyLink.href = 'https://open.spotify.com/artist/' + artistId;
+  }
+
+  // Footer copyright
+  const footerCopy = document.querySelector('#footer-bar > span');
+  if (footerCopy) footerCopy.textContent = '\u00a9 ' + c.copyrightYear + ' ' + c.nameDisplay + '. All rights reserved.';
+
+  // Footer social links
+  const footerSocial = document.querySelector('.footer-social');
+  if (footerSocial && c.social) {
+    const links = [
+      c.social.instagram && { label: 'Instagram', href: c.social.instagram },
+      c.social.twitter   && { label: 'X',         href: c.social.twitter },
+      c.social.youtube   && { label: 'YouTube',   href: c.social.youtube },
+      c.social.facebook  && { label: 'Facebook',  href: c.social.facebook }
+    ].filter(Boolean);
+    footerSocial.innerHTML = links.map(l =>
+      `<a href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`
+    ).join('');
+  }
+}
+
 // ─── SHARED STATE ───
 let spotifyController = null;
 let openLPBrowser  = () => {};
@@ -12,7 +61,7 @@ window.onSpotifyIframeApiReady = function(IFrameAPI) {
   const el = document.getElementById('md-spotify-embed');
   if (!el) return;
   IFrameAPI.createController(el, {
-    uri: 'spotify:artist:109FvbnDVNag1UcJDVpFlr',
+    uri: 'spotify:' + (typeof COMPOSER !== 'undefined' ? COMPOSER.spotifyArtistUri : 'artist:109FvbnDVNag1UcJDVpFlr'),
     width: '100%',
     height: '380',
   }, function(controller) {
@@ -243,7 +292,7 @@ function initMiniDisc() {
     try { localStorage.setItem('bt-album', JSON.stringify({ uri, title })); } catch(e) {}
     const displayText = document.getElementById('md-display-text');
     if (displayText) {
-      displayText.textContent = title.toUpperCase() + ' \u25c6 BRIAN TYLER \u25c6\u00a0\u00a0';
+      displayText.textContent = title.toUpperCase() + ' \u25c6 ' + (typeof COMPOSER !== 'undefined' ? COMPOSER.nameFirst + ' ' + COMPOSER.nameLast : 'COMPOSER') + ' \u25c6\u00a0\u00a0';
     }
     if (isMinimized) setMinimized(false);
     if (!isOpen) setOpen(true);

@@ -57,8 +57,58 @@ gsap.registerPlugin(ScrollTrigger);
   });
 })();
 
+// ─── COMPOSER HOME INJECTION ───
+// Fills homepage-only identity fields from COMPOSER config.
+// Shared fields (logo, mini-disc, footer) are handled by initComposer() in shared.js.
+function initComposerHome() {
+  const c = typeof COMPOSER !== 'undefined' ? COMPOSER : null;
+  if (!c) return;
+
+  // Splash loader words
+  const ll1 = document.getElementById('ll1');
+  const ll2 = document.getElementById('ll2');
+  if (ll1) ll1.textContent = c.nameFirst;
+  if (ll2) ll2.textContent = c.nameLast;
+
+  // Loader subtitle
+  const role = document.getElementById('loader-role');
+  if (role) role.textContent = c.role;
+
+  // Spotify section blurb
+  const sd = document.querySelector('.spotify-desc');
+  if (sd) sd.textContent = c.spotifyBlurb;
+
+  // Bio section — heading and paragraphs
+  const bioHeading = document.querySelector('.bio-heading');
+  if (bioHeading && c.bioHeading) bioHeading.innerHTML = c.bioHeading[0] + '<br>' + c.bioHeading[1];
+
+  const bioTexts = document.querySelectorAll('.bio-text');
+  c.bioParas.forEach((para, i) => {
+    if (bioTexts[i]) bioTexts[i].textContent = para;
+  });
+
+  // Bio background video
+  const bioIframe = document.querySelector('.bio-video-wrap iframe');
+  if (bioIframe && c.bioVideoId) {
+    bioIframe.src = 'https://www.youtube-nocookie.com/embed/' + c.bioVideoId +
+      '?autoplay=1&mute=1&loop=1&playlist=' + c.bioVideoId + '&controls=0&showinfo=0&rel=0&modestbranding=1';
+  }
+
+  // Contact section
+  const contactBtn = document.getElementById('contact-magnetic-btn');
+  if (contactBtn) {
+    contactBtn.href = 'mailto:' + c.email;
+    const label = contactBtn.querySelector('.cmb-label');
+    if (label) label.textContent = c.email;
+  }
+  const tagline = document.querySelector('.contact-tagline');
+  if (tagline) tagline.textContent = c.contactTagline;
+}
+
 // ─── INIT PAGE ───
 function initPage() {
+  initComposer();
+  initComposerHome();
   initLenis();
   initCards();
   buildTicker();
@@ -177,7 +227,8 @@ function initCards() {
 function updateHeroTitle(idx) {
   const el = document.getElementById('hero-title-text');
   if (!el) return;
-  const newHtml = idx === 0 ? 'BRIAN TYLER' : FILMS[idx - 1].ticker;
+  const composerLabel = typeof COMPOSER !== 'undefined' ? COMPOSER.nameFirst + ' ' + COMPOSER.nameLast : 'COMPOSER';
+  const newHtml = idx === 0 ? composerLabel : FILMS[idx - 1].ticker;
   gsap.to(el, {
     opacity: 0, duration: 0.15,
     onComplete: () => {
@@ -231,8 +282,9 @@ function selectSlide(idx) {
 // ─── TICKER ───
 function buildTicker() {
   const inner    = document.getElementById('ticker-inner');
+  const composerLabel = typeof COMPOSER !== 'undefined' ? COMPOSER.nameFirst + ' ' + COMPOSER.nameLast : 'COMPOSER';
   const allItems = [
-    { label: 'BRIAN TYLER', idx: 0 },
+    { label: composerLabel, idx: 0 },
     ...FILMS.map((f, i) => ({ label: f.ticker, idx: i + 1 }))
   ];
 
@@ -445,33 +497,8 @@ function initPressSection() {
   const loading = document.getElementById('press-loading');
   if (!grid) return;
 
-  // Curated press — real facts, shown immediately and reliably
-  const CURATED = [
-    { source: 'Emmy Awards',        pubDate: 'Jun 2023',
-      link: 'https://www.emmys.com',
-      title: 'Brian Tyler Wins Emmy — Outstanding Main Title Theme Music',
-      description: 'Tyler\'s sweeping orchestral theme for Yellowstone claimed television\'s highest honour for music composition.' },
-    { source: 'Film Music Magazine', pubDate: 'Mar 2023',
-      link: 'https://www.filmmusicmag.com',
-      title: 'The Score: Brian Tyler on Crafting the Sound of the MCU',
-      description: 'From Iron Man 3 to Avengers — how Tyler\'s thematic architecture defined a franchise generation.' },
-    { source: 'Billboard',           pubDate: 'Feb 2023',
-      link: 'https://www.billboard.com',
-      title: 'Brian Tyler on Scoring Crazy Rich Asians — "I Wanted Something Timeless"',
-      description: 'The composer on blending Western orchestration with Southeast Asian instrumentation for the global hit.' },
-    { source: 'Variety',             pubDate: 'Nov 2022',
-      link: 'https://variety.com',
-      title: 'Inside Brian Tyler\'s Sessions at Abbey Road and Capitol Studios',
-      description: 'A rare look inside the recording process — over 100 live musicians across two iconic studios.' },
-    { source: 'Hollywood Reporter',  pubDate: 'Oct 2022',
-      link: 'https://www.hollywoodreporter.com',
-      title: 'ASCAP Honours Brian Tyler for Top Box Office Film Scores',
-      description: 'Tyler received the ASCAP award for top-grossing films for the seventh time in his career.' },
-    { source: 'Deadline',            pubDate: 'Sep 2022',
-      link: 'https://deadline.com',
-      title: 'Brian Tyler Extends Yellowstone Universe — New Series Score Confirmed',
-      description: 'The Emmy-winning composer will continue scoring the Yellowstone franchise expansion on Paramount+.' }
-  ];
+  // Curated press — read from COMPOSER config so swapping composer needs no JS edit
+  const CURATED = (typeof COMPOSER !== 'undefined' && COMPOSER.curatedPress) ? COMPOSER.curatedPress : [];
 
   function renderCards(items) {
     // Clear grid (removes loading spinner if present)
@@ -520,7 +547,7 @@ function initPressSection() {
     try { return new URL(url).hostname.replace(/^www\./,''); } catch(e) { return ''; }
   }
 
-  const query = encodeURIComponent('"Brian Tyler" composer');
+  const query = encodeURIComponent(typeof COMPOSER !== 'undefined' ? COMPOSER.pressQuery : '"composer"');
   const rss   = `https://news.google.com/rss/search?q=${query}&hl=en-US&gl=US&ceid=US:en`;
   const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(rss)}`;
 
