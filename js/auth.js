@@ -22,7 +22,7 @@
   gate.id = 'auth-gate';
   gate.innerHTML = `
     <div class="auth-inner">
-      <div class="auth-brand">BRIAN TYLER</div>
+      <div class="auth-brand">${typeof COMPOSER !== 'undefined' ? COMPOSER.nameFirst + ' ' + COMPOSER.nameLast : 'PRIVATE PREVIEW'}</div>
       <div class="auth-sub">Private Preview</div>
       <form class="auth-form" id="auth-form">
         <input type="password" class="auth-input" id="auth-input" placeholder="Enter password" autocomplete="off" autofocus>
