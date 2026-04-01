@@ -51,13 +51,13 @@ const COMPOSER = {
   // Social links
   social: {
     instagram: 'https://instagram.com/briantylermusic',
-    twitter:   'https://x.com/briantyler',
+    twitter:   'https://x.com/BrianTylerMusic',
     youtube:   'https://www.youtube.com/channel/UCDYcczgXCL1pdDQAxIofCXA',
     facebook:  'https://facebook.com/briantylermusic'
   },
 
   // Birthday easter egg — MM-DD format. Set '' to disable.
-  birthday: '03-31', // 8 May
+  birthday: '05-08', // 8 May
 
   copyrightYear: '2025'
 };
