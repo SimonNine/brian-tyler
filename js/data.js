@@ -56,6 +56,9 @@ const COMPOSER = {
     facebook:  'https://facebook.com/briantylermusic'
   },
 
+  // Birthday easter egg — MM-DD format. Set '' to disable.
+  birthday: '05-08', // 8 May
+
   copyrightYear: '2025'
 };
 
