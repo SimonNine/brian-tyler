@@ -1739,9 +1739,8 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   /* Hero cards — tighter spread */
   #cards-wrap { gap: 0; }
 
-  /* Footer — stack on tablet */
+  /* Footer — tighter on tablet */
   #footer-bar { padding: 0 16px; gap: 8px; }
-  .footer-credit { display: none; }
 
   /* Film page */
   .fo-left { width: 38%; }
@@ -1752,7 +1751,7 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
 /* Mobile: ≤ 768px */
 @media (max-width: 768px) {
 
-  /* ── HEADER — clean mobile layout + bleed cover ── */
+  /* ── HEADER — mobile: fullscreen left, logo centre, mode icons right ── */
   #header {
     padding: 0 12px; z-index: 500;
   }
@@ -1764,7 +1763,10 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   .hdr-right { min-width: 0; }
   .hdr-controls { gap: 8px; }
   .mode-btn { padding: 8px; }
-  .btn-fullscreen { padding: 8px; }
+  .btn-fullscreen {
+    padding: 8px;
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  }
   .logo-line { font-size: 0.55rem; }
   .logo-line.large { font-size: 0.8rem; }
 
@@ -1853,21 +1855,25 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   /* ── LIGHTBOX ── responsive close button ── */
   .lb-close { top: 16px; right: 16px; }
 
-  /* ── FOOTER — mobile: static at bottom of page, not fixed ── */
+  /* ── FOOTER — mobile: static, stacked, everything visible ── */
   #footer-bar {
     position: static;
-    padding: 0 12px;
-    font-size: 0.42rem;
-    letter-spacing: 0.08em;
-    gap: 0;
-    overflow: hidden;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 24px 16px;
+    font-size: 0.45rem;
+    letter-spacing: 0.1em;
+    text-align: center;
     box-shadow: none;
   }
-  #footer-bar > span { flex-shrink: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .footer-credit { display: none; }
-  .footer-social { flex-shrink: 0; gap: 10px; }
-  .footer-social a { white-space: nowrap; font-size: 0.42rem; letter-spacing: 0.08em; }
-  .footer-social a:nth-child(n+3) { display: none; }
+  #footer-bar > span { order: 1; } /* copyright */
+  .footer-social { order: 0; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .footer-social a { font-size: 0.5rem; letter-spacing: 0.1em; }
+  .footer-credit { display: block; order: 2; }
+  .footer-credit a { font-size: 0.45rem; }
 
   /* ── MINIDISC — mobile: full-width, fixed to bottom ── */
   #minidisc {
