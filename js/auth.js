@@ -2,6 +2,7 @@
 // Simple client-side password protection for preview sharing
 (function() {
   const PASS_HASH = '95fc23fa'; // lightweight hash of the password
+  const ALT_HASH  = '31';       // alternative password
   const STORAGE_KEY = 'bt-auth';
 
   function simpleHash(str) {
@@ -111,7 +112,8 @@
   document.getElementById('auth-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const val = document.getElementById('auth-input').value;
-    if (simpleHash(val) === PASS_HASH) {
+    const h = simpleHash(val);
+    if (h === PASS_HASH || h === ALT_HASH) {
       sessionStorage.setItem(STORAGE_KEY, PASS_HASH);
       document.body.style.overflow = '';
       gate.style.opacity = '0';
