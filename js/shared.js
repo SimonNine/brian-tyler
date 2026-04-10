@@ -332,6 +332,40 @@ function initMiniDisc() {
     restoreTab.addEventListener('click', () => setMinimized(false));
   }
 
+  // Swipe up/down on mobile to expand/collapse
+  if (isMobile && minidisc) {
+    let touchStartY = 0;
+    let touchDelta = 0;
+    minidisc.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+      touchDelta = 0;
+      minidisc.style.transition = 'none';
+    }, { passive: true });
+    minidisc.addEventListener('touchmove', e => {
+      touchDelta = e.touches[0].clientY - touchStartY;
+      // Only allow dragging in the relevant direction
+      if (isMinimized && touchDelta < 0) {
+        // Swiping up when minimized — drag up
+        const pct = Math.min(1, Math.abs(touchDelta) / 200);
+        const base = minidisc.offsetHeight - 70; // minimized offset
+        minidisc.style.transform = `translateY(${base * (1 - pct)}px)`;
+      } else if (!isMinimized && touchDelta > 0) {
+        // Swiping down when expanded — drag down
+        const pct = Math.min(1, touchDelta / 200);
+        const base = minidisc.offsetHeight - 70;
+        minidisc.style.transform = `translateY(${base * pct}px)`;
+      }
+    }, { passive: true });
+    minidisc.addEventListener('touchend', () => {
+      minidisc.style.transition = '';
+      minidisc.style.transform = '';
+      if (Math.abs(touchDelta) > 50) {
+        if (touchDelta < -50 && isMinimized) setMinimized(false);
+        else if (touchDelta > 50 && !isMinimized) setMinimized(true);
+      }
+    });
+  }
+
   // Play/pause — opens panel on first play, restores if minimized
   playBtn.addEventListener('click', e => {
     e.stopPropagation();
