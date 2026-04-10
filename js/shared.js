@@ -259,9 +259,11 @@ function initMiniDisc() {
   const restoreTab = document.getElementById('md-restore-tab');
   if (!player) return;
 
+  const isMobile = window.innerWidth <= 768;
   let isOpen      = false;
   let isPlaying   = false;
-  let isMinimized = false;
+  let isMinimized = isMobile; // start minimized on mobile (shows peek tab)
+  if (isMobile) minidisc.classList.add('minimized');
 
   function setOpen(open) {
     isOpen = open;
@@ -313,11 +315,15 @@ function initMiniDisc() {
     });
   });
 
-  // Drag handle — click to minimize
+  // Drag handle — click to toggle minimize (on mobile toggles, on desktop always minimizes)
   if (handle) {
     handle.addEventListener('click', e => {
       e.stopPropagation();
-      setMinimized(true);
+      if (isMobile) {
+        setMinimized(!isMinimized);
+      } else {
+        setMinimized(true);
+      }
     });
   }
 

@@ -1337,6 +1337,7 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   transition: background 0.2s, width 0.2s;
 }
 .md-handle:hover::before { background: rgba(201,168,76,0.5); width: 44px; }
+.md-handle-label { display: none; } /* shown only on mobile */
 
 .md-player {
   background: linear-gradient(160deg, #2e2e2e 0%, #1c1c1c 40%, #242424 100%);
@@ -1751,16 +1752,17 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
 /* Mobile: ≤ 768px */
 @media (max-width: 768px) {
 
-  /* ── HEADER ── */
-  #header { padding: 0 12px; }
+  /* ── HEADER — clean mobile layout ── */
+  #header { padding: 0 12px; z-index: 500; isolation: isolate; }
   .hdr-nav { display: none; }
   .hdr-divider { display: none; }
-  .hdr-controls { gap: 6px; }
-  .hdr-left { font-size: 0.5rem; min-width: 0; }
+  .hdr-left { display: none; } /* hide clock on mobile */
+  .hdr-right { min-width: 0; }
+  .hdr-controls { gap: 8px; }
+  .mode-btn { padding: 8px; }
+  .btn-fullscreen { padding: 8px; }
   .logo-line { font-size: 0.55rem; }
   .logo-line.large { font-size: 0.8rem; }
-  .mode-btn { padding: 8px; } /* larger touch target */
-  .btn-fullscreen { padding: 8px; }
 
   /* ── LOADER — hide YouTube embed on mobile (shows bot warnings) ── */
   .loader-video-bg { display: none; }
@@ -1794,7 +1796,14 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   .contact-orb { display: none; }
   #contact-cursor { display: none !important; }
   #cards-cursor { display: none !important; }
-  .contact-btn { cursor: pointer; } /* restore normal cursor */
+  .contact-btn { cursor: pointer; }
+  .contact-magnetic-btn { cursor: pointer; }
+  .cmb-arrow { display: none; } /* hide arrow emoji on mobile */
+  .contact-eyebrow {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 4px; line-height: 1.6;
+  }
+  .contact-eyebrow-dot { display: none; }
 
   /* ── FILMS LIST ── */
   .film-row { padding: 16px 0; gap: 12px; }
@@ -1839,30 +1848,62 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   /* ── LIGHTBOX ── responsive close button ── */
   .lb-close { top: 16px; right: 16px; }
 
-  /* ── FOOTER ── */
+  /* ── FOOTER — proper mobile clipping ── */
   #footer-bar {
     padding: 0 12px;
     font-size: 0.45rem;
     gap: 4px;
+    z-index: 480;
+    isolation: isolate;
   }
   .footer-credit { display: none; }
   .footer-social { gap: 8px; overflow: hidden; flex-shrink: 1; }
   .footer-social a { white-space: nowrap; font-size: 0.5rem; }
 
-  /* ── MINIDISC — mobile: fixed bottom bar ── */
+  /* ── MINIDISC — mobile: full-width bottom player ── */
   #minidisc {
     position: fixed; bottom: 40px; left: 0; right: 0;
     width: 100%; max-width: 100%;
-    padding: 0 12px;
     z-index: 490;
-    flex-direction: row; align-items: center;
+    flex-direction: column; align-items: stretch;
+    padding: 0;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
   }
-  #minidisc.minimized { transform: translateY(calc(100% + 80px)); }
+  #minidisc.minimized {
+    transform: translateY(calc(100% - 44px)); /* peek 44px tab above footer */
+  }
+  .md-restore-tab { display: none; } /* replaced by the peek tab built into the player */
+  .md-player {
+    width: 100% !important; max-width: 100% !important;
+    border-radius: 12px 12px 0 0;
+    padding: 10px 16px;
+  }
+  .md-player:hover { transform: none; }
   .md-panel {
     width: 100% !important; max-width: 100% !important;
     border-radius: 12px 12px 0 0;
   }
-  .md-restore-tab { right: 16px; }
+  .md-panel.open { height: 340px; }
+  .md-panel iframe { height: 340px; }
+  .md-disc-area { display: none; } /* hide fan discs on mobile to save space */
+  .md-handle {
+    height: 44px; margin-bottom: 0;
+    background: linear-gradient(160deg, #2e2e2e 0%, #1c1c1c 100%);
+    border-radius: 12px 12px 0 0;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-bottom: none;
+    cursor: pointer;
+  }
+  .md-handle::before { width: 40px; margin-bottom: 2px; }
+  .md-handle-label {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.58rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+  #minidisc:not(.minimized) .md-handle-label { display: none; }
+  #minidisc:not(.minimized) .md-handle { height: 12px; background: none; border: none; }
 
   /* ── FILM SUBPAGE ── */
   body.film-page {
@@ -1904,9 +1945,8 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
 
 /* Small mobile: ≤ 480px */
 @media (max-width: 480px) {
-  /* ── HEADER — hide clock, tighter ── */
-  .hdr-left { display: none; }
-  #header { padding: 0 10px; }
+  /* ── HEADER — tighter ── */
+  #header { padding: 0 8px; }
 
   /* ── HERO — stop scaling, let clamp handle it ── */
   #cards-wrap { transform: scale(0.58); }
