@@ -51,7 +51,12 @@ gsap.registerPlugin(ScrollTrigger);
       opacity: 0, duration: 0.55,
       onComplete: () => {
         loader.style.display = 'none';
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
         initPage();
+        if (typeof lenisInstance !== 'undefined' && lenisInstance) lenisInstance.scrollTo(0, { immediate: true });
+        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
       }
     });
   });

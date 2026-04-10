@@ -1763,10 +1763,7 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   .hdr-right { min-width: 0; margin-left: auto; } /* push to right edge */
   .hdr-controls { gap: 8px; }
   .mode-btn { padding: 8px; }
-  .btn-fullscreen {
-    padding: 8px;
-    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-  }
+  .btn-fullscreen { display: none; }
   .logo-line { font-size: 0.55rem; }
   .logo-line.large { font-size: 0.8rem; }
 
@@ -1831,7 +1828,7 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   }
 
   /* ── LP SHELF — responsive, centred below text ── */
-  .lp-shelf-wrap { width: min(220px, 60vw); height: auto; aspect-ratio: 280/200; margin: 10px auto; }
+  .lp-shelf-wrap { width: min(220px, 60vw); height: auto; aspect-ratio: 280/220; margin: 20px auto; }
   .shelf-lp { width: min(110px, 28vw); height: min(110px, 28vw); }
   .shelf-lp:nth-child(1) { left: 5px; }
   .shelf-lp:nth-child(2) { left: 25%; }
@@ -1846,12 +1843,13 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   #bio { padding: 80px 0; }
   .bio-video-wrap iframe { display: none; } /* hide YouTube embed on mobile — shows bot warnings */
 
-  /* ── LP BROWSER — must scroll on mobile ── */
+  /* ── LP BROWSER — must scroll on mobile (absolute + dvh for iOS) ── */
   #lp-browser {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 100vh; height: 100dvh;
     padding: 60px 16px 120px;
-    overflow: auto; -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-    position: fixed; inset: 0;
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
   }
   .lp-browser-title { font-size: clamp(1rem, 4vw, 1.5rem); margin-bottom: 32px; }
   .lp-grid { gap: 20px 28px; }
@@ -1870,7 +1868,7 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
     align-items: center;
     justify-content: center;
     gap: 12px;
-    padding: 36px 20px 90px; /* 90px bottom to clear minimized minidisc */
+    padding: 48px 20px 100px; /* 100px bottom to clear minimized minidisc */
     font-size: 0.48rem;
     letter-spacing: 0.1em;
     text-align: center;
@@ -1888,7 +1886,7 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
     position: fixed; bottom: 0; left: 0; right: 0;
     width: 100%; max-width: 100%;
     z-index: 490;
-    flex-direction: column-reverse; align-items: stretch;
+    flex-direction: column; align-items: stretch;
     padding: 0;
     transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
   }
@@ -1903,11 +1901,13 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
     padding: 10px 16px;
   }
   .md-player:hover { transform: none; }
-  /* Panel sits directly above player — no gap */
+  /* Panel sits directly above player — absolute so player doesn't move */
   .md-panel {
+    position: absolute;
+    bottom: 100%;
+    left: 0; right: 0;
     width: 100% !important; max-width: 100% !important;
     border-radius: 12px 12px 0 0;
-    order: -1; /* above player in visual stack */
   }
   .md-panel.open { height: 340px; }
   .md-panel iframe { height: 340px; }
@@ -1943,6 +1943,7 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   body.film-page {
     overflow: auto;
     height: auto;
+    padding-bottom: 0; /* footer's own padding handles minidisc clearance */
   }
   #film-main {
     position: static;
@@ -1999,7 +2000,7 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   .contact-big-heading { font-size: clamp(3rem, 14vw, 5rem); }
   .contact-btn { padding: 18px 32px; font-size: clamp(0.85rem, 2.5vw, 1.1rem); cursor: pointer; }
 
-  #footer-bar { padding: 0 8px; }
+  #footer-bar { padding: 48px 8px 100px; }
 
   /* ── AUTH ── */
   .auth-form { flex-direction: column; align-items: center; }

@@ -473,12 +473,14 @@ function initLPBrowser() {
   openLPBrowser = function() {
     browser.classList.add('open');
     browser.removeAttribute('aria-hidden');
+    document.body.style.overflow = 'hidden';
     if (typeof lenisInstance !== 'undefined' && lenisInstance) lenisInstance.stop();
   };
 
   closeLPBrowser = function() {
     browser.classList.remove('open');
     browser.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
     if (typeof lenisInstance !== 'undefined' && lenisInstance) lenisInstance.start();
   };
 
