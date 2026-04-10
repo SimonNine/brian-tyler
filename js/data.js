@@ -103,7 +103,7 @@ const FILMS = [
       }
     ],
     tracks: ['Track one', 'track two', 'track three'],
-    status: 'published',
+    status: 'draft',
     id: 'testtitlehere'
   },
   {
