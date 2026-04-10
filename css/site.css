@@ -1820,18 +1820,24 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   /* ── VIDEOS GRID ── */
   .videos-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
 
-  /* ── SPOTIFY ── */
+  /* ── SPOTIFY / LISTEN — single column, image below text ── */
   #spotify { overflow: hidden; }
-  .spotify-inner { flex-direction: column; gap: 32px; }
-  .spotify-embed-wrap { width: 100%; max-width: 100%; overflow: hidden; }
+  .spotify-inner {
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .spotify-embed-wrap {
+    width: 100%; max-width: 100%; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+  }
 
-  /* ── LP SHELF — responsive sizing ── */
-  .lp-shelf-wrap { width: min(240px, 65vw); height: auto; aspect-ratio: 280/200; margin: 0 auto; }
-  .shelf-lp { width: min(120px, 30vw); height: min(120px, 30vw); }
+  /* ── LP SHELF — responsive, centred below text ── */
+  .lp-shelf-wrap { width: min(220px, 60vw); height: auto; aspect-ratio: 280/200; margin: 0 auto; }
+  .shelf-lp { width: min(110px, 28vw); height: min(110px, 28vw); }
   .shelf-lp:nth-child(1) { left: 5px; }
   .shelf-lp:nth-child(2) { left: 25%; }
   .shelf-lp:nth-child(3) { right: 25%; }
   .shelf-lp:nth-child(4) { right: 5px; }
+  .lp-cta-btn { width: 100%; text-align: center; }
 
   /* ── BIO ── */
   .bio-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -1840,11 +1846,12 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   #bio { padding: 80px 0; }
   .bio-video-wrap iframe { display: none; } /* hide YouTube embed on mobile — shows bot warnings */
 
-  /* ── LP BROWSER ── */
+  /* ── LP BROWSER — must scroll on mobile ── */
   #lp-browser {
-    padding: clamp(40px, 10vw, 80px) clamp(16px, 4vw, 40px);
+    padding: clamp(40px, 10vw, 80px) clamp(16px, 4vw, 40px) 100px;
     overflow-y: scroll; -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
+    height: 100%; width: 100%;
   }
   .lp-browser-title { font-size: clamp(1rem, 4vw, 1.5rem); margin-bottom: 32px; }
   .lp-grid { gap: 20px 28px; }
@@ -1862,18 +1869,19 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 24px 16px;
-    font-size: 0.45rem;
+    gap: 12px;
+    padding: 28px 20px 80px; /* 80px bottom to clear minimized minidisc */
+    font-size: 0.48rem;
     letter-spacing: 0.1em;
     text-align: center;
     box-shadow: none;
+    border-top: 1px dotted var(--border);
   }
   #footer-bar > span { order: 1; } /* copyright */
-  .footer-social { order: 0; gap: 14px; flex-wrap: wrap; justify-content: center; }
-  .footer-social a { font-size: 0.5rem; letter-spacing: 0.1em; }
+  .footer-social { order: 0; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .footer-social a { font-size: 0.52rem; letter-spacing: 0.1em; }
   .footer-credit { display: block; order: 2; }
-  .footer-credit a { font-size: 0.45rem; }
+  .footer-credit a { font-size: 0.48rem; letter-spacing: 0.1em; color: var(--fg-faint); }
 
   /* ── MINIDISC — mobile: full-width, fixed to bottom ── */
   #minidisc {
@@ -1953,7 +1961,7 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   .fo-right {
     overflow-y: visible;
     height: auto;
-    padding: 32px 20px 80px;
+    padding: 32px 20px 120px; /* extra bottom for minidisc peek */
   }
   .fo-display-title { font-size: clamp(3rem, 12vw, 5.5rem); }
   .fo-meta-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
