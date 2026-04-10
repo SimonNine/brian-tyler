@@ -3,72 +3,112 @@
 // FILMS / TV_SHOWS / VIDEOS / INTRO_SLIDE arrays below. Nothing else changes.
 // ─────────────────────────────────────────────────────────────────────────────
 const COMPOSER = {
-  nameFirst:    'BRIAN',
-  nameLast:     'TYLER',
-  nameDisplay:  'Brian Tyler',
-  role:         'Film Composer \u00b7 Conductor \u00b7 Producer',
-
-  // Bio section
-  bioVideoId:   'dogHOIdjefc',
-  bioHeading:   ['BRIAN', 'TYLER'],
+  nameFirst: 'BRIAN',
+  nameLast: 'TYLER',
+  nameDisplay: 'Brian Tyler',
+  role: 'Film Composer · Conductor · Producer',
+  bioVideoId: 'dogHOIdjefc',
+  bioHeading: ['BRIAN', 'TYLER'],
   bioParas: [
-    "Brian Tyler is one of the world\u2019s most prolific and successful composers for film, television, and video games. With a filmography spanning blockbusters, intimate dramas, and landmark television, his music has generated over $14 billion at the global box office.",
-    "His distinctive orchestral voice \u2014 combining the power of a 100-piece orchestra with intimate chamber textures \u2014 has become synonymous with some of Hollywood\u2019s most beloved franchises."
+    'Brian Tyler is one of the world’s most prolific and successful composers for film, television, and video games. With a filmography spanning blockbusters, intimate dramas, and landmark television, his music has generated over $14 billion at the global box office.',
+    'His distinctive orchestral voice — combining the power of a 100-piece orchestra with intimate chamber textures — has become synonymous with some of Hollywood’s most beloved franchises.'
   ],
-
-  // Contact
-  email:          'info@briantyler.com',
+  email: 'info@briantyler.com',
   contactTagline: 'Composing for film, television & the screen since 1997',
-
-  // Spotify / player
   spotifyArtistUri: 'artist:109FvbnDVNag1UcJDVpFlr',
-  spotifyBlurb: "From thunderous Marvel battle cues to intimate Yellowstone character themes \u2014 Brian Tyler\u2019s complete catalogue is available now on Spotify. Over 200 albums spanning three decades of cinematic work.",
-  miniDiscTicker: 'BRIAN TYLER \u25c6 STREAM THE SCORE \u25c6\u00a0\u00a0',
-
-  // Press
+  spotifyBlurb: 'From thunderous Marvel battle cues to intimate Yellowstone character themes — Brian Tyler’s complete catalogue is available now on Spotify. Over 200 albums spanning three decades of cinematic work.',
+  miniDiscTicker: 'BRIAN TYLER ◆ STREAM THE SCORE ◆  ',
   pressQuery: '"Brian Tyler" composer',
   curatedPress: [
-    { source: 'Variety',             pubDate: 'May 2022', link: 'https://variety.com/2022/music/news/brian-tyler-bmi-icon-film-tv-awards-1235264814/',
+    {
+      source: 'Variety',
+      pubDate: 'May 2022',
+      link: 'https://variety.com/2022/music/news/brian-tyler-bmi-icon-film-tv-awards-1235264814/',
       title: 'Fast and Furious Composer Brian Tyler Named BMI Icon',
-      description: "Tyler receives BMI\u2019s highest accolade at the 38th annual BMI Film, TV and Visual Media Awards, joining past honorees John Williams and Alan Silvestri." },
-    { source: 'Deadline',            pubDate: 'May 2023', link: 'https://deadline.com/2023/05/yellowstone-1923-composers-brian-tyler-breton-vivian-interview-sound-and-screen-1235363285/',
+      description: 'Tyler receives BMI’s highest accolade at the 38th annual BMI Film, TV and Visual Media Awards, joining past honorees John Williams and Alan Silvestri.'
+    },
+    {
+      source: 'Deadline',
+      pubDate: 'May 2023',
+      link: 'https://deadline.com/2023/05/yellowstone-1923-composers-brian-tyler-breton-vivian-interview-sound-and-screen-1235363285/',
       title: 'Yellowstone and 1923 Composers Brian Tyler and Breton Vivian Interview',
-      description: "Tyler and Breton Vivian discuss their respective scores for Taylor Sheridan\u2019s Yellowstone universe at Deadline\u2019s Sound & Screen event." },
-    { source: 'Deadline',            pubDate: 'Nov 2023', link: 'https://deadline.com/2023/11/brian-tyler-the-super-mario-bros-movie-composer-animation-magazine-1235640169/',
+      description: 'Tyler and Breton Vivian discuss their respective scores for Taylor Sheridan’s Yellowstone universe at Deadline’s Sound & Screen event.'
+    },
+    {
+      source: 'Deadline',
+      pubDate: 'Nov 2023',
+      link: 'https://deadline.com/2023/11/brian-tyler-the-super-mario-bros-movie-composer-animation-magazine-1235640169/',
       title: 'The Super Mario Bros. Movie Composer Brian Tyler',
-      description: "Tyler talks about scoring the blockbuster as a lifelong Mario fan, detailing how he wove iconic game music into a cinematic orchestral framework." },
-    { source: 'Variety',             pubDate: 'Jun 2021', link: 'https://variety.com/2021/artisans/production/f9-composer-music-fast-franchise-1235003950/',
+      description: 'Tyler talks about scoring the blockbuster as a lifelong Mario fan, detailing how he wove iconic game music into a cinematic orchestral framework.'
+    },
+    {
+      source: 'Variety',
+      pubDate: 'Jun 2021',
+      link: 'https://variety.com/2021/artisans/production/f9-composer-music-fast-franchise-1235003950/',
       title: 'F9 Composer Brian Tyler Says Character, Not Action, Drives the Music',
-      description: "Tyler explains his philosophy on scoring the Fast & Furious franchise \u2014 that despite the explosive action, emotional character journeys guide his musical choices." },
-    { source: 'Hollywood Reporter',  pubDate: '2015', link: 'https://www.hollywoodreporter.com/news/general-news/brian-tyler-7bn-composer-furious-787636/',
-      title: "Brian Tyler, the $7BN Composer, on Furious 7 and Paul Walker",
-      description: "Tyler discusses scoring the emotionally charged Furious 7, including the tribute to Paul Walker who died during production, and the moment real life and film grief converged." },
-    { source: 'Pop Disciple',        pubDate: 'Interview', link: 'https://www.popdisciple.com/interviews/brian-tyler',
-      title: 'Brian Tyler \u2014 Composer of Crazy Rich Asians, Yellowstone, and the Formula One Theme',
-      description: "A career-spanning interview covering Crazy Rich Asians (Oscar shortlisted), the Yellowstone theme, and his approach to building music as standalone concert works." }
+      description: 'Tyler explains his philosophy on scoring the Fast & Furious franchise — that despite the explosive action, emotional character journeys guide his musical choices.'
+    },
+    {
+      source: 'Hollywood Reporter',
+      pubDate: '2015',
+      link: 'https://www.hollywoodreporter.com/news/general-news/brian-tyler-7bn-composer-furious-787636/',
+      title: 'Brian Tyler, the $7BN Composer, on Furious 7 and Paul Walker',
+      description: 'Tyler discusses scoring the emotionally charged Furious 7, including the tribute to Paul Walker who died during production, and the moment real life and film grief converged.'
+    },
+    {
+      source: 'Pop Disciple',
+      pubDate: 'Interview',
+      link: 'https://www.popdisciple.com/interviews/brian-tyler',
+      title: 'Brian Tyler — Composer of Crazy Rich Asians, Yellowstone, and the Formula One Theme',
+      description: 'A career-spanning interview covering Crazy Rich Asians (Oscar shortlisted), the Yellowstone theme, and his approach to building music as standalone concert works.'
+    }
   ],
-
-  // Social links
   social: {
     instagram: 'https://instagram.com/briantylermusic',
-    twitter:   'https://x.com/BrianTylerMusic',
-    youtube:   'https://www.youtube.com/channel/UCDYcczgXCL1pdDQAxIofCXA',
-    facebook:  'https://facebook.com/briantylermusic'
+    twitter: 'https://x.com/BrianTylerMusic',
+    youtube: 'https://www.youtube.com/channel/UCDYcczgXCL1pdDQAxIofCXA',
+    facebook: 'https://facebook.com/briantylermusic'
   },
-
-  // How many films/TV shows to show before "Load More"
   listInitialCount: 12,
-
-  // Birthday easter egg — MM-DD format. Set '' to disable.
-  birthday: '05-08', // 8 May
-
+  birthday: '05-08',
   copyrightYear: '2025'
 };
 
 // ─── FILM DATA ───
 const FILMS = [
   {
-    status: 'published', id: 'avengers',
+    title: 'Test title here',
+    ticker: 'ticker not all caps',
+    displayTitle: 'Diaply title here',
+    year: '2027',
+    director: 'Simon Director',
+    studio: 'Studio Name',
+    description: 'description here',
+    accolades: ['Amazing watch accolade #1'],
+    trailerVideoId: 'https://www.youtube.com/watch?v=pAIQC08lq_w',
+    spotifyUri: 'https://open.spotify.com/artist/6CawZD7kx0OVTvLzHntE4J?si=9J604MR8Qx6xnpdTpo0pLQ',
+    overlayImg: 'https://media-cldnry.s-nbcnews.com/image/upload/t_social_share_1200x630_center,f_auto,q_auto:best/rockcms/2024-08/chappell-roan-pink-pony-club-today-sk-240814-271ec6.jpg',
+    cards: [
+      {
+        img: 'https://static.wikia.nocookie.net/sanrio/images/9/9f/Hello_Kitty.jpg/revision/latest?cb=20191128154539',
+        pos: 'center'
+      },
+      {
+        img: 'https://static.wikia.nocookie.net/hellokitty/images/5/52/Sanrio_Characters_Hello_Kitty_Image026.png/revision/latest?cb=20250110105831',
+        pos: 'center'
+      },
+      {
+        img: 'https://upload.wikimedia.org/wikipedia/en/0/05/Hello_kitty_character_portrait.png',
+        pos: 'center'
+      }
+    ],
+    tracks: ['Track one', 'track two', 'track three'],
+    status: 'published',
+    id: 'testtitlehere'
+  },
+  {
+    status: 'published',
+    id: 'avengers',
     ticker: 'AVENGERS: AGE OF ULTRON',
     displayTitle: 'AVENGERS',
     title: 'Avengers: Age of Ultron',
@@ -84,16 +124,27 @@ const FILMS = [
     trailerVideoId: 'tmeOjFno6Do',
     spotifyUri: 'artist:109FvbnDVNag1UcJDVpFlr',
     tracks: [
-      'Avengers: Age of Ultron (Main Theme)', 'Heroes Assemble', 'New Avengers',
-      'Ultron Wakes', 'The Iron Legion', 'Hulk Smash', 'The Enemy Among Us',
-      'Seoul', 'Capture and Escape', 'No Strings on Me', 'Lifting Mjolnir',
-      'Sokovia', 'Vision', 'Age of Ultron (End Credits)'
+      'Avengers: Age of Ultron (Main Theme)',
+      'Heroes Assemble',
+      'New Avengers',
+      'Ultron Wakes',
+      'The Iron Legion',
+      'Hulk Smash',
+      'The Enemy Among Us',
+      'Seoul',
+      'Capture and Escape',
+      'No Strings on Me',
+      'Lifting Mjolnir',
+      'Sokovia',
+      'Vision',
+      'Age of Ultron (End Credits)'
     ],
-    description: "Tyler's thunderous brass and choir drove every battle cue with a soaring new Avengers theme — recorded at Capitol Studios and Abbey Road.",
+    description: 'Tyler\'s thunderous brass and choir drove every battle cue with a soaring new Avengers theme — recorded at Capitol Studios and Abbey Road.',
     accolades: ['ASCAP Top Box Office Film']
   },
   {
-    status: 'published', id: 'ironman3',
+    status: 'published',
+    id: 'ironman3',
     ticker: 'IRON MAN 3',
     displayTitle: 'IRON MAN 3',
     title: 'Iron Man 3',
@@ -109,16 +160,27 @@ const FILMS = [
     trailerVideoId: '2CzoSeClcw0',
     spotifyUri: 'album:7x6etI9jQ2ePxZUOQaPrbi',
     tracks: [
-      'Can You Dig It (Main Titles)', 'Iron Man 3 (Main Theme)', 'The Mechanic',
-      'Heroes Fall', 'Dis-Assembly', 'Extremis', 'Barrel of Monkeys',
-      'The Vault', 'House Party', 'Back in Business', 'Battle at the Mansion',
-      'Fail-Safe', 'Tony Stark Revealed', 'Iron Man Returns'
+      'Can You Dig It (Main Titles)',
+      'Iron Man 3 (Main Theme)',
+      'The Mechanic',
+      'Heroes Fall',
+      'Dis-Assembly',
+      'Extremis',
+      'Barrel of Monkeys',
+      'The Vault',
+      'House Party',
+      'Back in Business',
+      'Battle at the Mansion',
+      'Fail-Safe',
+      'Tony Stark Revealed',
+      'Iron Man Returns'
     ],
-    description: "A bold 9-note horn motif recorded at Abbey Road Studios — blockbuster power meeting intimate character texture.",
+    description: 'A bold 9-note horn motif recorded at Abbey Road Studios — blockbuster power meeting intimate character texture.',
     accolades: ['ASCAP Top Box Office Film']
   },
   {
-    status: 'published', id: 'mario',
+    status: 'published',
+    id: 'mario',
     ticker: 'THE SUPER MARIO BROS. MOVIE',
     displayTitle: 'MARIO',
     title: 'The Super Mario Bros. Movie',
@@ -134,16 +196,26 @@ const FILMS = [
     trailerVideoId: 'TnGl01FkMMo',
     spotifyUri: 'album:3QITNyRzvTqn0t9tLmS1Vd',
     tracks: [
-      'Super Mario Bros. Opus', 'Welcome to the Mushroom Kingdom', 'King of the Koopas',
-      "It's-a Mario", "Bowser's Castle", 'Rainbow Road', "Peach's Theme",
-      'Into the Pipes', 'Donkey Kong Battle', 'Rainbow Road Race',
-      'Final Battle', "Let's Go!", 'Together (End Credits)'
+      'Super Mario Bros. Opus',
+      'Welcome to the Mushroom Kingdom',
+      'King of the Koopas',
+      'It\'s-a Mario',
+      'Bowser\'s Castle',
+      'Rainbow Road',
+      'Peach\'s Theme',
+      'Into the Pipes',
+      'Donkey Kong Battle',
+      'Rainbow Road Race',
+      'Final Battle',
+      'Let\'s Go!',
+      'Together (End Credits)'
     ],
-    description: "98% original orchestral music woven with Koji Kondo's legendary game themes as Easter eggs throughout.",
+    description: '98% original orchestral music woven with Koji Kondo\'s legendary game themes as Easter eggs throughout.',
     accolades: ['$1.36B Global Box Office']
   },
   {
-    status: 'published', id: 'fastx',
+    status: 'published',
+    id: 'fastx',
     ticker: 'FAST X',
     displayTitle: 'FAST X',
     title: 'Fast X',
@@ -159,15 +231,23 @@ const FILMS = [
     trailerVideoId: 'VVbIrBSlBvo',
     spotifyUri: 'album:7B5OEAhzMzCzNXjMWhH40R',
     tracks: [
-      'Fast X Main Title', "Dante's Theme", 'Family Forever',
-      'Streets of Rome', 'The Chase', 'Full Throttle',
-      'Into the Night', 'No Way Back', "Dom's Theme", 'Always Remember'
+      'Fast X Main Title',
+      'Dante\'s Theme',
+      'Family Forever',
+      'Streets of Rome',
+      'The Chase',
+      'Full Throttle',
+      'Into the Night',
+      'No Way Back',
+      'Dom\'s Theme',
+      'Always Remember'
     ],
-    description: "Propulsive score introducing Dante's menacing theme — his seventh Fast & Furious instalment pushing the franchise's sonic identity to new extremes.",
+    description: 'Propulsive score introducing Dante\'s menacing theme — his seventh Fast & Furious instalment pushing the franchise\'s sonic identity to new extremes.',
     accolades: ['7th Fast & Furious Score']
   },
   {
-    status: 'published', id: 'crazrich',
+    status: 'published',
+    id: 'crazrich',
     ticker: 'CRAZY RICH ASIANS',
     displayTitle: 'CRAZY RICH',
     title: 'Crazy Rich Asians',
@@ -183,15 +263,24 @@ const FILMS = [
     trailerVideoId: 'ZQ-YX-5bAs0',
     spotifyUri: 'album:1jPitmIR2bDO8mV1qnHJhS',
     tracks: [
-      'Crazy Rich Asians (Main Theme)', 'Nick and Rachel', 'Text Ting Swing',
-      'Approaching the Palace', 'The Gossip Circuit', 'An Awkward Dinner',
-      'Singapore Rain', 'Love Theme', 'Chess', 'The Wedding', 'Goodbye Singapore'
+      'Crazy Rich Asians (Main Theme)',
+      'Nick and Rachel',
+      'Text Ting Swing',
+      'Approaching the Palace',
+      'The Gossip Circuit',
+      'An Awkward Dinner',
+      'Singapore Rain',
+      'Love Theme',
+      'Chess',
+      'The Wedding',
+      'Goodbye Singapore'
     ],
-    description: "Lush orchestral romance infused with jazz big band — 2019 Oscar shortlisted for Best Original Score.",
+    description: 'Lush orchestral romance infused with jazz big band — 2019 Oscar shortlisted for Best Original Score.',
     accolades: ['Oscar Shortlisted — Best Original Score']
   },
   {
-    status: 'published', id: 'yellowstone',
+    status: 'published',
+    id: 'yellowstone',
     ticker: 'YELLOWSTONE',
     displayTitle: 'YELLOWSTONE',
     title: 'Yellowstone',
@@ -207,15 +296,25 @@ const FILMS = [
     trailerVideoId: 'suobrMPBLlo',
     spotifyUri: 'album:3B3SP3uBMl7n2UsJb5ZH7L',
     tracks: [
-      'Yellowstone (Main Title)', 'Vision Quest', "Cowboys Don't Say Goodbye",
-      'The Dutton Ranch', 'Open Range', "Rip's Code", 'Beth',
-      'Tate', 'Wild Horses', 'Montana Sky', "Season's End", 'Legacy'
+      'Yellowstone (Main Title)',
+      'Vision Quest',
+      'Cowboys Don\'t Say Goodbye',
+      'The Dutton Ranch',
+      'Open Range',
+      'Rip\'s Code',
+      'Beth',
+      'Tate',
+      'Wild Horses',
+      'Montana Sky',
+      'Season\'s End',
+      'Legacy'
     ],
-    description: "Intimate orchestral Americana — cello, fiddle, charango — scored with the sweep of an epic and the intimacy of a character study.",
+    description: 'Intimate orchestral Americana — cello, fiddle, charango — scored with the sweep of an epic and the intimacy of a character study.',
     accolades: ['Emmy Nom. — Outstanding Main Title Theme', 'Most Watched Cable Series']
   },
   {
-    status: 'published', id: 'furious7',
+    status: 'published',
+    id: 'furious7',
     ticker: 'FURIOUS 7',
     displayTitle: 'FURIOUS 7',
     title: 'Furious 7',
@@ -231,15 +330,23 @@ const FILMS = [
     trailerVideoId: 'yISKeT6sDOg',
     spotifyUri: 'album:61ZqPb9ZP5c72WgME7GvXJ',
     tracks: [
-      'Furious 7 (Main Title)', 'The Race is On', "God's Eye",
-      "Brian's Theme", 'Dubai Heist', 'Ramsey',
-      'Going Underground', 'Deckard Shaw', 'For Dom', 'You Will Be Missed'
+      'Furious 7 (Main Title)',
+      'The Race is On',
+      'God\'s Eye',
+      'Brian\'s Theme',
+      'Dubai Heist',
+      'Ramsey',
+      'Going Underground',
+      'Deckard Shaw',
+      'For Dom',
+      'You Will Be Missed'
     ],
-    description: "Kinetic action cues and a deeply emotional farewell to Paul Walker — a score that captured a global audience's grief.",
+    description: 'Kinetic action cues and a deeply emotional farewell to Paul Walker — a score that captured a global audience\'s grief.',
     accolades: ['$1.52B Global Box Office', 'ASCAP Top Box Office Film']
   },
   {
-    status: 'published', id: 'nuremberg',
+    status: 'published',
+    id: 'nuremberg',
     ticker: 'NUREMBERG',
     displayTitle: 'NUREMBERG',
     title: 'Nuremberg',
@@ -255,17 +362,25 @@ const FILMS = [
     trailerVideoId: 'SW7FsQqsB2I',
     spotifyUri: 'album:21gTaB4VLkPHPk9dBPQb3Y',
     tracks: [
-      'Nuremberg (Main Theme)', 'The Tribunal Convenes', 'Opening Arguments',
-      'The Accused', 'Witness to History', 'Justice Rising',
-      'The Prosecution', 'Dark Testimony', 'Confronting Evil',
-      'Verdict', 'The Weight of History', 'Closing Theme'
+      'Nuremberg (Main Theme)',
+      'The Tribunal Convenes',
+      'Opening Arguments',
+      'The Accused',
+      'Witness to History',
+      'Justice Rising',
+      'The Prosecution',
+      'Dark Testimony',
+      'Confronting Evil',
+      'Verdict',
+      'The Weight of History',
+      'Closing Theme'
     ],
-    description: "A 25-minute orchestral concerto incorporating actual Dachau alarm bell recordings — Tyler's most historically significant work.",
+    description: 'A 25-minute orchestral concerto incorporating actual Dachau alarm bell recordings — Tyler\'s most historically significant work.',
     accolades: ['Sony Classical Release']
   },
-  // ─── ADDITIONAL FILMS ─────────────────────────────────────────────────────
   {
-    status: 'published', id: 'frailty',
+    status: 'published',
+    id: 'frailty',
     ticker: 'FRAILTY',
     displayTitle: 'FRAILTY',
     title: 'Frailty',
@@ -281,11 +396,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler's breakthrough score. Dark psychological thriller — tense, intimate orchestral writing that brought him to Hollywood's attention.",
+    description: 'Tyler\'s breakthrough score. Dark psychological thriller — tense, intimate orchestral writing that brought him to Hollywood\'s attention.',
     accolades: ['World Soundtrack Award Nom. 2002']
   },
   {
-    status: 'published', id: 'thehunted',
+    status: 'published',
+    id: 'thehunted',
     ticker: 'THE HUNTED',
     displayTitle: 'THE HUNTED',
     title: 'The Hunted',
@@ -301,11 +417,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Friedkin approached Tyler directly after hearing Frailty. Intense orchestral and ambient sound design underlining psychological tension between hunter and hunted.",
+    description: 'Friedkin approached Tyler directly after hearing Frailty. Intense orchestral and ambient sound design underlining psychological tension between hunter and hunted.',
     accolades: ['World Soundtrack Award — Best New Film Composer 2003']
   },
   {
-    status: 'published', id: 'constantine',
+    status: 'published',
+    id: 'constantine',
     ticker: 'CONSTANTINE',
     displayTitle: 'CONSTANTINE',
     title: 'Constantine',
@@ -321,11 +438,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Co-composed with Klaus Badelt — Tyler wrote the fully orchestral dark score and conducted the final combined score at Abbey Road.",
+    description: 'Co-composed with Klaus Badelt — Tyler wrote the fully orchestral dark score and conducted the final combined score at Abbey Road.',
     accolades: ['ASCAP Film Award']
   },
   {
-    status: 'published', id: 'tokyodrift',
+    status: 'published',
+    id: 'tokyodrift',
     ticker: 'THE FAST AND THE FURIOUS: TOKYO DRIFT',
     displayTitle: 'TOKYO DRIFT',
     title: 'The Fast and the Furious: Tokyo Drift',
@@ -341,11 +459,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler's franchise entry point — established the orchestral foundation and driving thematic motifs the series would build on for nearly 20 years.",
+    description: 'Tyler\'s franchise entry point — established the orchestral foundation and driving thematic motifs the series would build on for nearly 20 years.',
     accolades: ['BMI Film & TV Award']
   },
   {
-    status: 'published', id: 'war',
+    status: 'published',
+    id: 'war',
     ticker: 'WAR',
     displayTitle: 'WAR',
     title: 'War',
@@ -361,11 +480,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler conducted the London Symphony Orchestra at Lyndhurst Studios for this Jet Li / Jason Statham action thriller.",
+    description: 'Tyler conducted the London Symphony Orchestra at Lyndhurst Studios for this Jet Li / Jason Statham action thriller.',
     accolades: []
   },
   {
-    status: 'published', id: 'avprequiem',
+    status: 'published',
+    id: 'avprequiem',
     ticker: 'ALIENS VS. PREDATOR: REQUIEM',
     displayTitle: 'AVP: REQUIEM',
     title: 'Aliens vs. Predator: Requiem',
@@ -381,11 +501,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Fully orchestral score referencing classic themes from the Alien and Predator franchises — performed by the Hollywood Studio Symphony.",
+    description: 'Fully orchestral score referencing classic themes from the Alien and Predator franchises — performed by the Hollywood Studio Symphony.',
     accolades: []
   },
   {
-    status: 'published', id: 'eagleeye',
+    status: 'published',
+    id: 'eagleeye',
     ticker: 'EAGLE EYE',
     displayTitle: 'EAGLE EYE',
     title: 'Eagle Eye',
@@ -401,11 +522,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "88-piece orchestra at Sony Scoring Stage plus 140 pre-recorded elements including Moroccan percussion and taiko drums — propulsive kinetic thriller score.",
+    description: '88-piece orchestra at Sony Scoring Stage plus 140 pre-recorded elements including Moroccan percussion and taiko drums — propulsive kinetic thriller score.',
     accolades: []
   },
   {
-    status: 'published', id: 'rambo',
+    status: 'published',
+    id: 'rambo',
     ticker: 'RAMBO',
     displayTitle: 'RAMBO',
     title: 'Rambo',
@@ -421,11 +543,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler incorporated Jerry Goldsmith's original Rambo themes as homage — continuing Goldsmith's established vocabulary while adding his own new material.",
+    description: 'Tyler incorporated Jerry Goldsmith\'s original Rambo themes as homage — continuing Goldsmith\'s established vocabulary while adding his own new material.',
     accolades: []
   },
   {
-    status: 'published', id: 'fastfurious4',
+    status: 'published',
+    id: 'fastfurious4',
     ticker: 'FAST & FURIOUS',
     displayTitle: 'FAST & FURIOUS',
     title: 'Fast & Furious',
@@ -441,11 +564,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "First full franchise entry where Tyler introduced core character themes — Letty's theme and Dom's theme — laying the emotional foundation for the entire saga.",
+    description: 'First full franchise entry where Tyler introduced core character themes — Letty\'s theme and Dom\'s theme — laying the emotional foundation for the entire saga.',
     accolades: []
   },
   {
-    status: 'published', id: 'lawabidingcitizen',
+    status: 'published',
+    id: 'lawabidingcitizen',
     ticker: 'LAW ABIDING CITIZEN',
     displayTitle: 'LAW ABIDING CITIZEN',
     title: 'Law Abiding Citizen',
@@ -461,11 +585,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tense noir score — Tyler performed electric cello and piano himself; recorded with 52-piece ensemble. Director Gray called it \"a CLASSIC score.\"",
+    description: 'Tense noir score — Tyler performed electric cello and piano himself; recorded with 52-piece ensemble. Director Gray called it "a CLASSIC score."',
     accolades: ['ASCAP Film & TV Music Award 2010']
   },
   {
-    status: 'published', id: 'expendables',
+    status: 'published',
+    id: 'expendables',
     ticker: 'THE EXPENDABLES',
     displayTitle: 'THE EXPENDABLES',
     title: 'The Expendables',
@@ -481,11 +606,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "80-piece Czech Philharmonic orchestra over three months — prioritised redemption and emotion over pure action; melancholy undercurrent beneath the martial rhythms.",
+    description: '80-piece Czech Philharmonic orchestra over three months — prioritised redemption and emotion over pure action; melancholy undercurrent beneath the martial rhythms.',
     accolades: []
   },
   {
-    status: 'published', id: 'battlela',
+    status: 'published',
+    id: 'battlela',
     ticker: 'BATTLE: LOS ANGELES',
     displayTitle: 'BATTLE: LA',
     title: 'Battle: Los Angeles',
@@ -501,11 +627,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Large choir and Hollywood Studio Symphony at Streisand Scoring Stage — Tyler also layered pre-recorded material from his home studio.",
+    description: 'Large choir and Hollywood Studio Symphony at Streisand Scoring Stage — Tyler also layered pre-recorded material from his home studio.',
     accolades: ['BMI Film & TV Award']
   },
   {
-    status: 'published', id: 'fast5',
+    status: 'published',
+    id: 'fast5',
     ticker: 'FAST FIVE',
     displayTitle: 'FAST FIVE',
     title: 'Fast Five',
@@ -521,11 +648,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "The instalment where the team dynamic became the franchise's identity — Tyler described it as the film that proved the series had elevated to a new level.",
+    description: 'The instalment where the team dynamic became the franchise\'s identity — Tyler described it as the film that proved the series had elevated to a new level.',
     accolades: []
   },
   {
-    status: 'published', id: 'finaldestination5',
+    status: 'published',
+    id: 'finaldestination5',
     ticker: 'FINAL DESTINATION 5',
     displayTitle: 'FINAL DESTINATION 5',
     title: 'Final Destination 5',
@@ -541,11 +669,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler's second Final Destination score — continued the franchise tone after taking over from Shirley Walker.",
+    description: 'Tyler\'s second Final Destination score — continued the franchise tone after taking over from Shirley Walker.',
     accolades: ['ASCAP Film Award']
   },
   {
-    status: 'published', id: 'expendables2',
+    status: 'published',
+    id: 'expendables2',
     ticker: 'THE EXPENDABLES 2',
     displayTitle: 'EXPENDABLES 2',
     title: 'The Expendables 2',
@@ -561,11 +690,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Second entry in the action-ensemble franchise — expanded orchestral scoring continuing Tyler's established thematic work.",
+    description: 'Second entry in the action-ensemble franchise — expanded orchestral scoring continuing Tyler\'s established thematic work.',
     accolades: []
   },
   {
-    status: 'published', id: 'nowyouseeme',
+    status: 'published',
+    id: 'nowyouseeme',
     ticker: 'NOW YOU SEE ME',
     displayTitle: 'NOW YOU SEE ME',
     title: 'Now You See Me',
@@ -581,11 +711,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Kinetic orchestral score matching the film's illusionist energy — propulsive writing capturing the sleight-of-hand heist thriller tone.",
+    description: 'Kinetic orchestral score matching the film\'s illusionist energy — propulsive writing capturing the sleight-of-hand heist thriller tone.',
     accolades: []
   },
   {
-    status: 'published', id: 'thordarkworld',
+    status: 'published',
+    id: 'thordarkworld',
     ticker: 'THOR: THE DARK WORLD',
     displayTitle: 'THOR: DARK WORLD',
     title: 'Thor: The Dark World',
@@ -601,11 +732,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler's second MCU score — and the film for which he composed the Marvel Studios fanfare used in all MCU films from 2013 to 2016.",
+    description: 'Tyler\'s second MCU score — and the film for which he composed the Marvel Studios fanfare used in all MCU films from 2013 to 2016.',
     accolades: ['Marvel Studios Fanfare Composer']
   },
   {
-    status: 'published', id: 'tmnt2014',
+    status: 'published',
+    id: 'tmnt2014',
     ticker: 'TEENAGE MUTANT NINJA TURTLES',
     displayTitle: 'TMNT',
     title: 'Teenage Mutant Ninja Turtles',
@@ -621,11 +753,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Full orchestral and choral scoring — Tyler also co-wrote the end-credits single \"Shell Shocked\" (as Madsonik) with Wiz Khalifa.",
+    description: 'Full orchestral and choral scoring — Tyler also co-wrote the end-credits single "Shell Shocked" (as Madsonik) with Wiz Khalifa.',
     accolades: ['BMI Film & TV Award']
   },
   {
-    status: 'published', id: 'expendables3',
+    status: 'published',
+    id: 'expendables3',
     ticker: 'THE EXPENDABLES 3',
     displayTitle: 'EXPENDABLES 3',
     title: 'The Expendables 3',
@@ -641,11 +774,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler's most full-throttle Expendables entry — the third and final instalment in the franchise.",
+    description: 'Tyler\'s most full-throttle Expendables entry — the third and final instalment in the franchise.',
     accolades: []
   },
   {
-    status: 'published', id: 'nowyouseeme2',
+    status: 'published',
+    id: 'nowyouseeme2',
     ticker: 'NOW YOU SEE ME 2',
     displayTitle: 'NOW YOU SEE ME 2',
     title: 'Now You See Me 2',
@@ -661,11 +795,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Sequel returning with the same kinetic illusionist-heist orchestral energy — Tyler's second collaboration with director Jon M. Chu.",
+    description: 'Sequel returning with the same kinetic illusionist-heist orchestral energy — Tyler\'s second collaboration with director Jon M. Chu.',
     accolades: []
   },
   {
-    status: 'published', id: 'fateoffurious',
+    status: 'published',
+    id: 'fateoffurious',
     ticker: 'THE FATE OF THE FURIOUS',
     displayTitle: 'FATE OF THE FURIOUS',
     title: 'The Fate of the Furious',
@@ -681,11 +816,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Darker orchestral underpinning reflecting themes of betrayal and vengeance — Tyler's second collaboration with director F. Gary Gray.",
+    description: 'Darker orchestral underpinning reflecting themes of betrayal and vengeance — Tyler\'s second collaboration with director F. Gary Gray.',
     accolades: []
   },
   {
-    status: 'published', id: 'mummy2017',
+    status: 'published',
+    id: 'mummy2017',
     ticker: 'THE MUMMY',
     displayTitle: 'THE MUMMY',
     title: 'The Mummy',
@@ -701,14 +837,15 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Over two hours recorded with 84-piece orchestra and 32-voice choir at Abbey Road — choir sang Egyptian phrases; six interlocking themes.",
+    description: 'Over two hours recorded with 84-piece orchestra and 32-voice choir at Abbey Road — choir sang Egyptian phrases; six interlocking themes.',
     accolades: []
   },
   {
-    status: 'published', id: 'powerrangers2017',
-    ticker: "SABAN'S POWER RANGERS",
+    status: 'published',
+    id: 'powerrangers2017',
+    ticker: 'SABAN\'S POWER RANGERS',
     displayTitle: 'POWER RANGERS',
-    title: "Saban's Power Rangers",
+    title: 'Saban\'s Power Rangers',
     year: '2017',
     director: 'Dean Israelite',
     studio: 'Lionsgate / Saban',
@@ -721,11 +858,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Orchestral score for the superhero-origin reboot — Tyler captured the scale and mythology of the franchise for a new generation.",
+    description: 'Orchestral score for the superhero-origin reboot — Tyler captured the scale and mythology of the franchise for a new generation.',
     accolades: []
   },
   {
-    status: 'published', id: 'xxx3',
+    status: 'published',
+    id: 'xxx3',
     ticker: 'XXX: RETURN OF XANDER CAGE',
     displayTitle: 'xXx: XANDER CAGE',
     title: 'xXx: Return of Xander Cage',
@@ -741,11 +879,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "High-energy global action score — Tyler's second collaboration with director D.J. Caruso after Eagle Eye.",
+    description: 'High-energy global action score — Tyler\'s second collaboration with director D.J. Caruso after Eagle Eye.',
     accolades: []
   },
   {
-    status: 'published', id: 'readyornot',
+    status: 'published',
+    id: 'readyornot',
     ticker: 'READY OR NOT',
     displayTitle: 'READY OR NOT',
     title: 'Ready or Not',
@@ -761,11 +900,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Dark horror-comedy — Tyler's first collaboration with Radio Silence directors; score walks the line between menace and black humour.",
+    description: 'Dark horror-comedy — Tyler\'s first collaboration with Radio Silence directors; score walks the line between menace and black humour.',
     accolades: ['89% on Rotten Tomatoes']
   },
   {
-    status: 'published', id: 'escaperoom',
+    status: 'published',
+    id: 'escaperoom',
     ticker: 'ESCAPE ROOM',
     displayTitle: 'ESCAPE ROOM',
     title: 'Escape Room',
@@ -781,11 +921,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Psychological thriller — co-composed with John Carey; claustrophobic tension throughout.",
+    description: 'Psychological thriller — co-composed with John Carey; claustrophobic tension throughout.',
     accolades: []
   },
   {
-    status: 'published', id: 'fivefeetapart',
+    status: 'published',
+    id: 'fivefeetapart',
     ticker: 'FIVE FEET APART',
     displayTitle: 'FIVE FEET APART',
     title: 'Five Feet Apart',
@@ -801,11 +942,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Emotionally-driven orchestral score — Tyler's first collaboration with director Justin Baldoni.",
+    description: 'Emotionally-driven orchestral score — Tyler\'s first collaboration with director Justin Baldoni.',
     accolades: []
   },
   {
-    status: 'published', id: 'rambolastblood',
+    status: 'published',
+    id: 'rambolastblood',
     ticker: 'RAMBO: LAST BLOOD',
     displayTitle: 'RAMBO: LAST BLOOD',
     title: 'Rambo: Last Blood',
@@ -821,11 +963,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler returned for the fifth and final Rambo instalment — recorded at Slovak Radio Concert Hall; released by Lakeshore Records.",
+    description: 'Tyler returned for the fifth and final Rambo instalment — recorded at Slovak Radio Concert Hall; released by Lakeshore Records.',
     accolades: []
   },
   {
-    status: 'published', id: 'clouds',
+    status: 'published',
+    id: 'clouds',
     ticker: 'CLOUDS',
     displayTitle: 'CLOUDS',
     title: 'Clouds',
@@ -841,11 +984,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Emotionally resonant biographical drama — Tyler and Baldoni's second collaboration; score carries the warmth and grief of the real story.",
+    description: 'Emotionally resonant biographical drama — Tyler and Baldoni\'s second collaboration; score carries the warmth and grief of the real story.',
     accolades: []
   },
   {
-    status: 'published', id: 'f9',
+    status: 'published',
+    id: 'f9',
     ticker: 'F9: THE FAST SAGA',
     displayTitle: 'F9',
     title: 'F9: The Fast Saga',
@@ -861,11 +1005,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler focused on Toretto family mythology — incorporated material from Tokyo Drift (his 2006 franchise debut) alongside new compositions for the film's space sequences.",
+    description: 'Tyler focused on Toretto family mythology — incorporated material from Tokyo Drift (his 2006 franchise debut) alongside new compositions for the film\'s space sequences.',
     accolades: []
   },
   {
-    status: 'published', id: 'escaperoom2',
+    status: 'published',
+    id: 'escaperoom2',
     ticker: 'ESCAPE ROOM: TOURNAMENT OF CHAMPIONS',
     displayTitle: 'ESCAPE ROOM 2',
     title: 'Escape Room: Tournament of Champions',
@@ -881,11 +1026,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Sequel — Tyler and John Carey returned with the same claustrophobic psychological approach for the follow-up.",
+    description: 'Sequel — Tyler and John Carey returned with the same claustrophobic psychological approach for the follow-up.',
     accolades: []
   },
   {
-    status: 'published', id: 'thosewho',
+    status: 'published',
+    id: 'thosewho',
     ticker: 'THOSE WHO WISH ME DEAD',
     displayTitle: 'THOSE WHO WISH ME DEAD',
     title: 'Those Who Wish Me Dead',
@@ -901,11 +1047,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler and Sheridan's film collaboration alongside Yellowstone — Tyler described capturing \"two lost souls searching for deliverance.\"",
+    description: 'Tyler and Sheridan\'s film collaboration alongside Yellowstone — Tyler described capturing "two lost souls searching for deliverance."',
     accolades: []
   },
   {
-    status: 'published', id: 'scream2022',
+    status: 'published',
+    id: 'scream2022',
     ticker: 'SCREAM',
     displayTitle: 'SCREAM',
     title: 'Scream',
@@ -921,14 +1068,15 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler replaced Marco Beltrami as franchise composer — dark orchestral approach honouring Wes Craven's legacy; his first of three Scream entries with Radio Silence.",
+    description: 'Tyler replaced Marco Beltrami as franchise composer — dark orchestral approach honouring Wes Craven\'s legacy; his first of three Scream entries with Radio Silence.',
     accolades: []
   },
   {
-    status: 'published', id: 'chipndale',
-    ticker: "CHIP 'N DALE: RESCUE RANGERS",
+    status: 'published',
+    id: 'chipndale',
+    ticker: 'CHIP \'N DALE: RESCUE RANGERS',
     displayTitle: 'CHIP N DALE',
-    title: "Chip 'n Dale: Rescue Rangers",
+    title: 'Chip \'n Dale: Rescue Rangers',
     year: '2022',
     director: 'Akiva Schaffer',
     studio: 'Walt Disney Pictures (Disney+)',
@@ -941,11 +1089,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Animated/live-action hybrid comedy — Tyler's Disney+ feature balancing nostalgia and contemporary energy.",
+    description: 'Animated/live-action hybrid comedy — Tyler\'s Disney+ feature balancing nostalgia and contemporary energy.',
     accolades: []
   },
   {
-    status: 'published', id: 'redeeminglove',
+    status: 'published',
+    id: 'redeeminglove',
     ticker: 'REDEEMING LOVE',
     displayTitle: 'REDEEMING LOVE',
     title: 'Redeeming Love',
@@ -961,11 +1110,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Biblical romantic drama — Tyler and Caruso's third collaboration; sweeping orchestral score built around themes of redemption and grace.",
+    description: 'Biblical romantic drama — Tyler and Caruso\'s third collaboration; sweeping orchestral score built around themes of redemption and grace.',
     accolades: []
   },
   {
-    status: 'published', id: 'scream6',
+    status: 'published',
+    id: 'scream6',
     ticker: 'SCREAM VI',
     displayTitle: 'SCREAM VI',
     title: 'Scream VI',
@@ -981,11 +1131,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler's second Scream franchise entry — co-composed with Sven Faulconer; third collaboration with Radio Silence directors.",
+    description: 'Tyler\'s second Scream franchise entry — co-composed with Sven Faulconer; third collaboration with Radio Silence directors.',
     accolades: []
   },
   {
-    status: 'published', id: 'transformersone',
+    status: 'published',
+    id: 'transformersone',
     ticker: 'TRANSFORMERS ONE',
     displayTitle: 'TRANSFORMERS ONE',
     title: 'Transformers One',
@@ -1001,11 +1152,12 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Animated origin story of Optimus Prime and Megatron — Tyler's score captured the mythic scale of the Transformers universe.",
+    description: 'Animated origin story of Optimus Prime and Megatron — Tyler\'s score captured the mythic scale of the Transformers universe.',
     accolades: ['89% on Rotten Tomatoes']
   },
   {
-    status: 'published', id: 'abigail',
+    status: 'published',
+    id: 'abigail',
     ticker: 'ABIGAIL',
     displayTitle: 'ABIGAIL',
     title: 'Abigail',
@@ -1021,14 +1173,15 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Vampire horror-comedy — Tyler's third collaboration with Radio Silence; score plays into the genre-blending black humour.",
+    description: 'Vampire horror-comedy — Tyler\'s third collaboration with Radio Silence; score plays into the genre-blending black humour.',
     accolades: []
   },
   {
-    status: 'published', id: 'nowyouseeme3',
-    ticker: "NOW YOU SEE ME: NOW YOU DON'T",
+    status: 'published',
+    id: 'nowyouseeme3',
+    ticker: 'NOW YOU SEE ME: NOW YOU DON\'T',
     displayTitle: 'NOW YOU SEE ME 3',
-    title: "Now You See Me: Now You Don't",
+    title: 'Now You See Me: Now You Don\'t',
     year: '2025',
     director: 'Ruben Fleischer',
     studio: 'Summit / Lionsgate',
@@ -1041,7 +1194,7 @@ const FILMS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Tyler returned for the third instalment of the illusionist heist franchise.",
+    description: 'Tyler returned for the third instalment of the illusionist heist franchise.',
     accolades: []
   }
 ];
@@ -1049,10 +1202,11 @@ const FILMS = [
 // ─── TELEVISION ───
 const TV_SHOWS = [
   {
-    status: 'published', id: 'childrenofdune',
-    ticker: "FRANK HERBERT'S CHILDREN OF DUNE",
+    status: 'published',
+    id: 'childrenofdune',
+    ticker: 'FRANK HERBERT\'S CHILDREN OF DUNE',
     displayTitle: 'CHILDREN OF DUNE',
-    title: "Frank Herbert's Children of Dune",
+    title: 'Frank Herbert\'s Children of Dune',
     year: '2003',
     director: 'Greg Yaitanes',
     studio: 'Sci-Fi Channel',
@@ -1065,11 +1219,12 @@ const TV_SHOWS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "36 tracks composed in one month — one of Tyler's most celebrated scores and one of the best-selling TV soundtrack releases of 2003.",
+    description: '36 tracks composed in one month — one of Tyler\'s most celebrated scores and one of the best-selling TV soundtrack releases of 2003.',
     accolades: ['Grammy Nominated', 'GoldSpirit Award']
   },
   {
-    status: 'published', id: 'hawaii50',
+    status: 'published',
+    id: 'hawaii50',
     ticker: 'HAWAII FIVE-0',
     displayTitle: 'HAWAII FIVE-0',
     title: 'Hawaii Five-0',
@@ -1085,11 +1240,12 @@ const TV_SHOWS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Main title and score for the long-running CBS procedural — Tyler's distinctive action scoring defined the show's propulsive identity for 10 seasons.",
+    description: 'Main title and score for the long-running CBS procedural — Tyler\'s distinctive action scoring defined the show\'s propulsive identity for 10 seasons.',
     accolades: ['10 Seasons', 'CBS']
   },
   {
-    status: 'published', id: 'terranova',
+    status: 'published',
+    id: 'terranova',
     ticker: 'TERRA NOVA',
     displayTitle: 'TERRA NOVA',
     title: 'Terra Nova',
@@ -1105,11 +1261,12 @@ const TV_SHOWS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Epic sci-fi adventure series from Steven Spielberg's Amblin Entertainment — Tyler's large-scale orchestral score matched the show's prehistoric grandeur.",
+    description: 'Epic sci-fi adventure series from Steven Spielberg\'s Amblin Entertainment — Tyler\'s large-scale orchestral score matched the show\'s prehistoric grandeur.',
     accolades: ['Spielberg / Amblin Production']
   },
   {
-    status: 'published', id: 'transformersprime',
+    status: 'published',
+    id: 'transformersprime',
     ticker: 'TRANSFORMERS PRIME',
     displayTitle: 'TRANSFORMERS PRIME',
     title: 'Transformers Prime',
@@ -1125,11 +1282,12 @@ const TV_SHOWS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Animated series blending cinematic orchestral scoring with the mythology of the Transformers universe — a defining companion to Tyler's later Transformers One film.",
+    description: 'Animated series blending cinematic orchestral scoring with the mythology of the Transformers universe — a defining companion to Tyler\'s later Transformers One film.',
     accolades: ['Emmy Award — Outstanding Animated Program 2013']
   },
   {
-    status: 'published', id: 'sleepyhollow',
+    status: 'published',
+    id: 'sleepyhollow',
     ticker: 'SLEEPY HOLLOW',
     displayTitle: 'SLEEPY HOLLOW',
     title: 'Sleepy Hollow',
@@ -1145,11 +1303,12 @@ const TV_SHOWS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Supernatural thriller series — dark, atmospheric orchestral scoring blending colonial-era Americana with horror textures.",
+    description: 'Supernatural thriller series — dark, atmospheric orchestral scoring blending colonial-era Americana with horror textures.',
     accolades: []
   },
   {
-    status: 'published', id: 'scorpion',
+    status: 'published',
+    id: 'scorpion',
     ticker: 'SCORPION',
     displayTitle: 'SCORPION',
     title: 'Scorpion',
@@ -1165,11 +1324,12 @@ const TV_SHOWS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "CBS action procedural inspired by the life of genius hacker Walter O'Brien — Tyler's propulsive, kinetic score anchored four seasons of high-stakes problem-solving.",
+    description: 'CBS action procedural inspired by the life of genius hacker Walter O\'Brien — Tyler\'s propulsive, kinetic score anchored four seasons of high-stakes problem-solving.',
     accolades: ['4 Seasons', 'CBS']
   },
   {
-    status: 'published', id: 's1883',
+    status: 'published',
+    id: 's1883',
     ticker: '1883',
     displayTitle: '1883',
     title: '1883',
@@ -1185,11 +1345,12 @@ const TV_SHOWS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "Yellowstone prequel following the Dutton family's 19th-century journey West — Tyler's most intimate and emotionally raw Sheridan collaboration.",
+    description: 'Yellowstone prequel following the Dutton family\'s 19th-century journey West — Tyler\'s most intimate and emotionally raw Sheridan collaboration.',
     accolades: ['Yellowstone Universe', 'Paramount+']
   },
   {
-    status: 'published', id: 's1923',
+    status: 'published',
+    id: 's1923',
     ticker: '1923',
     displayTitle: '1923',
     title: '1923',
@@ -1205,7 +1366,7 @@ const TV_SHOWS = [
     trailerVideoId: '',
     spotifyUri: '',
     tracks: [],
-    description: "The Prohibition-era Dutton chapter — Tyler continues his defining Sheridan collaboration, scoring the Depression-era American West with sweeping orchestral grandeur.",
+    description: 'The Prohibition-era Dutton chapter — Tyler continues his defining Sheridan collaboration, scoring the Depression-era American West with sweeping orchestral grandeur.',
     accolades: ['Yellowstone Universe', 'Paramount+']
   }
 ];
