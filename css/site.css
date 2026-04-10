@@ -1755,11 +1755,9 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   /* ── HEADER — clean mobile layout + bleed cover ── */
   #header {
     padding: 0 12px; z-index: 500;
-    top: calc(-1 * env(safe-area-inset-top, 0) - 60px);
-    padding-top: calc(env(safe-area-inset-top, 0) + 60px);
-    height: calc(56px + env(safe-area-inset-top, 0) + 60px);
-    box-shadow: 0 0 0 0 transparent; /* force layer */
   }
+  html.light #header { box-shadow: 0 -60px 0 60px #FCFAF5; }
+  html.dark  #header { box-shadow: 0 -60px 0 60px #0a0a0a; }
   .hdr-nav { display: none; }
   .hdr-divider { display: none; }
   .hdr-left { display: none; }
@@ -1858,13 +1856,12 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   /* ── FOOTER — proper mobile clipping + bleed cover ── */
   #footer-bar {
     padding: 0 12px;
-    bottom: calc(-1 * env(safe-area-inset-bottom, 0) - 60px);
-    padding-bottom: calc(env(safe-area-inset-bottom, 0) + 60px);
-    height: calc(40px + env(safe-area-inset-bottom, 0) + 60px);
     font-size: 0.45rem;
     gap: 4px;
     z-index: 500;
   }
+  html.light #footer-bar { box-shadow: 0 60px 0 60px #FCFAF5; }
+  html.dark  #footer-bar { box-shadow: 0 60px 0 60px #0a0a0a; }
   .footer-credit { display: none; }
   .footer-social { gap: 8px; overflow: hidden; flex-shrink: 1; }
   .footer-social a { white-space: nowrap; font-size: 0.5rem; }
