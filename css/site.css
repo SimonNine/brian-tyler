@@ -1853,36 +1853,34 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   /* ── LIGHTBOX ── responsive close button ── */
   .lb-close { top: 16px; right: 16px; }
 
-  /* ── FOOTER — mobile: just copyright + 2 social links ── */
+  /* ── FOOTER — mobile: static at bottom of page, not fixed ── */
   #footer-bar {
+    position: static;
     padding: 0 12px;
     font-size: 0.42rem;
     letter-spacing: 0.08em;
     gap: 0;
-    z-index: 500;
-    justify-content: space-between;
     overflow: hidden;
+    box-shadow: none;
   }
-  html.light #footer-bar { box-shadow: 0 200px 0 200px #FCFAF5; }
-  html.dark  #footer-bar { box-shadow: 0 200px 0 200px #0a0a0a; }
   #footer-bar > span { flex-shrink: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .footer-credit { display: none; }
   .footer-social { flex-shrink: 0; gap: 10px; }
   .footer-social a { white-space: nowrap; font-size: 0.42rem; letter-spacing: 0.08em; }
   .footer-social a:nth-child(n+3) { display: none; }
 
-  /* ── MINIDISC — mobile: full-width, sits behind footer, peeks above ── */
+  /* ── MINIDISC — mobile: full-width, fixed to bottom ── */
   #minidisc {
     position: fixed; bottom: 0; left: 0; right: 0;
     width: 100%; max-width: 100%;
-    z-index: 479; /* behind footer (500) */
+    z-index: 490;
     flex-direction: column-reverse; align-items: stretch;
     padding: 0;
     transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
   }
-  /* Minimized: everything hidden below footer except the handle peeking above */
+  /* Minimized: peek just the handle tab */
   #minidisc.minimized {
-    transform: translateY(calc(100% - 88px)); /* 40px footer + 48px peek */
+    transform: translateY(calc(100% - 48px));
   }
   .md-restore-tab { display: none; }
   .md-player {
@@ -1987,7 +1985,6 @@ html.dark .type-pill-tv   { color: rgba(100,150,210,0.5); }
   .contact-big-heading { font-size: clamp(3rem, 14vw, 5rem); }
   .contact-btn { padding: 18px 32px; font-size: clamp(0.85rem, 2.5vw, 1.1rem); cursor: pointer; }
 
-  /* ── FOOTER — tighter at 480 ── */
   #footer-bar { padding: 0 8px; }
 
   /* ── AUTH ── */

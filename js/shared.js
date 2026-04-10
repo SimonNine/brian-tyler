@@ -347,12 +347,12 @@ function initMiniDisc() {
       if (isMinimized && touchDelta < 0) {
         // Swiping up when minimized — drag up
         const pct = Math.min(1, Math.abs(touchDelta) / 200);
-        const base = minidisc.offsetHeight - 88; // minimized offset
+        const base = minidisc.offsetHeight - 48; // minimized offset
         minidisc.style.transform = `translateY(${base * (1 - pct)}px)`;
       } else if (!isMinimized && touchDelta > 0) {
         // Swiping down when expanded — drag down
         const pct = Math.min(1, touchDelta / 200);
-        const base = minidisc.offsetHeight - 88;
+        const base = minidisc.offsetHeight - 48;
         minidisc.style.transform = `translateY(${base * pct}px)`;
       }
     }, { passive: true });
