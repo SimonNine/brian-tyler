@@ -77,36 +77,6 @@ const COMPOSER = {
 // ─── FILM DATA ───
 const FILMS = [
   {
-    title: 'Test title here',
-    ticker: 'ticker not all caps',
-    displayTitle: 'Diaply title here',
-    year: '2027',
-    director: 'Simon Director',
-    studio: 'Studio Name',
-    description: 'description here',
-    accolades: ['Amazing watch accolade #1'],
-    trailerVideoId: 'https://www.youtube.com/watch?v=pAIQC08lq_w',
-    spotifyUri: 'https://open.spotify.com/artist/6CawZD7kx0OVTvLzHntE4J?si=9J604MR8Qx6xnpdTpo0pLQ',
-    overlayImg: 'https://media-cldnry.s-nbcnews.com/image/upload/t_social_share_1200x630_center,f_auto,q_auto:best/rockcms/2024-08/chappell-roan-pink-pony-club-today-sk-240814-271ec6.jpg',
-    cards: [
-      {
-        img: 'https://static.wikia.nocookie.net/sanrio/images/9/9f/Hello_Kitty.jpg/revision/latest?cb=20191128154539',
-        pos: 'center'
-      },
-      {
-        img: 'https://static.wikia.nocookie.net/hellokitty/images/5/52/Sanrio_Characters_Hello_Kitty_Image026.png/revision/latest?cb=20250110105831',
-        pos: 'center'
-      },
-      {
-        img: 'https://upload.wikimedia.org/wikipedia/en/0/05/Hello_kitty_character_portrait.png',
-        pos: 'center'
-      }
-    ],
-    tracks: ['Track one', 'track two', 'track three'],
-    status: 'draft',
-    id: 'testtitlehere'
-  },
-  {
     status: 'published',
     id: 'avengers',
     ticker: 'AVENGERS: AGE OF ULTRON',
