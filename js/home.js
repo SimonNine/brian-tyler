@@ -652,6 +652,7 @@ function initPressSection() {
 
 // ─── CARD CURSOR ("Explore the Score" follows mouse over hero cards) ───
 function initCardCursor() {
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
   const cursor = document.getElementById('cards-cursor');
   if (!cursor) return;
 
@@ -679,6 +680,7 @@ function initCardCursor() {
 // Cursor: small disk-style label replaces the pointer only while hovering
 //         the email button (cursor:none on button, disk shown instead).
 function initContactOrb() {
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
   const section = document.getElementById('contact');
   const orb     = document.getElementById('contact-orb');
   const cursor  = document.getElementById('contact-cursor');
@@ -755,6 +757,8 @@ window.addEventListener('pageshow', function(e) {
 
 // ─── CINEMA MODE ─── (idle easter egg)
 function initCinemaMode() {
+  // Skip cinema mode on touch/mobile — idle detection relies on mouse
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
   const IDLE_MS = 90 * 1000;
   const c   = typeof COMPOSER !== 'undefined' ? COMPOSER : {};
   const vid = c.splashVideoId || c.bioVideoId || '';
