@@ -56,6 +56,9 @@ const COMPOSER = {
     facebook:  'https://facebook.com/briantylermusic'
   },
 
+  // How many films/TV shows to show before "Load More"
+  listInitialCount: 12,
+
   // Birthday easter egg — MM-DD format. Set '' to disable.
   birthday: '05-08', // 8 May
 
