@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Brian Tyler</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0e0e10; --bg2: #18181b; --bg3: #1f1f23; --bg4: #27272b;
+  --fg: #e4e4e7; --fg-muted: #a1a1aa; --fg-faint: #52525b;
+  --gold: #C8A96E; --gold-dim: rgba(200,169,110,0.15);
+  --green: #22c55e; --green-dim: rgba(34,197,94,0.12);
+  --red: #ef4444; --red-dim: rgba(239,68,68,0.12);
+  --blue: #3b82f6; --blue-dim: rgba(59,130,246,0.12);
+  --border: rgba(255,255,255,0.08); --radius: 8px;
+}
+body { background: var(--bg); color: var(--fg); font-family: 'Barlow', sans-serif; min-height: 100vh; }
+
+/* ─── LOGIN ─── */
+#login-gate {
+  position: fixed; inset: 0; z-index: 1000; background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+}
+#login-gate.hidden { display: none; }
+.login-box {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+  padding: 48px 40px; width: 380px; text-align: center;
+}
+.login-box h1 {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 1.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 8px;
+}
+.login-box p { color: var(--fg-muted); font-size: 0.85rem; margin-bottom: 28px; }
+.login-box input {
+  display: block; width: 100%; padding: 12px 16px; margin-bottom: 14px;
+  background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--fg); font-size: 0.9rem; font-family: inherit; outline: none;
+  transition: border-color 0.2s;
+}
+.login-box input:focus { border-color: var(--gold); }
+.login-box .login-btn {
+  width: 100%; padding: 12px; margin-top: 6px;
+  background: var(--gold); color: #000; border: none; border-radius: var(--radius);
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem;
+  letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer;
+  transition: opacity 0.2s;
+}
+.login-box .login-btn:hover { opacity: 0.85; }
+.login-error { color: var(--red); font-size: 0.8rem; margin-top: 10px; display: none; }
+
+/* ─── LAYOUT ─── */
+#admin { display: none; }
+#admin.visible { display: flex; flex-direction: column; min-height: 100vh; }
+.admin-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 28px; border-bottom: 1px solid var(--border); background: var(--bg2);
+}
+.admin-header h1 {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 1.1rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold);
+}
+.header-actions { display: flex; gap: 10px; align-items: center; }
+.btn {
+  padding: 8px 18px; border: 1px solid var(--border); border-radius: var(--radius);
+  background: transparent; color: var(--fg-muted); font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.btn:hover { border-color: var(--fg-faint); color: var(--fg); }
+.btn-gold { background: var(--gold); color: #000; border-color: var(--gold); }
+.btn-gold:hover { opacity: 0.85; color: #000; }
+.btn-green { background: var(--green); color: #000; border-color: var(--green); }
+.btn-green:hover { opacity: 0.85; color: #000; }
+.btn-red { color: var(--red); border-color: rgba(239,68,68,0.3); }
+.btn-red:hover { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+.btn-sm { padding: 5px 12px; font-size: 0.65rem; }
+
+/* ─── TABS ─── */
+.tabs {
+  display: flex; gap: 0; border-bottom: 1px solid var(--border);
+  padding: 0 28px; background: var(--bg2);
+}
+.tab {
+  padding: 14px 24px; font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+  font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--fg-muted); cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all 0.2s; user-select: none;
+}
+.tab:hover { color: var(--fg); }
+.tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ─── TABLE AREA ─── */
+.tab-content { display: none; flex: 1; padding: 24px 28px; overflow: auto; }
+.tab-content.active { display: block; }
+.table-toolbar {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;
+}
+.search-input {
+  flex: 1; min-width: 200px; padding: 9px 14px; background: var(--bg3);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--fg); font-size: 0.85rem; font-family: inherit; outline: none;
+}
+.search-input:focus { border-color: var(--gold); }
+.search-input::placeholder { color: var(--fg-faint); }
+
+.data-table {
+  width: 100%; border-collapse: collapse; font-size: 0.85rem;
+}
+.data-table th {
+  text-align: left; padding: 10px 14px; font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--fg-muted); border-bottom: 1px solid var(--border); cursor: pointer;
+  user-select: none; white-space: nowrap; transition: color 0.2s;
+}
+.data-table th:hover { color: var(--gold); }
+.data-table th .sort-arrow { margin-left: 4px; font-size: 0.6rem; opacity: 0.4; }
+.data-table th.sorted .sort-arrow { opacity: 1; color: var(--gold); }
+.data-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border);
+  vertical-align: middle; max-width: 260px; overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.data-table tr { transition: background 0.15s; }
+.data-table tbody tr:hover { background: var(--bg3); }
+.status-badge {
+  display: inline-block; padding: 3px 10px; border-radius: 20px;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
+  font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.status-badge.published { background: var(--green-dim); color: var(--green); }
+.status-badge.draft { background: var(--bg4); color: var(--fg-faint); }
+.row-actions { display: flex; gap: 6px; }
+.drag-handle {
+  cursor: grab; color: var(--fg-faint); font-size: 1.1rem; padding: 0 6px;
+  user-select: none; transition: color 0.2s;
+}
+.drag-handle:hover { color: var(--gold); }
+.dragging { opacity: 0.4; background: var(--bg4); }
+.drag-over { border-top: 2px solid var(--gold); }
+
+/* ─── EDITOR PANEL ─── */
+#editor-overlay {
+  position: fixed; inset: 0; z-index: 500; display: none;
+}
+#editor-overlay.open { display: flex; }
+.editor-backdrop {
+  position: absolute; inset: 0; background: rgba(0,0,0,0.55);
+}
+.editor-panel {
+  position: absolute; right: 0; top: 0; bottom: 0; width: min(640px, 90vw);
+  background: var(--bg2); border-left: 1px solid var(--border);
+  display: flex; flex-direction: column; animation: slideIn 0.25s ease;
+}
+@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+.editor-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 24px; border-bottom: 1px solid var(--border);
+}
+.editor-header h2 {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold);
+}
+.editor-close {
+  background: none; border: none; color: var(--fg-muted); font-size: 1.4rem;
+  cursor: pointer; padding: 4px 8px; transition: color 0.2s;
+}
+.editor-close:hover { color: var(--fg); }
+.editor-body {
+  flex: 1; overflow-y: auto; padding: 24px;
+}
+.field { margin-bottom: 18px; }
+.field label {
+  display: block; margin-bottom: 5px; font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--fg-muted);
+}
+.field input, .field textarea, .field select {
+  width: 100%; padding: 10px 14px; background: var(--bg3);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--fg); font-size: 0.85rem; font-family: inherit; outline: none;
+  transition: border-color 0.2s;
+}
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--gold); }
+.field textarea { resize: vertical; min-height: 80px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.field small { color: var(--fg-faint); font-size: 0.75rem; margin-top: 3px; display: block; }
+.editor-footer {
+  display: flex; gap: 10px; padding: 18px 24px; border-top: 1px solid var(--border);
+  justify-content: flex-end;
+}
+
+/* ─── TOAST ─── */
+#toast {
+  position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+  padding: 14px 24px; border-radius: var(--radius);
+  font-size: 0.85rem; font-weight: 500; transform: translateY(80px);
+  opacity: 0; transition: all 0.3s ease; pointer-events: none;
+}
+#toast.show { transform: translateY(0); opacity: 1; }
+#toast.success { background: var(--green); color: #000; }
+#toast.error { background: var(--red); color: #fff; }
+
+/* ─── SETTINGS MODAL ─── */
+#settings-overlay { position: fixed; inset: 0; z-index: 600; display: none; align-items: center; justify-content: center; }
+#settings-overlay.open { display: flex; }
+.settings-box {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 12px;
+  padding: 32px; width: 480px; z-index: 1;
+}
+.settings-box h2 {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.counter { font-size: 0.75rem; color: var(--fg-muted); margin-left: 12px; }
+</style>
+</head>
+<body>
+
+<!-- ─── LOGIN ─── -->
+<div id="login-gate">
+  <div class="login-box">
+    <h1>Brian Tyler</h1>
+    <p>Content Management</p>
+    <input type="text" id="login-user" placeholder="Username" autocomplete="off">
+    <input type="password" id="login-pass" placeholder="Password" autocomplete="off">
+    <button class="login-btn" id="login-btn">Sign In</button>
+    <div class="login-error" id="login-error">Invalid credentials</div>
+  </div>
+</div>
+
+<!-- ─── ADMIN ─── -->
+<div id="admin">
+  <header class="admin-header">
+    <h1>Brian Tyler — Admin</h1>
+    <div class="header-actions">
+      <span id="publish-status" style="font-size:0.75rem;color:var(--fg-faint)"></span>
+      <button class="btn" id="settings-btn">Settings</button>
+      <button class="btn btn-green" id="publish-btn">Publish</button>
+      <button class="btn btn-red btn-sm" id="logout-btn">Logout</button>
+    </div>
+  </header>
+  <div class="tabs">
+    <div class="tab active" data-tab="films">Films <span class="counter" id="films-count"></span></div>
+    <div class="tab" data-tab="television">Television <span class="counter" id="tv-count"></span></div>
+    <div class="tab" data-tab="watch">Watch <span class="counter" id="watch-count"></span></div>
+  </div>
+
+  <!-- FILMS TAB -->
+  <div class="tab-content active" id="panel-films">
+    <div class="table-toolbar">
+      <input class="search-input" placeholder="Filter films..." data-filter="films">
+      <button class="btn btn-gold" data-add="film">+ Add Film</button>
+    </div>
+    <table class="data-table" id="table-films">
+      <thead><tr>
+        <th data-col="status">Status <span class="sort-arrow">▲</span></th>
+        <th data-col="title">Title <span class="sort-arrow">▲</span></th>
+        <th data-col="year">Year <span class="sort-arrow">▲</span></th>
+        <th data-col="director">Director <span class="sort-arrow">▲</span></th>
+        <th data-col="studio">Studio <span class="sort-arrow">▲</span></th>
+        <th data-col="accolades">Accolades <span class="sort-arrow">▲</span></th>
+        <th>Actions</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- TELEVISION TAB -->
+  <div class="tab-content" id="panel-television">
+    <div class="table-toolbar">
+      <input class="search-input" placeholder="Filter television..." data-filter="tv">
+      <button class="btn btn-gold" data-add="tv">+ Add TV Show</button>
+    </div>
+    <table class="data-table" id="table-tv">
+      <thead><tr>
+        <th data-col="status">Status <span class="sort-arrow">▲</span></th>
+        <th data-col="title">Title <span class="sort-arrow">▲</span></th>
+        <th data-col="year">Year <span class="sort-arrow">▲</span></th>
+        <th data-col="director">Creator <span class="sort-arrow">▲</span></th>
+        <th data-col="studio">Network <span class="sort-arrow">▲</span></th>
+        <th data-col="accolades">Accolades <span class="sort-arrow">▲</span></th>
+        <th>Actions</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- WATCH TAB -->
+  <div class="tab-content" id="panel-watch">
+    <div class="table-toolbar">
+      <input class="search-input" placeholder="Filter videos..." data-filter="watch">
+      <button class="btn btn-gold" data-add="video">+ Add Video</button>
+    </div>
+    <table class="data-table" id="table-watch">
+      <thead><tr>
+        <th style="width:40px"></th>
+        <th data-col="status">Status <span class="sort-arrow">▲</span></th>
+        <th style="width:100px">Thumbnail</th>
+        <th data-col="title">Title <span class="sort-arrow">▲</span></th>
+        <th data-col="id">Video ID <span class="sort-arrow">▲</span></th>
+        <th>Actions</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ─── EDITOR PANEL ─── -->
+<div id="editor-overlay">
+  <div class="editor-backdrop"></div>
+  <div class="editor-panel">
+    <div class="editor-header">
+      <h2 id="editor-title">Edit</h2>
+      <button class="editor-close">&times;</button>
+    </div>
+    <div class="editor-body" id="editor-body"></div>
+    <div class="editor-footer">
+      <button class="btn" id="editor-cancel">Cancel</button>
+      <button class="btn btn-gold" id="editor-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SETTINGS ─── -->
+<div id="settings-overlay">
+  <div class="editor-backdrop" id="settings-backdrop"></div>
+  <div class="settings-box">
+    <h2>Settings</h2>
+    <div class="field">
+      <label>GitHub Personal Access Token</label>
+      <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxx">
+      <small>Required to publish changes. Needs repo write access. Stored in your browser only.</small>
+    </div>
+    <div class="field">
+      <label>Repository</label>
+      <input type="text" id="gh-repo" value="SimonNine/brian-tyler" readonly style="opacity:0.5">
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;">
+      <button class="btn" id="settings-close">Close</button>
+      <button class="btn btn-gold" id="settings-save">Save Token</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TOAST ─── -->
+<div id="toast"></div>
+
+<!-- ─── LOAD DATA ─── -->
+<script src="js/data.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════════════════════════
+// ADMIN PANEL — Brian Tyler
+// ═══════════════════════════════════════════════════════════════════════════════
+
+(function() {
+'use strict';
+
+// ─── AUTH ───────────────────────────────────────────────────────────────────
+const CRED_USER = 'briantyler';
+const CRED_HASH = '8a0b4e29c3f2d1e6a7b3c5d8f9e0a1b2'; // not real hash — we do plain compare in memory
+const CRED_PASS = 'composerofthedecade';
+const SESSION_KEY = 'bt-admin-auth';
+const REPO = 'SimonNine/brian-tyler';
+
+function checkAuth() {
+  return sessionStorage.getItem(SESSION_KEY) === '1';
+}
+function doLogin() {
+  const u = document.getElementById('login-user').value.trim();
+  const p = document.getElementById('login-pass').value;
+  if (u === CRED_USER && p === CRED_PASS) {
+    sessionStorage.setItem(SESSION_KEY, '1');
+    document.getElementById('login-gate').classList.add('hidden');
+    document.getElementById('admin').classList.add('visible');
+    renderAll();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+  }
+}
+document.getElementById('login-btn').addEventListener('click', doLogin);
+document.getElementById('login-pass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+document.getElementById('logout-btn').addEventListener('click', () => {
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+});
+
+if (checkAuth()) {
+  document.getElementById('login-gate').classList.add('hidden');
+  document.getElementById('admin').classList.add('visible');
+  setTimeout(renderAll, 0);
+}
+
+// ─── DATA STORE ─────────────────────────────────────────────────────────────
+// Deep-clone the loaded data so we can mutate freely
+let films    = JSON.parse(JSON.stringify(typeof FILMS !== 'undefined' ? FILMS : []));
+let tvShows  = JSON.parse(JSON.stringify(typeof TV_SHOWS !== 'undefined' ? TV_SHOWS : []));
+let videos   = JSON.parse(JSON.stringify(typeof VIDEOS !== 'undefined' ? VIDEOS : []));
+
+// Ensure every item has a status field
+films.forEach(f   => { if (!f.status) f.status = 'published'; });
+tvShows.forEach(t => { if (!t.status) t.status = 'published'; });
+videos.forEach(v  => { if (!v.status) v.status = 'published'; });
+
+let dirty = false;
+function markDirty() {
+  dirty = true;
+  document.getElementById('publish-status').textContent = 'Unsaved changes';
+  document.getElementById('publish-status').style.color = 'var(--gold)';
+}
+function markClean() {
+  dirty = false;
+  document.getElementById('publish-status').textContent = 'All changes published';
+  document.getElementById('publish-status').style.color = 'var(--green)';
+}
+
+// ─── TOAST ──────────────────────────────────────────────────────────────────
+function toast(msg, type = 'success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = type + ' show';
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ─── TABS ───────────────────────────────────────────────────────────────────
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ─── TABLE RENDERING ────────────────────────────────────────────────────────
+const sortState = { films: { col: 'year', asc: false }, tv: { col: 'year', asc: false }, watch: { col: null, asc: true } };
+const filterState = { films: '', tv: '', watch: '' };
+
+function renderAll() {
+  renderFilms();
+  renderTV();
+  renderWatch();
+}
+
+function getVal(item, col) {
+  if (col === 'accolades') return (item.accolades || []).join(', ');
+  return item[col] || '';
+}
+
+function matchesFilter(item, filter, cols) {
+  if (!filter) return true;
+  const q = filter.toLowerCase();
+  return cols.some(c => String(getVal(item, c)).toLowerCase().includes(q));
+}
+
+function sortItems(items, col, asc) {
+  if (!col) return items;
+  return [...items].sort((a, b) => {
+    let va = getVal(a, col).toString().toLowerCase();
+    let vb = getVal(b, col).toString().toLowerCase();
+    // Try numeric sort for year
+    if (col === 'year') { va = parseInt(va) || 0; vb = parseInt(vb) || 0; }
+    if (va < vb) return asc ? -1 : 1;
+    if (va > vb) return asc ? 1 : -1;
+    return 0;
+  });
+}
+
+// ── Films table ──
+function renderFilms() {
+  const cols = ['status','title','year','director','studio','accolades'];
+  let items = films.filter(f => matchesFilter(f, filterState.films, cols));
+  items = sortItems(items, sortState.films.col, sortState.films.asc);
+  const tbody = document.querySelector('#table-films tbody');
+  tbody.innerHTML = items.map(f => `
+    <tr data-id="${f.id}">
+      <td><span class="status-badge ${f.status}">${f.status}</span></td>
+      <td><strong>${esc(f.title)}</strong></td>
+      <td>${esc(f.year)}</td>
+      <td>${esc(f.director)}</td>
+      <td>${esc(f.studio)}</td>
+      <td style="color:var(--gold);font-size:0.8rem">${esc((f.accolades||[]).join(', '))}</td>
+      <td class="row-actions">
+        <button class="btn btn-sm" onclick="Admin.editFilm('${f.id}')">Edit</button>
+        <button class="btn btn-sm" onclick="Admin.toggleStatus('film','${f.id}')">${f.status==='published'?'Unpublish':'Publish'}</button>
+        <button class="btn btn-sm btn-red" onclick="Admin.deleteItem('film','${f.id}')">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+  document.getElementById('films-count').textContent = `(${films.length})`;
+  updateSortHeaders('table-films', sortState.films);
+}
+
+// ── TV table ──
+function renderTV() {
+  const cols = ['status','title','year','director','studio','accolades'];
+  let items = tvShows.filter(t => matchesFilter(t, filterState.tv, cols));
+  items = sortItems(items, sortState.tv.col, sortState.tv.asc);
+  const tbody = document.querySelector('#table-tv tbody');
+  tbody.innerHTML = items.map(t => `
+    <tr data-id="${t.id}">
+      <td><span class="status-badge ${t.status}">${t.status}</span></td>
+      <td><strong>${esc(t.title)}</strong></td>
+      <td>${esc(t.year)}</td>
+      <td>${esc(t.director)}</td>
+      <td>${esc(t.studio)}</td>
+      <td style="color:var(--gold);font-size:0.8rem">${esc((t.accolades||[]).join(', '))}</td>
+      <td class="row-actions">
+        <button class="btn btn-sm" onclick="Admin.editTV('${t.id}')">Edit</button>
+        <button class="btn btn-sm" onclick="Admin.toggleStatus('tv','${t.id}')">${t.status==='published'?'Unpublish':'Publish'}</button>
+        <button class="btn btn-sm btn-red" onclick="Admin.deleteItem('tv','${t.id}')">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+  document.getElementById('tv-count').textContent = `(${tvShows.length})`;
+  updateSortHeaders('table-tv', sortState.tv);
+}
+
+// ── Watch/Videos table ──
+function renderWatch() {
+  const cols = ['status','title','id'];
+  let items = videos.filter(v => matchesFilter(v, filterState.watch, cols));
+  // Videos use array order (drag-and-drop), no sort override unless explicitly clicked
+  if (sortState.watch.col) {
+    items = sortItems(items, sortState.watch.col, sortState.watch.asc);
+  }
+  const tbody = document.querySelector('#table-watch tbody');
+  tbody.innerHTML = items.map((v, i) => `
+    <tr data-id="${v.id}" draggable="true">
+      <td><span class="drag-handle" title="Drag to reorder">⋮⋮</span></td>
+      <td><span class="status-badge ${v.status}">${v.status}</span></td>
+      <td><img src="https://i.ytimg.com/vi/${v.id}/default.jpg" style="width:80px;border-radius:4px;" alt=""></td>
+      <td><strong>${esc(v.title)}</strong></td>
+      <td style="font-family:monospace;font-size:0.8rem;color:var(--fg-muted)">${esc(v.id)}</td>
+      <td class="row-actions">
+        <button class="btn btn-sm" onclick="Admin.editVideo('${v.id}')">Edit</button>
+        <button class="btn btn-sm" onclick="Admin.toggleStatus('video','${v.id}')">${v.status==='published'?'Unpublish':'Publish'}</button>
+        <button class="btn btn-sm btn-red" onclick="Admin.deleteItem('video','${v.id}')">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+  document.getElementById('watch-count').textContent = `(${videos.length})`;
+  initDragDrop();
+}
+
+function updateSortHeaders(tableId, state) {
+  document.querySelectorAll(`#${tableId} th`).forEach(th => {
+    th.classList.remove('sorted');
+    const arrow = th.querySelector('.sort-arrow');
+    if (arrow) arrow.textContent = '▲';
+    if (th.dataset.col === state.col) {
+      th.classList.add('sorted');
+      if (arrow) arrow.textContent = state.asc ? '▲' : '▼';
+    }
+  });
+}
+
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── SORT HANDLERS ──────────────────────────────────────────────────────────
+document.querySelectorAll('.data-table th[data-col]').forEach(th => {
+  th.addEventListener('click', () => {
+    const table = th.closest('table');
+    const col = th.dataset.col;
+    let stateKey;
+    if (table.id === 'table-films') stateKey = 'films';
+    else if (table.id === 'table-tv') stateKey = 'tv';
+    else stateKey = 'watch';
+
+    const s = sortState[stateKey];
+    if (s.col === col) s.asc = !s.asc;
+    else { s.col = col; s.asc = true; }
+    renderAll();
+  });
+});
+
+// ─── FILTER HANDLERS ────────────────────────────────────────────────────────
+document.querySelectorAll('.search-input[data-filter]').forEach(input => {
+  input.addEventListener('input', () => {
+    filterState[input.dataset.filter] = input.value;
+    renderAll();
+  });
+});
+
+// ─── DRAG & DROP (VIDEOS) ───────────────────────────────────────────────────
+let dragSrcRow = null;
+function initDragDrop() {
+  const tbody = document.querySelector('#table-watch tbody');
+  tbody.querySelectorAll('tr').forEach(row => {
+    row.addEventListener('dragstart', e => {
+      dragSrcRow = row;
+      row.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', row.dataset.id);
+    });
+    row.addEventListener('dragend', () => {
+      row.classList.remove('dragging');
+      tbody.querySelectorAll('tr').forEach(r => r.classList.remove('drag-over'));
+    });
+    row.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      tbody.querySelectorAll('tr').forEach(r => r.classList.remove('drag-over'));
+      row.classList.add('drag-over');
+    });
+    row.addEventListener('drop', e => {
+      e.preventDefault();
+      if (dragSrcRow === row) return;
+      const fromId = dragSrcRow.dataset.id;
+      const toId = row.dataset.id;
+      const fromIdx = videos.findIndex(v => v.id === fromId);
+      const toIdx = videos.findIndex(v => v.id === toId);
+      if (fromIdx < 0 || toIdx < 0) return;
+      const [moved] = videos.splice(fromIdx, 1);
+      videos.splice(toIdx, 0, moved);
+      markDirty();
+      renderWatch();
+    });
+  });
+}
+
+// ─── EDITOR ─────────────────────────────────────────────────────────────────
+let currentEdit = null; // { type: 'film'|'tv'|'video', id: string|null (null = new) }
+
+function openEditor(title, html, onSave) {
+  document.getElementById('editor-title').textContent = title;
+  document.getElementById('editor-body').innerHTML = html;
+  document.getElementById('editor-overlay').classList.add('open');
+  document.getElementById('editor-save').onclick = () => {
+    onSave();
+    closeEditor();
+    markDirty();
+    renderAll();
+  };
+}
+function closeEditor() {
+  document.getElementById('editor-overlay').classList.remove('open');
+}
+document.querySelector('.editor-backdrop').addEventListener('click', closeEditor);
+document.querySelector('.editor-close').addEventListener('click', closeEditor);
+document.getElementById('editor-cancel').addEventListener('click', closeEditor);
+
+function filmFormHTML(f) {
+  f = f || { id:'', title:'', ticker:'', displayTitle:'', year:'', director:'', studio:'',
+    description:'', accolades:[], trailerVideoId:'', spotifyUri:'', overlayImg:'',
+    cards:[{img:'',pos:''},{img:'',pos:''},{img:'',pos:''}], tracks:[], status:'draft' };
+  return `
+    <div class="field-row">
+      <div class="field"><label>Title</label><input id="ef-title" value="${esc(f.title)}"></div>
+      <div class="field"><label>Year</label><input id="ef-year" value="${esc(f.year)}" placeholder="e.g. 2024 or 2018–2024"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Director</label><input id="ef-director" value="${esc(f.director)}"></div>
+      <div class="field"><label>Studio</label><input id="ef-studio" value="${esc(f.studio)}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Ticker (all caps)</label><input id="ef-ticker" value="${esc(f.ticker)}" placeholder="Auto from title if blank"></div>
+      <div class="field"><label>Display Title</label><input id="ef-displayTitle" value="${esc(f.displayTitle)}" placeholder="Short version for display"></div>
+    </div>
+    <div class="field"><label>Description</label><textarea id="ef-desc" rows="3">${esc(f.description)}</textarea></div>
+    <div class="field"><label>Accolades</label><textarea id="ef-accolades" rows="2" placeholder="One per line">${(f.accolades||[]).join('\n')}</textarea></div>
+    <div class="field-row">
+      <div class="field"><label>Trailer Video ID (YouTube)</label><input id="ef-trailer" value="${esc(f.trailerVideoId)}"></div>
+      <div class="field"><label>Spotify URI</label><input id="ef-spotify" value="${esc(f.spotifyUri)}"></div>
+    </div>
+    <div class="field"><label>Overlay Image URL</label><input id="ef-overlay" value="${esc(f.overlayImg)}"></div>
+    <h3 style="color:var(--fg-muted);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;margin:22px 0 12px;font-family:'Barlow Condensed',sans-serif;">Card Images (3 cards)</h3>
+    ${[0,1,2].map(i => `
+      <div class="field-row" style="margin-bottom:10px">
+        <div class="field"><label>Card ${i+1} Image URL</label><input id="ef-card${i}-img" value="${esc((f.cards[i]||{}).img)}"></div>
+        <div class="field"><label>Card ${i+1} Position</label><input id="ef-card${i}-pos" value="${esc((f.cards[i]||{}).pos)}" placeholder="e.g. 20% center"></div>
+      </div>
+    `).join('')}
+    <div class="field"><label>Tracks</label><textarea id="ef-tracks" rows="4" placeholder="One per line">${(f.tracks||[]).join('\n')}</textarea></div>
+    <div class="field">
+      <label>Status</label>
+      <select id="ef-status">
+        <option value="draft" ${f.status==='draft'?'selected':''}>Draft</option>
+        <option value="published" ${f.status==='published'?'selected':''}>Published</option>
+      </select>
+    </div>
+  `;
+}
+
+function readFilmForm() {
+  const title = document.getElementById('ef-title').value.trim();
+  return {
+    title,
+    ticker: document.getElementById('ef-ticker').value.trim() || title.toUpperCase(),
+    displayTitle: document.getElementById('ef-displayTitle').value.trim() || title.toUpperCase(),
+    year: document.getElementById('ef-year').value.trim(),
+    director: document.getElementById('ef-director').value.trim(),
+    studio: document.getElementById('ef-studio').value.trim(),
+    description: document.getElementById('ef-desc').value.trim(),
+    accolades: document.getElementById('ef-accolades').value.split('\n').map(s=>s.trim()).filter(Boolean),
+    trailerVideoId: document.getElementById('ef-trailer').value.trim(),
+    spotifyUri: document.getElementById('ef-spotify').value.trim(),
+    overlayImg: document.getElementById('ef-overlay').value.trim(),
+    cards: [0,1,2].map(i => ({
+      img: document.getElementById(`ef-card${i}-img`).value.trim(),
+      pos: document.getElementById(`ef-card${i}-pos`).value.trim() || 'center'
+    })),
+    tracks: document.getElementById('ef-tracks').value.split('\n').map(s=>s.trim()).filter(Boolean),
+    status: document.getElementById('ef-status').value
+  };
+}
+
+function videoFormHTML(v) {
+  v = v || { id:'', title:'', status:'draft' };
+  return `
+    <div class="field"><label>Title</label><input id="ev-title" value="${esc(v.title)}"></div>
+    <div class="field"><label>YouTube Video ID</label><input id="ev-id" value="${esc(v.id)}" placeholder="e.g. dQw4w9WgXcQ">
+      <small>The part after v= in a YouTube URL</small>
+    </div>
+    ${v.id ? `<div style="margin:12px 0"><img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" style="width:100%;border-radius:8px;" alt="Preview"></div>` : ''}
+    <div class="field">
+      <label>Status</label>
+      <select id="ev-status">
+        <option value="draft" ${v.status==='draft'?'selected':''}>Draft</option>
+        <option value="published" ${v.status==='published'?'selected':''}>Published</option>
+      </select>
+    </div>
+  `;
+}
+
+function readVideoForm() {
+  return {
+    id: document.getElementById('ev-id').value.trim(),
+    title: document.getElementById('ev-title').value.trim(),
+    status: document.getElementById('ev-status').value
+  };
+}
+
+function makeId(title) {
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, '').substring(0, 20) || 'item' + Date.now();
+}
+
+// ─── PUBLIC API (used by onclick handlers) ──────────────────────────────────
+window.Admin = {
+  editFilm(id) {
+    const f = films.find(x => x.id === id);
+    if (!f) return;
+    openEditor('Edit Film', filmFormHTML(f), () => {
+      Object.assign(f, readFilmForm());
+    });
+  },
+  editTV(id) {
+    const t = tvShows.find(x => x.id === id);
+    if (!t) return;
+    openEditor('Edit TV Show', filmFormHTML(t), () => {
+      Object.assign(t, readFilmForm());
+    });
+  },
+  editVideo(id) {
+    const v = videos.find(x => x.id === id);
+    if (!v) return;
+    openEditor('Edit Video', videoFormHTML(v), () => {
+      const data = readVideoForm();
+      v.id = data.id; v.title = data.title; v.status = data.status;
+    });
+  },
+  toggleStatus(type, id) {
+    let item;
+    if (type === 'film') item = films.find(x => x.id === id);
+    else if (type === 'tv') item = tvShows.find(x => x.id === id);
+    else item = videos.find(x => x.id === id);
+    if (!item) return;
+    item.status = item.status === 'published' ? 'draft' : 'published';
+    markDirty();
+    renderAll();
+  },
+  deleteItem(type, id) {
+    if (!confirm('Delete this item?')) return;
+    if (type === 'film') films = films.filter(x => x.id !== id);
+    else if (type === 'tv') tvShows = tvShows.filter(x => x.id !== id);
+    else videos = videos.filter(x => x.id !== id);
+    markDirty();
+    renderAll();
+  }
+};
+
+// ─── ADD BUTTONS ────────────────────────────────────────────────────────────
+document.querySelector('[data-add="film"]').addEventListener('click', () => {
+  openEditor('Add Film', filmFormHTML(null), () => {
+    const data = readFilmForm();
+    data.id = makeId(data.title);
+    films.unshift(data);
+  });
+});
+document.querySelector('[data-add="tv"]').addEventListener('click', () => {
+  openEditor('Add TV Show', filmFormHTML(null), () => {
+    const data = readFilmForm();
+    data.id = makeId(data.title);
+    tvShows.unshift(data);
+  });
+});
+document.querySelector('[data-add="video"]').addEventListener('click', () => {
+  openEditor('Add Video', videoFormHTML(null), () => {
+    const data = readVideoForm();
+    if (!data.id) { toast('Video ID is required', 'error'); return; }
+    videos.unshift(data);
+  });
+});
+
+// ─── SETTINGS ───────────────────────────────────────────────────────────────
+document.getElementById('settings-btn').addEventListener('click', () => {
+  document.getElementById('gh-token').value = localStorage.getItem('bt-admin-gh-token') || '';
+  document.getElementById('settings-overlay').classList.add('open');
+});
+document.getElementById('settings-close').addEventListener('click', () => {
+  document.getElementById('settings-overlay').classList.remove('open');
+});
+document.getElementById('settings-backdrop').addEventListener('click', () => {
+  document.getElementById('settings-overlay').classList.remove('open');
+});
+document.getElementById('settings-save').addEventListener('click', () => {
+  const token = document.getElementById('gh-token').value.trim();
+  if (token) localStorage.setItem('bt-admin-gh-token', token);
+  else localStorage.removeItem('bt-admin-gh-token');
+  toast('Token saved');
+  document.getElementById('settings-overlay').classList.remove('open');
+});
+
+// ─── PUBLISH TO GITHUB ──────────────────────────────────────────────────────
+document.getElementById('publish-btn').addEventListener('click', async () => {
+  const token = localStorage.getItem('bt-admin-gh-token');
+  if (!token) {
+    toast('Set your GitHub token in Settings first', 'error');
+    document.getElementById('settings-btn').click();
+    return;
+  }
+
+  const btn = document.getElementById('publish-btn');
+  btn.disabled = true; btn.textContent = 'Publishing...';
+
+  try {
+    // Generate data.js content
+    const content = generateDataJS();
+
+    // Get current file SHA
+    const fileRes = await fetch(`https://api.github.com/repos/${REPO}/contents/js/data.js`, {
+      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (!fileRes.ok) throw new Error('Failed to read current file from GitHub');
+    const fileData = await fileRes.json();
+
+    // Commit updated file
+    const updateRes = await fetch(`https://api.github.com/repos/${REPO}/contents/js/data.js`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: 'Admin: update content',
+        content: btoa(unescape(encodeURIComponent(content))),
+        sha: fileData.sha
+      })
+    });
+    if (!updateRes.ok) {
+      const err = await updateRes.json();
+      throw new Error(err.message || 'Failed to publish');
+    }
+
+    // Also bump version in index.html
+    await bumpIndexVersion(token, fileData.sha);
+
+    markClean();
+    toast('Published successfully! Site will update in ~60s.');
+  } catch (err) {
+    toast('Publish failed: ' + err.message, 'error');
+    console.error(err);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Publish';
+  }
+});
+
+async function bumpIndexVersion(token) {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html`, {
+      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    let html = decodeURIComponent(escape(atob(data.content)));
+    // Find current version and bump it
+    const match = html.match(/\?v=(\d+)/);
+    if (match) {
+      const newV = parseInt(match[1]) + 1;
+      html = html.replace(/\?v=\d+/g, `?v=${newV}`);
+      await fetch(`https://api.github.com/repos/${REPO}/contents/index.html`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `v${newV}: Admin content update`,
+          content: btoa(unescape(encodeURIComponent(html))),
+          sha: data.sha
+        })
+      });
+    }
+  } catch (e) { console.warn('Version bump failed:', e); }
+}
+
+// ─── DATA.JS GENERATOR ─────────────────────────────────────────────────────
+function generateDataJS() {
+  // Preserve COMPOSER and INTRO_SLIDE as-is from the loaded data
+  const composerObj = typeof COMPOSER !== 'undefined' ? COMPOSER : {};
+  const introObj = typeof INTRO_SLIDE !== 'undefined' ? INTRO_SLIDE : {};
+
+  let out = '';
+  out += '// ─── COMPOSER CONFIG ─────────────────────────────────────────────────────────\n';
+  out += '// To build a new composer\'s site: fork the repo, replace this block and the\n';
+  out += '// FILMS / TV_SHOWS / VIDEOS / INTRO_SLIDE arrays below. Nothing else changes.\n';
+  out += '// ─────────────────────────────────────────────────────────────────────────────\n';
+  out += 'const COMPOSER = ' + prettyJS(composerObj, 0) + ';\n\n';
+  out += '// ─── FILM DATA ───\n';
+  out += 'const FILMS = ' + prettyArray(films, 0) + ';\n\n';
+  out += '// ─── TELEVISION ───\n';
+  out += 'const TV_SHOWS = ' + prettyArray(tvShows, 0) + ';\n\n';
+  out += 'const INTRO_SLIDE = ' + prettyJS(introObj, 0) + ';\n\n';
+  out += 'const VIDEOS = ' + prettyArray(videos, 0) + ';\n';
+  return out;
+}
+
+function prettyJS(obj, indent) {
+  // Pretty-print a JS object as source code
+  const pad = '  '.repeat(indent);
+  const pad1 = '  '.repeat(indent + 1);
+  if (Array.isArray(obj)) {
+    if (obj.length === 0) return '[]';
+    // Check if it's a simple array (strings/numbers)
+    if (obj.every(x => typeof x !== 'object' || x === null)) {
+      const items = obj.map(x => jsVal(x));
+      const oneline = '[' + items.join(', ') + ']';
+      if (oneline.length < 100) return oneline;
+      return '[\n' + items.map(x => pad1 + x).join(',\n') + '\n' + pad + ']';
+    }
+    return '[\n' + obj.map(x => pad1 + prettyJS(x, indent + 1)).join(',\n') + '\n' + pad + ']';
+  }
+  if (obj && typeof obj === 'object') {
+    const entries = Object.entries(obj);
+    if (entries.length === 0) return '{}';
+    // Short objects on one line
+    const simple = entries.every(([,v]) => typeof v !== 'object' || v === null);
+    if (simple) {
+      const oneline = '{ ' + entries.map(([k,v]) => k + ': ' + jsVal(v)).join(', ') + ' }';
+      if (oneline.length < 100) return oneline;
+    }
+    return '{\n' + entries.map(([k,v]) => {
+      const key = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k) ? k : jsVal(k);
+      return pad1 + key + ': ' + prettyJS(v, indent + 1);
+    }).join(',\n') + '\n' + pad + '}';
+  }
+  return jsVal(obj);
+}
+
+function prettyArray(arr, indent) {
+  if (!arr || arr.length === 0) return '[]';
+  const pad = '  '.repeat(indent);
+  const pad1 = '  '.repeat(indent + 1);
+  return '[\n' + arr.map(item => pad1 + prettyJS(item, indent + 1)).join(',\n') + '\n' + pad + ']';
+}
+
+function jsVal(v) {
+  if (v === null || v === undefined) return "''";
+  if (typeof v === 'number' || typeof v === 'boolean') return String(v);
+  // Use single quotes for strings
+  return "'" + String(v).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n') + "'";
+}
+
+})();
+</script>
+</body>
+</html>

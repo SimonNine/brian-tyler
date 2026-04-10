@@ -383,8 +383,8 @@ function buildFilmsList() {
     ? COMPOSER.listInitialCount
     : FILMS.length;
 
-  // Sort newest first — extract leading 4-digit year from strings like "2018–2024"
-  const sorted = [...FILMS].sort((a, b) => {
+  // Filter to published only, sort newest first
+  const sorted = [...FILMS].filter(f => f.status !== 'draft').sort((a, b) => {
     const ya = parseInt(a.year) || 0;
     const yb = parseInt(b.year) || 0;
     return yb - ya;
@@ -451,8 +451,8 @@ function buildTvList() {
     ? COMPOSER.listInitialCount
     : TV_SHOWS.length;
 
-  // Sort newest first
-  const sorted = [...TV_SHOWS].sort((a, b) => {
+  // Filter to published only, sort newest first
+  const sorted = [...TV_SHOWS].filter(t => t.status !== 'draft').sort((a, b) => {
     const ya = parseInt(a.year) || 0;
     const yb = parseInt(b.year) || 0;
     return yb - ya;
@@ -501,7 +501,8 @@ function buildTvList() {
 function buildVideosGrid() {
   const grid = document.getElementById('videos-grid');
   grid.innerHTML = ''; // clear before populating — prevents doubles on reinit
-  VIDEOS.forEach(v => {
+  const published = VIDEOS.filter(v => v.status !== 'draft');
+  published.forEach(v => {
     const tile = document.createElement('div');
     tile.className = 'video-tile';
     tile.innerHTML = `

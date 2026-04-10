@@ -68,7 +68,7 @@ const COMPOSER = {
 // ─── FILM DATA ───
 const FILMS = [
   {
-    id: 'avengers',
+    status: 'published', id: 'avengers',
     ticker: 'AVENGERS: AGE OF ULTRON',
     displayTitle: 'AVENGERS',
     title: 'Avengers: Age of Ultron',
@@ -93,7 +93,7 @@ const FILMS = [
     accolades: ['ASCAP Top Box Office Film']
   },
   {
-    id: 'ironman3',
+    status: 'published', id: 'ironman3',
     ticker: 'IRON MAN 3',
     displayTitle: 'IRON MAN 3',
     title: 'Iron Man 3',
@@ -118,7 +118,7 @@ const FILMS = [
     accolades: ['ASCAP Top Box Office Film']
   },
   {
-    id: 'mario',
+    status: 'published', id: 'mario',
     ticker: 'THE SUPER MARIO BROS. MOVIE',
     displayTitle: 'MARIO',
     title: 'The Super Mario Bros. Movie',
@@ -143,7 +143,7 @@ const FILMS = [
     accolades: ['$1.36B Global Box Office']
   },
   {
-    id: 'fastx',
+    status: 'published', id: 'fastx',
     ticker: 'FAST X',
     displayTitle: 'FAST X',
     title: 'Fast X',
@@ -167,7 +167,7 @@ const FILMS = [
     accolades: ['7th Fast & Furious Score']
   },
   {
-    id: 'crazrich',
+    status: 'published', id: 'crazrich',
     ticker: 'CRAZY RICH ASIANS',
     displayTitle: 'CRAZY RICH',
     title: 'Crazy Rich Asians',
@@ -191,7 +191,7 @@ const FILMS = [
     accolades: ['Oscar Shortlisted — Best Original Score']
   },
   {
-    id: 'yellowstone',
+    status: 'published', id: 'yellowstone',
     ticker: 'YELLOWSTONE',
     displayTitle: 'YELLOWSTONE',
     title: 'Yellowstone',
@@ -215,7 +215,7 @@ const FILMS = [
     accolades: ['Emmy Nom. — Outstanding Main Title Theme', 'Most Watched Cable Series']
   },
   {
-    id: 'furious7',
+    status: 'published', id: 'furious7',
     ticker: 'FURIOUS 7',
     displayTitle: 'FURIOUS 7',
     title: 'Furious 7',
@@ -239,7 +239,7 @@ const FILMS = [
     accolades: ['$1.52B Global Box Office', 'ASCAP Top Box Office Film']
   },
   {
-    id: 'nuremberg',
+    status: 'published', id: 'nuremberg',
     ticker: 'NUREMBERG',
     displayTitle: 'NUREMBERG',
     title: 'Nuremberg',
@@ -265,7 +265,7 @@ const FILMS = [
   },
   // ─── ADDITIONAL FILMS ─────────────────────────────────────────────────────
   {
-    id: 'frailty',
+    status: 'published', id: 'frailty',
     ticker: 'FRAILTY',
     displayTitle: 'FRAILTY',
     title: 'Frailty',
@@ -285,7 +285,7 @@ const FILMS = [
     accolades: ['World Soundtrack Award Nom. 2002']
   },
   {
-    id: 'thehunted',
+    status: 'published', id: 'thehunted',
     ticker: 'THE HUNTED',
     displayTitle: 'THE HUNTED',
     title: 'The Hunted',
@@ -305,7 +305,7 @@ const FILMS = [
     accolades: ['World Soundtrack Award — Best New Film Composer 2003']
   },
   {
-    id: 'constantine',
+    status: 'published', id: 'constantine',
     ticker: 'CONSTANTINE',
     displayTitle: 'CONSTANTINE',
     title: 'Constantine',
@@ -325,7 +325,7 @@ const FILMS = [
     accolades: ['ASCAP Film Award']
   },
   {
-    id: 'tokyodrift',
+    status: 'published', id: 'tokyodrift',
     ticker: 'THE FAST AND THE FURIOUS: TOKYO DRIFT',
     displayTitle: 'TOKYO DRIFT',
     title: 'The Fast and the Furious: Tokyo Drift',
@@ -345,7 +345,7 @@ const FILMS = [
     accolades: ['BMI Film & TV Award']
   },
   {
-    id: 'war',
+    status: 'published', id: 'war',
     ticker: 'WAR',
     displayTitle: 'WAR',
     title: 'War',
@@ -365,7 +365,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'avprequiem',
+    status: 'published', id: 'avprequiem',
     ticker: 'ALIENS VS. PREDATOR: REQUIEM',
     displayTitle: 'AVP: REQUIEM',
     title: 'Aliens vs. Predator: Requiem',
@@ -385,7 +385,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'eagleeye',
+    status: 'published', id: 'eagleeye',
     ticker: 'EAGLE EYE',
     displayTitle: 'EAGLE EYE',
     title: 'Eagle Eye',
@@ -405,7 +405,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'rambo',
+    status: 'published', id: 'rambo',
     ticker: 'RAMBO',
     displayTitle: 'RAMBO',
     title: 'Rambo',
@@ -425,7 +425,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'fastfurious4',
+    status: 'published', id: 'fastfurious4',
     ticker: 'FAST & FURIOUS',
     displayTitle: 'FAST & FURIOUS',
     title: 'Fast & Furious',
@@ -445,7 +445,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'lawabidingcitizen',
+    status: 'published', id: 'lawabidingcitizen',
     ticker: 'LAW ABIDING CITIZEN',
     displayTitle: 'LAW ABIDING CITIZEN',
     title: 'Law Abiding Citizen',
@@ -465,7 +465,7 @@ const FILMS = [
     accolades: ['ASCAP Film & TV Music Award 2010']
   },
   {
-    id: 'expendables',
+    status: 'published', id: 'expendables',
     ticker: 'THE EXPENDABLES',
     displayTitle: 'THE EXPENDABLES',
     title: 'The Expendables',
@@ -485,7 +485,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'battlela',
+    status: 'published', id: 'battlela',
     ticker: 'BATTLE: LOS ANGELES',
     displayTitle: 'BATTLE: LA',
     title: 'Battle: Los Angeles',
@@ -505,7 +505,7 @@ const FILMS = [
     accolades: ['BMI Film & TV Award']
   },
   {
-    id: 'fast5',
+    status: 'published', id: 'fast5',
     ticker: 'FAST FIVE',
     displayTitle: 'FAST FIVE',
     title: 'Fast Five',
@@ -525,7 +525,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'finaldestination5',
+    status: 'published', id: 'finaldestination5',
     ticker: 'FINAL DESTINATION 5',
     displayTitle: 'FINAL DESTINATION 5',
     title: 'Final Destination 5',
@@ -545,7 +545,7 @@ const FILMS = [
     accolades: ['ASCAP Film Award']
   },
   {
-    id: 'expendables2',
+    status: 'published', id: 'expendables2',
     ticker: 'THE EXPENDABLES 2',
     displayTitle: 'EXPENDABLES 2',
     title: 'The Expendables 2',
@@ -565,7 +565,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'nowyouseeme',
+    status: 'published', id: 'nowyouseeme',
     ticker: 'NOW YOU SEE ME',
     displayTitle: 'NOW YOU SEE ME',
     title: 'Now You See Me',
@@ -585,7 +585,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'thordarkworld',
+    status: 'published', id: 'thordarkworld',
     ticker: 'THOR: THE DARK WORLD',
     displayTitle: 'THOR: DARK WORLD',
     title: 'Thor: The Dark World',
@@ -605,7 +605,7 @@ const FILMS = [
     accolades: ['Marvel Studios Fanfare Composer']
   },
   {
-    id: 'tmnt2014',
+    status: 'published', id: 'tmnt2014',
     ticker: 'TEENAGE MUTANT NINJA TURTLES',
     displayTitle: 'TMNT',
     title: 'Teenage Mutant Ninja Turtles',
@@ -625,7 +625,7 @@ const FILMS = [
     accolades: ['BMI Film & TV Award']
   },
   {
-    id: 'expendables3',
+    status: 'published', id: 'expendables3',
     ticker: 'THE EXPENDABLES 3',
     displayTitle: 'EXPENDABLES 3',
     title: 'The Expendables 3',
@@ -645,7 +645,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'nowyouseeme2',
+    status: 'published', id: 'nowyouseeme2',
     ticker: 'NOW YOU SEE ME 2',
     displayTitle: 'NOW YOU SEE ME 2',
     title: 'Now You See Me 2',
@@ -665,7 +665,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'fateoffurious',
+    status: 'published', id: 'fateoffurious',
     ticker: 'THE FATE OF THE FURIOUS',
     displayTitle: 'FATE OF THE FURIOUS',
     title: 'The Fate of the Furious',
@@ -685,7 +685,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'mummy2017',
+    status: 'published', id: 'mummy2017',
     ticker: 'THE MUMMY',
     displayTitle: 'THE MUMMY',
     title: 'The Mummy',
@@ -705,7 +705,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'powerrangers2017',
+    status: 'published', id: 'powerrangers2017',
     ticker: "SABAN'S POWER RANGERS",
     displayTitle: 'POWER RANGERS',
     title: "Saban's Power Rangers",
@@ -725,7 +725,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'xxx3',
+    status: 'published', id: 'xxx3',
     ticker: 'XXX: RETURN OF XANDER CAGE',
     displayTitle: 'xXx: XANDER CAGE',
     title: 'xXx: Return of Xander Cage',
@@ -745,7 +745,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'readyornot',
+    status: 'published', id: 'readyornot',
     ticker: 'READY OR NOT',
     displayTitle: 'READY OR NOT',
     title: 'Ready or Not',
@@ -765,7 +765,7 @@ const FILMS = [
     accolades: ['89% on Rotten Tomatoes']
   },
   {
-    id: 'escaperoom',
+    status: 'published', id: 'escaperoom',
     ticker: 'ESCAPE ROOM',
     displayTitle: 'ESCAPE ROOM',
     title: 'Escape Room',
@@ -785,7 +785,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'fivefeetapart',
+    status: 'published', id: 'fivefeetapart',
     ticker: 'FIVE FEET APART',
     displayTitle: 'FIVE FEET APART',
     title: 'Five Feet Apart',
@@ -805,7 +805,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'rambolastblood',
+    status: 'published', id: 'rambolastblood',
     ticker: 'RAMBO: LAST BLOOD',
     displayTitle: 'RAMBO: LAST BLOOD',
     title: 'Rambo: Last Blood',
@@ -825,7 +825,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'clouds',
+    status: 'published', id: 'clouds',
     ticker: 'CLOUDS',
     displayTitle: 'CLOUDS',
     title: 'Clouds',
@@ -845,7 +845,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'f9',
+    status: 'published', id: 'f9',
     ticker: 'F9: THE FAST SAGA',
     displayTitle: 'F9',
     title: 'F9: The Fast Saga',
@@ -865,7 +865,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'escaperoom2',
+    status: 'published', id: 'escaperoom2',
     ticker: 'ESCAPE ROOM: TOURNAMENT OF CHAMPIONS',
     displayTitle: 'ESCAPE ROOM 2',
     title: 'Escape Room: Tournament of Champions',
@@ -885,7 +885,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'thosewho',
+    status: 'published', id: 'thosewho',
     ticker: 'THOSE WHO WISH ME DEAD',
     displayTitle: 'THOSE WHO WISH ME DEAD',
     title: 'Those Who Wish Me Dead',
@@ -905,7 +905,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'scream2022',
+    status: 'published', id: 'scream2022',
     ticker: 'SCREAM',
     displayTitle: 'SCREAM',
     title: 'Scream',
@@ -925,7 +925,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'chipndale',
+    status: 'published', id: 'chipndale',
     ticker: "CHIP 'N DALE: RESCUE RANGERS",
     displayTitle: 'CHIP N DALE',
     title: "Chip 'n Dale: Rescue Rangers",
@@ -945,7 +945,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'redeeminglove',
+    status: 'published', id: 'redeeminglove',
     ticker: 'REDEEMING LOVE',
     displayTitle: 'REDEEMING LOVE',
     title: 'Redeeming Love',
@@ -965,7 +965,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'scream6',
+    status: 'published', id: 'scream6',
     ticker: 'SCREAM VI',
     displayTitle: 'SCREAM VI',
     title: 'Scream VI',
@@ -985,7 +985,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'transformersone',
+    status: 'published', id: 'transformersone',
     ticker: 'TRANSFORMERS ONE',
     displayTitle: 'TRANSFORMERS ONE',
     title: 'Transformers One',
@@ -1005,7 +1005,7 @@ const FILMS = [
     accolades: ['89% on Rotten Tomatoes']
   },
   {
-    id: 'abigail',
+    status: 'published', id: 'abigail',
     ticker: 'ABIGAIL',
     displayTitle: 'ABIGAIL',
     title: 'Abigail',
@@ -1025,7 +1025,7 @@ const FILMS = [
     accolades: []
   },
   {
-    id: 'nowyouseeme3',
+    status: 'published', id: 'nowyouseeme3',
     ticker: "NOW YOU SEE ME: NOW YOU DON'T",
     displayTitle: 'NOW YOU SEE ME 3',
     title: "Now You See Me: Now You Don't",
@@ -1049,7 +1049,7 @@ const FILMS = [
 // ─── TELEVISION ───
 const TV_SHOWS = [
   {
-    id: 'childrenofdune',
+    status: 'published', id: 'childrenofdune',
     ticker: "FRANK HERBERT'S CHILDREN OF DUNE",
     displayTitle: 'CHILDREN OF DUNE',
     title: "Frank Herbert's Children of Dune",
@@ -1069,7 +1069,7 @@ const TV_SHOWS = [
     accolades: ['Grammy Nominated', 'GoldSpirit Award']
   },
   {
-    id: 'hawaii50',
+    status: 'published', id: 'hawaii50',
     ticker: 'HAWAII FIVE-0',
     displayTitle: 'HAWAII FIVE-0',
     title: 'Hawaii Five-0',
@@ -1089,7 +1089,7 @@ const TV_SHOWS = [
     accolades: ['10 Seasons', 'CBS']
   },
   {
-    id: 'terranova',
+    status: 'published', id: 'terranova',
     ticker: 'TERRA NOVA',
     displayTitle: 'TERRA NOVA',
     title: 'Terra Nova',
@@ -1109,7 +1109,7 @@ const TV_SHOWS = [
     accolades: ['Spielberg / Amblin Production']
   },
   {
-    id: 'transformersprime',
+    status: 'published', id: 'transformersprime',
     ticker: 'TRANSFORMERS PRIME',
     displayTitle: 'TRANSFORMERS PRIME',
     title: 'Transformers Prime',
@@ -1129,7 +1129,7 @@ const TV_SHOWS = [
     accolades: ['Emmy Award — Outstanding Animated Program 2013']
   },
   {
-    id: 'sleepyhollow',
+    status: 'published', id: 'sleepyhollow',
     ticker: 'SLEEPY HOLLOW',
     displayTitle: 'SLEEPY HOLLOW',
     title: 'Sleepy Hollow',
@@ -1149,7 +1149,7 @@ const TV_SHOWS = [
     accolades: []
   },
   {
-    id: 'scorpion',
+    status: 'published', id: 'scorpion',
     ticker: 'SCORPION',
     displayTitle: 'SCORPION',
     title: 'Scorpion',
@@ -1169,7 +1169,7 @@ const TV_SHOWS = [
     accolades: ['4 Seasons', 'CBS']
   },
   {
-    id: 's1883',
+    status: 'published', id: 's1883',
     ticker: '1883',
     displayTitle: '1883',
     title: '1883',
@@ -1189,7 +1189,7 @@ const TV_SHOWS = [
     accolades: ['Yellowstone Universe', 'Paramount+']
   },
   {
-    id: 's1923',
+    status: 'published', id: 's1923',
     ticker: '1923',
     displayTitle: '1923',
     title: '1923',
@@ -1219,13 +1219,13 @@ const INTRO_SLIDE = {
 };
 
 const VIDEOS = [
-  { id: 'dogHOIdjefc', title: 'In The Studio — Brian Tyler' },
-  { id: 'tmeOjFno6Do', title: 'Avengers: Age of Ultron' },
-  { id: '2CzoSeClcw0', title: 'Iron Man 3' },
-  { id: 'TnGl01FkMMo', title: 'The Super Mario Bros. Movie' },
-  { id: 'VVbIrBSlBvo', title: 'Fast X' },
-  { id: 'ZQ-YX-5bAs0', title: 'Crazy Rich Asians' },
-  { id: 'suobrMPBLlo', title: 'Yellowstone' },
-  { id: 'yISKeT6sDOg', title: 'Furious 7' },
-  { id: 'SW7FsQqsB2I', title: 'Nuremberg — Score Suite' }
+  { status: 'published', id: 'dogHOIdjefc', title: 'In The Studio — Brian Tyler' },
+  { status: 'published', id: 'tmeOjFno6Do', title: 'Avengers: Age of Ultron' },
+  { status: 'published', id: '2CzoSeClcw0', title: 'Iron Man 3' },
+  { status: 'published', id: 'TnGl01FkMMo', title: 'The Super Mario Bros. Movie' },
+  { status: 'published', id: 'VVbIrBSlBvo', title: 'Fast X' },
+  { status: 'published', id: 'ZQ-YX-5bAs0', title: 'Crazy Rich Asians' },
+  { status: 'published', id: 'suobrMPBLlo', title: 'Yellowstone' },
+  { status: 'published', id: 'yISKeT6sDOg', title: 'Furious 7' },
+  { status: 'published', id: 'SW7FsQqsB2I', title: 'Nuremberg — Score Suite' }
 ];
