@@ -1351,12 +1351,12 @@ const INTRO_SLIDE = {
 
 const VIDEOS = [
   { status: 'published', id: 'dogHOIdjefc', title: 'In The Studio — Brian Tyler' },
+  { status: 'published', id: 'SW7FsQqsB2I', title: 'Nuremberg — Score Suite' },
   { status: 'published', id: 'tmeOjFno6Do', title: 'Avengers: Age of Ultron' },
   { status: 'published', id: '2CzoSeClcw0', title: 'Iron Man 3' },
   { status: 'published', id: 'TnGl01FkMMo', title: 'The Super Mario Bros. Movie' },
   { status: 'published', id: 'VVbIrBSlBvo', title: 'Fast X' },
   { status: 'published', id: 'ZQ-YX-5bAs0', title: 'Crazy Rich Asians' },
   { status: 'published', id: 'suobrMPBLlo', title: 'Yellowstone' },
-  { status: 'published', id: 'yISKeT6sDOg', title: 'Furious 7' },
-  { status: 'published', id: 'SW7FsQqsB2I', title: 'Nuremberg — Score Suite' }
+  { status: 'published', id: 'yISKeT6sDOg', title: 'Furious 7' }
 ];
