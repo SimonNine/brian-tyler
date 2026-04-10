@@ -536,7 +536,7 @@ function renderWatch() {
     <tr data-id="${v.id}" draggable="true">
       <td><span class="drag-handle" title="Drag to reorder">⋮⋮</span></td>
       <td><span class="status-badge ${v.status}">${v.status}</span></td>
-      <td><img src="https://i.ytimg.com/vi/${v.id}/default.jpg" style="width:80px;border-radius:4px;" alt=""></td>
+      <td><img src="${v.thumbnail || `files/thumbs/${v.id}.jpg`}" onerror="this.src='https://i.ytimg.com/vi/${v.id}/default.jpg'" style="width:80px;border-radius:4px;" alt=""></td>
       <td><strong>${esc(v.title)}</strong></td>
       <td style="font-family:monospace;font-size:0.8rem;color:var(--fg-muted)">${esc(v.id)}</td>
       <td class="row-actions">
@@ -716,13 +716,17 @@ function readFilmForm() {
 }
 
 function videoFormHTML(v) {
-  v = v || { id:'', title:'', status:'draft' };
+  v = v || { id:'', title:'', thumbnail:'', status:'draft' };
+  const thumbSrc = v.thumbnail || (v.id ? `files/thumbs/${v.id}.jpg` : '');
   return `
     <div class="field"><label>Title</label><input id="ev-title" value="${esc(v.title)}"></div>
     <div class="field"><label>YouTube Video ID</label><input id="ev-id" value="${esc(v.id)}" placeholder="e.g. dQw4w9WgXcQ">
       <small>The part after v= in a YouTube URL</small>
     </div>
-    ${v.id ? `<div style="margin:12px 0"><img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" style="width:100%;border-radius:8px;" alt="Preview"></div>` : ''}
+    <div class="field"><label>Custom Thumbnail Path</label><input id="ev-thumb" value="${esc(v.thumbnail || '')}" placeholder="e.g. files/thumbs/myVideo.jpg">
+      <small>Optional. Leave blank to use files/thumbs/[videoID].jpg — upload the image to that path in the repo.</small>
+    </div>
+    ${thumbSrc ? `<div style="margin:12px 0"><img src="${thumbSrc}" onerror="this.src='https://i.ytimg.com/vi/${v.id}/hqdefault.jpg'" style="width:100%;border-radius:8px;" alt="Preview"></div>` : ''}
     <div class="field">
       <label>Status</label>
       <select id="ev-status">
@@ -734,11 +738,14 @@ function videoFormHTML(v) {
 }
 
 function readVideoForm() {
-  return {
+  const data = {
     id: document.getElementById('ev-id').value.trim(),
     title: document.getElementById('ev-title').value.trim(),
     status: document.getElementById('ev-status').value
   };
+  const thumb = document.getElementById('ev-thumb').value.trim();
+  if (thumb) data.thumbnail = thumb;
+  return data;
 }
 
 function makeId(title) {

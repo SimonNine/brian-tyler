@@ -505,8 +505,9 @@ function buildVideosGrid() {
   published.forEach(v => {
     const tile = document.createElement('div');
     tile.className = 'video-tile';
+    const thumb = v.thumbnail || `files/thumbs/${v.id}.jpg`;
     tile.innerHTML = `
-      <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" alt="${v.title}" loading="lazy">
+      <img src="${thumb}" alt="${v.title}" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/${v.id}/hqdefault.jpg'">
       <div class="video-tile-overlay"></div>
       <div class="video-tile-badge">
         <span class="vtb-play">▶</span>
@@ -764,7 +765,7 @@ function initCinemaMode() {
   const rightVids = allVids.slice(3, 6);
 
   function canisterHTML(v) {
-    var thumb = 'https://img.youtube.com/vi/' + v.id + '/mqdefault.jpg';
+    var thumb = v.thumbnail || ('files/thumbs/' + v.id + '.jpg');
     return '<div class="cinema-canister-wrap" data-vid="' + v.id + '">' +
       '<div class="cinema-canister" style="background-image:url(\'' + thumb + '\')"></div>' +
       '<p class="cinema-canister-title">' + v.title + '</p>' +
